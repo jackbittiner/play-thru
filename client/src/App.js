@@ -144,7 +144,15 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
+    const listOfTracks = this.state.recommendedTracks
+      ? this.state.recommendedTracks.map(track => {
+          return (
+            <div>
+              {track.name} by {track.artists[0].name}
+            </div>
+          );
+        })
+      : null;
     return (
       <div className="App">
         <a href="http://localhost:8888"> Login to Spotify </a>
@@ -158,16 +166,19 @@ class App extends Component {
         </div>
         {this.state.loggedIn && (
           <div>
-            <button onClick={() => this.getNowPlaying()}>
-              Check Now Playing
-            </button>
-            <button
-              onClick={() =>
-                this.getRecommendations(this.state.nowPlaying.trackId)
-              }
-            >
-              Get getRecommendations
-            </button>
+            <div>
+              <button onClick={() => this.getNowPlaying()}>
+                Check Now Playing
+              </button>
+              <button
+                onClick={() =>
+                  this.getRecommendations(this.state.nowPlaying.trackId)
+                }
+              >
+                Get getRecommendations
+              </button>
+            </div>
+            <div>{listOfTracks}</div>
           </div>
         )}
       </div>
