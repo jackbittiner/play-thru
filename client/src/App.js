@@ -20,7 +20,9 @@ class App extends Component {
         trackId: "",
         artist: {
           artistId: "",
-          artistName: ""
+          artistName: "",
+          relatedArtists: [],
+          artistGenres: []
         },
         trackFeatures: {
           key: null,
@@ -29,11 +31,7 @@ class App extends Component {
           time_signature: null
         }
       },
-      seedData: {
-        genres: [],
-        artistIds: [],
-        tracks: []
-      }
+      recommendedTracks: []
     };
   }
   getHashParams() {
@@ -65,6 +63,7 @@ class App extends Component {
         });
       this.getArtistGenres(response.item.artists[0].id);
       this.getTrackFeatures(response.item.id);
+      this.getRelatedArtists(response.item.artists[0].id);
     });
   }
 
@@ -72,11 +71,15 @@ class App extends Component {
     spotifyApi.getArtist(artistId).then(response => {
       response &&
         this.setState({
-          seedData: {
-            genres:
-              response.genres.length < 5
-                ? response.genres
-                : response.genres.slice(0, 5)
+          nowPlaying: {
+            ...this.state.nowPlaying,
+            artist: {
+              ...this.state.nowPlaying.artist,
+              artistGenres:
+                response.genres.length < 2
+                  ? response.genres
+                  : response.genres.slice(0, 2)
+            }
           }
         });
     });
@@ -100,18 +103,43 @@ class App extends Component {
     });
   }
 
+  getRelatedArtists(artistId) {
+    spotifyApi.getArtistRelatedArtists(artistId).then(response => {
+      const relatedArtists =
+        response.artists.length < 2
+          ? response.artists
+          : response.artists.slice(0, 2);
+      response &&
+        this.setState({
+          nowPlaying: {
+            ...this.state.nowPlaying,
+            artist: {
+              ...this.state.nowPlaying.artist,
+              relatedArtists: relatedArtists.map(artist => artist.id)
+            }
+          }
+        });
+    });
+  }
+
   getRecommendations() {
     const jsonObject = {
-      seed_artists: [this.state.nowPlaying.artistId],
-      seed_genres: this.state.seedData.genres,
+      seed_artists: [...this.state.nowPlaying.artist.relatedArtists],
+      seed_genres: this.state.nowPlaying.artist.artistGenres,
       seed_tracks: [this.state.nowPlaying.trackId],
       target_key: this.state.nowPlaying.trackFeatures.key,
       target_mode: this.state.nowPlaying.trackFeatures.mode,
-      target_tempo: this.state.nowPlaying.trackFeatures.tempo,
+      min_tempo: this.state.nowPlaying.trackFeatures.tempo - 5,
+      max_tempo: this.state.nowPlaying.trackFeatures.tempo + 5,
       target_time_signature: this.state.nowPlaying.trackFeatures.time_signature
     };
+    console.log(jsonObject);
     spotifyApi.getRecommendations(jsonObject).then(response => {
       console.log(response);
+      response &&
+        this.setState({
+          recommendedTracks: response.tracks
+        });
     });
   }
 
@@ -122,7 +150,8 @@ class App extends Component {
         <a href="http://localhost:8888"> Login to Spotify </a>
         <div>
           <h2>
-            {this.state.nowPlaying.name} by {this.state.nowPlaying.artistName}
+            {this.state.nowPlaying.name} by{" "}
+            {this.state.nowPlaying.artist.artistName}
           </h2>
           <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
           <p />
@@ -147,8 +176,3 @@ class App extends Component {
 }
 
 export default App;
-
-// https://open.spotify.com/artist/3jOstUTkEu2JkjvRdBA5Gu?si=as6LyWeLSXGFWjfpjxCSgw
-// https://open.spotify.com/artist/1lZvg4fNAqHoj6I9N8naBM?si=mdCXaMv_Rzy3XiQ2vbubww
-
-// https://open.spotify.com/track/3g2gQMeeQAEPztiQKMlGSl?si=Qa-OhIiHQ5iJZ-jO2m52lg
