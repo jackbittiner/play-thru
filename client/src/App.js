@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import { getHarmonicKeys } from "./camelot-wheel/camelot-wheel";
+import { getHarmonicKeys, getKeyName } from "./camelot-wheel/camelot-wheel";
+import _ from "lodash";
 
 import SpotifyWebApi from "spotify-web-api-js";
 const spotifyApi = new SpotifyWebApi();
@@ -141,7 +142,6 @@ class App extends Component {
           .time_signature
       };
       spotifyApi.getRecommendations(jsonObject).then(response => {
-        console.log(response);
         response.tracks.forEach(track => {
           track.key = key.pitchClass;
           track.mode = key.mode;
@@ -158,17 +158,28 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
-    const listOfTracks = this.state.recommendedTracks
-      ? this.state.recommendedTracks.map(track => {
-          return (
-            <div>
-              {track.name} by {track.artists[0].name} /// key = {track.key} mode
-              = {track.mode}
-            </div>
-          );
-        })
-      : null;
+    const recommendedTracksByKey = _.groupBy(
+      this.state.recommendedTracks,
+      "key"
+    );
+
+    const listsOfTracks =
+      Object.keys(recommendedTracksByKey).length > 0 &&
+      Object.values(recommendedTracksByKey).map((tracks, index) => {
+        return (
+          <div>
+            {tracks.map(track => {
+              return (
+                <p>
+                  {track.name} by {track.artists[0].name} /// key ={" "}
+                  {getKeyName(track.key, track.mode)}
+                </p>
+              );
+            })}
+          </div>
+        );
+      });
+
     return (
       <div className="App">
         <a href="http://localhost:8888"> Login to Spotify </a>
@@ -179,10 +190,13 @@ class App extends Component {
           </h2>
           {this.state.nowPlaying.trackFeatures && (
             <p>
-              key = {this.state.nowPlaying.trackFeatures.key} key ={" "}
-              {this.state.nowPlaying.trackFeatures.mode} tempo ={" "}
-              {this.state.nowPlaying.trackFeatures.tempo} time signature ={" "}
-              {this.state.nowPlaying.trackFeatures.time_signature}
+              key ={" "}
+              {getKeyName(
+                this.state.nowPlaying.trackFeatures.key,
+                this.state.nowPlaying.trackFeatures.mode
+              )}{" "}
+              tempo = {this.state.nowPlaying.trackFeatures.tempo} time signature
+              = {this.state.nowPlaying.trackFeatures.time_signature}
             </p>
           )}
           <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
@@ -201,7 +215,7 @@ class App extends Component {
                 Get getRecommendations
               </button>
             </div>
-            <div>{listOfTracks}</div>
+            <div>{listsOfTracks}</div>
           </div>
         )}
       </div>

@@ -84,6 +84,7 @@ export const CamelotWheel = {
 };
 
 export const getKeyName = (pitchClass, mode, keys = allKeys) => {
+  if (pitchClass === null || mode === null) return "Error";
   const keyName = keys.find(key => {
     return key.pitchClass === pitchClass && key.mode === mode;
   });
