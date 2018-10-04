@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import { getHarmonicKeys } from "./camelot-wheel/camelot-wheel";
 
 import SpotifyWebApi from "spotify-web-api-js";
 const spotifyApi = new SpotifyWebApi();
@@ -28,7 +29,8 @@ class App extends Component {
           key: null,
           mode: null,
           tempo: null,
-          time_signature: null
+          time_signature: null,
+          harmonicKeys: []
         }
       },
       recommendedTracks: []
@@ -87,6 +89,7 @@ class App extends Component {
 
   getTrackFeatures(trackId) {
     spotifyApi.getAudioFeaturesForTrack(trackId).then(response => {
+      const harmonicKeys = getHarmonicKeys(response.key, response.mode);
       response &&
         this.setState({
           nowPlaying: {
@@ -96,7 +99,8 @@ class App extends Component {
               key: response.key,
               mode: response.mode,
               tempo: response.tempo,
-              time_signature: response.time_signature
+              time_signature: response.time_signature,
+              harmonicKeys: harmonicKeys
             }
           }
         });
@@ -123,32 +127,44 @@ class App extends Component {
   }
 
   getRecommendations() {
-    const jsonObject = {
-      seed_artists: [...this.state.nowPlaying.artist.relatedArtists],
-      seed_genres: this.state.nowPlaying.artist.artistGenres,
-      seed_tracks: [this.state.nowPlaying.trackId],
-      target_key: this.state.nowPlaying.trackFeatures.key,
-      target_mode: this.state.nowPlaying.trackFeatures.mode,
-      min_tempo: this.state.nowPlaying.trackFeatures.tempo - 5,
-      max_tempo: this.state.nowPlaying.trackFeatures.tempo + 5,
-      target_time_signature: this.state.nowPlaying.trackFeatures.time_signature
-    };
-    console.log(jsonObject);
-    spotifyApi.getRecommendations(jsonObject).then(response => {
-      console.log(response);
-      response &&
-        this.setState({
-          recommendedTracks: response.tracks
+    this.state.nowPlaying.trackFeatures.harmonicKeys.forEach(key => {
+      const jsonObject = {
+        limit: 5,
+        seed_artists: [...this.state.nowPlaying.artist.relatedArtists],
+        seed_genres: this.state.nowPlaying.artist.artistGenres,
+        seed_tracks: [this.state.nowPlaying.trackId],
+        target_key: key.pitchClass,
+        target_mode: key.mode,
+        min_tempo: this.state.nowPlaying.trackFeatures.tempo - 5,
+        max_tempo: this.state.nowPlaying.trackFeatures.tempo + 5,
+        target_time_signature: this.state.nowPlaying.trackFeatures
+          .time_signature
+      };
+      spotifyApi.getRecommendations(jsonObject).then(response => {
+        console.log(response);
+        response.tracks.forEach(track => {
+          track.key = key.pitchClass;
+          track.mode = key.mode;
         });
+        response &&
+          this.setState(prevState => ({
+            recommendedTracks: [
+              ...prevState.recommendedTracks,
+              ...response.tracks
+            ]
+          }));
+      });
     });
   }
 
   render() {
+    console.log(this.state);
     const listOfTracks = this.state.recommendedTracks
       ? this.state.recommendedTracks.map(track => {
           return (
             <div>
-              {track.name} by {track.artists[0].name}
+              {track.name} by {track.artists[0].name} /// key = {track.key} mode
+              = {track.mode}
             </div>
           );
         })
@@ -161,8 +177,15 @@ class App extends Component {
             {this.state.nowPlaying.name} by{" "}
             {this.state.nowPlaying.artist.artistName}
           </h2>
+          {this.state.nowPlaying.trackFeatures && (
+            <p>
+              key = {this.state.nowPlaying.trackFeatures.key} key ={" "}
+              {this.state.nowPlaying.trackFeatures.mode} tempo ={" "}
+              {this.state.nowPlaying.trackFeatures.tempo} time signature ={" "}
+              {this.state.nowPlaying.trackFeatures.time_signature}
+            </p>
+          )}
           <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
-          <p />
         </div>
         {this.state.loggedIn && (
           <div>
