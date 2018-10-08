@@ -166,6 +166,8 @@ class App extends Component {
       "key"
     );
 
+    console.log(recommendedTracksByKey);
+
     return (
       <div className="App">
         <a href="http://localhost:8888"> Login to Spotify </a>
