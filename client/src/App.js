@@ -4,6 +4,7 @@ import { getHarmonicKeys, getKeyName } from "./camelot-wheel/camelot-wheel";
 import _ from "lodash";
 
 import NowPlaying from "./display-components/now-playing";
+import ListsOfRecommendations from "./display-components/list-of-recommendations";
 
 import SpotifyWebApi from "spotify-web-api-js";
 const spotifyApi = new SpotifyWebApi();
@@ -165,24 +166,6 @@ class App extends Component {
       "key"
     );
 
-    const listsOfTracks =
-      Object.keys(recommendedTracksByKey).length > 0 &&
-      Object.values(recommendedTracksByKey).map((tracks, index) => {
-        return (
-          <div>
-            <h3>{getKeyName(tracks[0].key, tracks[0].mode)}</h3>
-            {tracks.map(track => {
-              return (
-                <p>
-                  {track.name} by {track.artists[0].name} /// key ={" "}
-                  {getKeyName(track.key, track.mode)}
-                </p>
-              );
-            })}
-          </div>
-        );
-      });
-
     return (
       <div className="App">
         <a href="http://localhost:8888"> Login to Spotify </a>
@@ -201,7 +184,11 @@ class App extends Component {
                 Get getRecommendations
               </button>
             </div>
-            <div>{listsOfTracks}</div>
+            <div>
+              <ListsOfRecommendations
+                recommendedTracksByKey={recommendedTracksByKey}
+              />
+            </div>
           </div>
         )}
       </div>
