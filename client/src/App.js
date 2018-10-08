@@ -3,6 +3,8 @@ import "./App.css";
 import { getHarmonicKeys, getKeyName } from "./camelot-wheel/camelot-wheel";
 import _ from "lodash";
 
+import NowPlaying from "./display-components/now-playing";
+
 import SpotifyWebApi from "spotify-web-api-js";
 const spotifyApi = new SpotifyWebApi();
 
@@ -172,7 +174,8 @@ class App extends Component {
             {tracks.map(track => {
               return (
                 <p>
-                  {track.name} by {track.artists[0].name}
+                  {track.name} by {track.artists[0].name} /// key ={" "}
+                  {getKeyName(track.key, track.mode)}
                 </p>
               );
             })}
@@ -183,24 +186,7 @@ class App extends Component {
     return (
       <div className="App">
         <a href="http://localhost:8888"> Login to Spotify </a>
-        <div>
-          <h2>
-            {this.state.nowPlaying.name} by{" "}
-            {this.state.nowPlaying.artist.artistName}
-          </h2>
-          {this.state.nowPlaying.trackFeatures && (
-            <p>
-              key ={" "}
-              {getKeyName(
-                this.state.nowPlaying.trackFeatures.key,
-                this.state.nowPlaying.trackFeatures.mode
-              )}{" "}
-              tempo = {this.state.nowPlaying.trackFeatures.tempo} time signature
-              = {this.state.nowPlaying.trackFeatures.time_signature}
-            </p>
-          )}
-          <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
-        </div>
+        <NowPlaying nowPlaying={this.state.nowPlaying} />
         {this.state.loggedIn && (
           <div>
             <div>
