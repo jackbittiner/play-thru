@@ -16,10 +16,11 @@ function RecommendationsByKey({ tracks }) {
       <h3>{getKeyName(tracks[0].key, tracks[0].mode)}</h3>
       {tracks.map(track => {
         return (
-          <p>
-            {track.name} by {track.artists[0].name} /// key ={" "}
-            {getKeyName(track.key, track.mode)}
-          </p>
+          <li>
+            <button>
+              {track.name} by {track.artists[0].name}
+            </button>
+          </li>
         );
       })}
     </div>

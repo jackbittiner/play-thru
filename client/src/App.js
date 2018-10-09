@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "./App.css";
-import { getHarmonicKeys, getKeyName } from "./camelot-wheel/camelot-wheel";
+import styled from "styled-components";
+import { getHarmonicKeys } from "./camelot-wheel/camelot-wheel";
 import _ from "lodash";
 
 import NowPlaying from "./display-components/now-playing";
@@ -131,6 +131,7 @@ class App extends Component {
   }
 
   getRecommendations() {
+    this.state.recommendedTracks = [];
     this.state.nowPlaying.trackFeatures.harmonicKeys.forEach(key => {
       const jsonObject = {
         limit: 5,
@@ -166,15 +167,17 @@ class App extends Component {
       "key"
     );
 
-    console.log(recommendedTracksByKey);
-
     return (
-      <div className="App">
-        <a href="http://localhost:8888"> Login to Spotify </a>
-        <NowPlaying nowPlaying={this.state.nowPlaying} />
+      <Page>
+        <Login>
+          <LogInButton href="http://localhost:8888">
+            Login to Spotify
+          </LogInButton>
+        </Login>
         {this.state.loggedIn && (
-          <div>
-            <div>
+          <React.Fragment>
+            <CurrentTrack>
+              <NowPlaying nowPlaying={this.state.nowPlaying} />
               <button onClick={() => this.getNowPlaying()}>
                 Check Now Playing
               </button>
@@ -185,17 +188,56 @@ class App extends Component {
               >
                 Get getRecommendations
               </button>
-            </div>
-            <div>
+            </CurrentTrack>
+            <Recommendations>
               <ListsOfRecommendations
                 recommendedTracksByKey={recommendedTracksByKey}
               />
-            </div>
-          </div>
+            </Recommendations>
+          </React.Fragment>
         )}
-      </div>
+      </Page>
     );
   }
 }
+
+const Page = styled.div`
+  display: grid;
+  text-align: center;
+  height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 100px 1fr 3fr;
+  grid-gap: 1px 1px;
+  grid-template-areas: "Login" "CurrentTrack" "Recommendations";
+}
+`;
+const Login = styled.div`
+  grid-area: Login;
+`;
+const CurrentTrack = styled.div`
+  grid-area: CurrentTrack;
+`;
+
+const Recommendations = styled.div`
+  grid-area: Recommendations;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 1px 1px;
+`;
+
+const LogInButton = styled.a`
+  color: #fff;
+  background-color: #1db954;
+  text-decoration: none;
+  border-radius: 500px;
+  padding: 18px 48px 16px;
+  border-width: 0;
+  letter-spacing: 2px;
+  width: 200px;
+  position: relative;
+  top: 15%;
+`;
 
 export default App;
