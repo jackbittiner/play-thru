@@ -5,9 +5,7 @@ import _ from "lodash";
 
 import NowPlaying from "./display-components/now-playing";
 import ListsOfRecommendations from "./display-components/list-of-recommendations";
-
-import Slider, { createSliderWithTooltip } from "rc-slider";
-import "rc-slider/assets/index.css";
+import QualitySlider from "./display-components/slider"
 
 import SpotifyWebApi from "spotify-web-api-js";
 const spotifyApi = new SpotifyWebApi();
@@ -176,12 +174,9 @@ class App extends Component {
     });
   }
 
-  onSliderChange = value => {
+  handleValueChange(value) {
     console.log(value);
-    this.setState({
-      value: value
-    });
-  };
+  }
 
   render() {
     const recommendedTracksByKey = _.groupBy(
@@ -215,13 +210,7 @@ class App extends Component {
               </button>
             </CurrentTrack>
             <Sliders>
-              <StyledSlider
-                defaultValue={50}
-                min={0}
-                max={100}
-                marks={{ 0: "0", 25: "25", 50: "50", 75: "75", 100: "100" }}
-                onChange={this.onSliderChange}
-              />
+              <QualitySlider onValueChange={this.handleValueChange}/>
             </Sliders>
             <Recommendations>
               <ListsOfRecommendations
@@ -234,8 +223,6 @@ class App extends Component {
     );
   }
 }
-
-const SliderWithTooltip = createSliderWithTooltip(Slider);
 
 const Page = styled.div`
   display: grid;
@@ -256,11 +243,6 @@ const CurrentTrack = styled.div`
 
 const Sliders = styled.div`
   grid-area: Sliders;
-`;
-
-const StyledSlider = styled(SliderWithTooltip)`
-  width: 800px;
-  margin: 0 auto;
 `;
 
 const Recommendations = styled.div`
