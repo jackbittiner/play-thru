@@ -42,7 +42,14 @@ class App extends Component {
           popularity: null
         }
       },
-      recommendedTracks: []
+      recommendedTracks: [],
+      sliderValues: {
+        tempo: 0,
+        danceability: 0,
+        energy: 0,
+        valence: 0,
+        popularity: 0
+      }
     };
   }
   getHashParams() {
@@ -60,7 +67,6 @@ class App extends Component {
 
   getNowPlaying() {
     spotifyApi.getMyCurrentPlaybackState().then(response => {
-      console.log(response);
       response &&
         this.setState({
           nowPlaying: {
@@ -74,7 +80,10 @@ class App extends Component {
             trackFeatures: {
               ...this.state.nowPlaying.trackFeatures,
               popularity: response.item.popularity
-            }
+            },
+          },
+          sliderValues: {
+            popularity: response.item.popularity
           }
         });
       this.getArtistGenres(response.item.artists[0].id);
@@ -174,16 +183,20 @@ class App extends Component {
     });
   }
 
-  handleValueChange(value) {
-    console.log(value);
+  handleValueChange = (value) => {
+    this.setState({
+      sliderValues: {
+        popularity: value
+      }
+    })
   }
 
   render() {
+
     const recommendedTracksByKey = _.groupBy(
       this.state.recommendedTracks,
       "key"
     );
-    // add header when not logged in
 
     return (
       <Page>
@@ -210,7 +223,11 @@ class App extends Component {
               </button>
             </CurrentTrack>
             <Sliders>
-              <QualitySlider onValueChange={this.handleValueChange}/>
+              <QualitySlider
+                onValueChange={this.handleValueChange}
+                quality={"popularity"}
+                number={this.state.sliderValues.popularity}
+                />
             </Sliders>
             <Recommendations>
               <ListsOfRecommendations
