@@ -176,6 +176,13 @@ class App extends Component {
     });
   }
 
+  onSliderChange = value => {
+    console.log(value);
+    this.setState({
+      value: value
+    });
+  };
+
   render() {
     const recommendedTracksByKey = _.groupBy(
       this.state.recommendedTracks,
@@ -213,6 +220,7 @@ class App extends Component {
                 min={0}
                 max={100}
                 marks={{ 0: "0", 25: "25", 50: "50", 75: "75", 100: "100" }}
+                onChange={this.onSliderChange}
               />
             </Sliders>
             <Recommendations>
