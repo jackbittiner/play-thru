@@ -6,6 +6,9 @@ import _ from "lodash";
 import NowPlaying from "./display-components/now-playing";
 import ListsOfRecommendations from "./display-components/list-of-recommendations";
 
+import Slider, { createSliderWithTooltip } from "rc-slider";
+import "rc-slider/assets/index.css";
+
 import SpotifyWebApi from "spotify-web-api-js";
 const spotifyApi = new SpotifyWebApi();
 
@@ -179,6 +182,7 @@ class App extends Component {
       "key"
     );
     // add header when not logged in
+
     return (
       <Page>
         {!this.state.loggedIn && (
@@ -203,6 +207,14 @@ class App extends Component {
                 Get getRecommendations
               </button>
             </CurrentTrack>
+            <Sliders>
+              <StyledSlider
+                defaultValue={50}
+                min={0}
+                max={100}
+                marks={{ 0: "0", 25: "25", 50: "50", 75: "75", 100: "100" }}
+              />
+            </Sliders>
             <Recommendations>
               <ListsOfRecommendations
                 recommendedTracksByKey={recommendedTracksByKey}
@@ -215,14 +227,16 @@ class App extends Component {
   }
 }
 
+const SliderWithTooltip = createSliderWithTooltip(Slider);
+
 const Page = styled.div`
   display: grid;
   text-align: center;
   height: 100%;
   grid-template-columns: 1fr;
-  grid-template-rows: 100px 1fr 3fr;
+  grid-template-rows: 100px 1fr 20px 3fr;
   grid-gap: 1px 1px;
-  grid-template-areas: "Login" "CurrentTrack" "Recommendations";
+  grid-template-areas: "Login" "CurrentTrack" "Sliders" "Recommendations";
 }
 `;
 const Login = styled.div`
@@ -230,6 +244,15 @@ const Login = styled.div`
 `;
 const CurrentTrack = styled.div`
   grid-area: CurrentTrack;
+`;
+
+const Sliders = styled.div`
+  grid-area: Sliders;
+`;
+
+const StyledSlider = styled(SliderWithTooltip)`
+  width: 800px;
+  margin: 0 auto;
 `;
 
 const Recommendations = styled.div`
