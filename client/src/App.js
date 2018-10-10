@@ -37,7 +37,8 @@ class App extends Component {
           harmonicKeys: [],
           danceability: null,
           energy: null,
-          valence: null
+          valence: null,
+          popularity: null
         }
       },
       recommendedTracks: []
@@ -58,6 +59,7 @@ class App extends Component {
 
   getNowPlaying() {
     spotifyApi.getMyCurrentPlaybackState().then(response => {
+      console.log(response);
       response &&
         this.setState({
           nowPlaying: {
@@ -67,6 +69,10 @@ class App extends Component {
             artist: {
               artistId: response.item.artists[0].id,
               artistName: response.item.artists[0].name
+            },
+            trackFeatures: {
+              ...this.state.nowPlaying.trackFeatures,
+              popularity: response.item.popularity
             }
           }
         });

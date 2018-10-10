@@ -21,7 +21,8 @@ export default function NowPlaying({ nowPlaying }) {
           <p>
             Positivity = {nowPlaying.trackFeatures.valence} Danceability ={" "}
             {nowPlaying.trackFeatures.danceability} Energy ={" "}
-            {nowPlaying.trackFeatures.energy}
+            {nowPlaying.trackFeatures.energy} Popularity ={" "}
+            {nowPlaying.trackFeatures.popularity}
           </p>
         </React.Fragment>
       )}
