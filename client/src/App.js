@@ -34,7 +34,10 @@ class App extends Component {
           mode: null,
           tempo: null,
           time_signature: null,
-          harmonicKeys: []
+          harmonicKeys: [],
+          danceability: null,
+          energy: null,
+          valence: null
         }
       },
       recommendedTracks: []
@@ -104,7 +107,10 @@ class App extends Component {
               mode: response.mode,
               tempo: response.tempo,
               time_signature: response.time_signature,
-              harmonicKeys: harmonicKeys
+              harmonicKeys: harmonicKeys,
+              danceability: response.danceability,
+              energy: response.energy,
+              valence: response.valence
             }
           }
         });
@@ -166,14 +172,16 @@ class App extends Component {
       this.state.recommendedTracks,
       "key"
     );
-
+    // add header when not logged in
     return (
       <Page>
-        <Login>
-          <LogInButton href="http://localhost:8888">
-            Login to Spotify
-          </LogInButton>
-        </Login>
+        {!this.state.loggedIn && (
+          <Login>
+            <LogInButton href="http://localhost:8888">
+              Login to Spotify
+            </LogInButton>
+          </Login>
+        )}
         {this.state.loggedIn && (
           <React.Fragment>
             <CurrentTrack>

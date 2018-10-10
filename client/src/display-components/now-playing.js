@@ -8,15 +8,22 @@ export default function NowPlaying({ nowPlaying }) {
         {nowPlaying.name} by {nowPlaying.artist.artistName}
       </h2>
       {nowPlaying.trackFeatures && (
-        <p>
-          key ={" "}
-          {getKeyName(
-            nowPlaying.trackFeatures.key,
-            nowPlaying.trackFeatures.mode
-          )}{" "}
-          tempo = {nowPlaying.trackFeatures.tempo} time signature ={" "}
-          {nowPlaying.trackFeatures.time_signature}
-        </p>
+        <React.Fragment>
+          <p>
+            key ={" "}
+            {getKeyName(
+              nowPlaying.trackFeatures.key,
+              nowPlaying.trackFeatures.mode
+            )}{" "}
+            tempo = {nowPlaying.trackFeatures.tempo} time signature ={" "}
+            {nowPlaying.trackFeatures.time_signature}
+          </p>
+          <p>
+            Positivity = {nowPlaying.trackFeatures.valence} Danceability ={" "}
+            {nowPlaying.trackFeatures.danceability} Energy ={" "}
+            {nowPlaying.trackFeatures.energy}
+          </p>
+        </React.Fragment>
       )}
       <img src={nowPlaying.albumArt} style={{ height: 150 }} />
     </div>
