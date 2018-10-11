@@ -246,6 +246,24 @@ class App extends Component {
                     : this.state.sliderValues.danceability
                 )}
               />
+              <QualitySlider
+                onValueChange={this.handleValueChange}
+                quality={"energy"}
+                number={Math.floor(
+                  this.state.sliderValues.energy <= 1
+                    ? this.state.sliderValues.energy * 100
+                    : this.state.sliderValues.energy
+                )}
+              />
+              <QualitySlider
+                onValueChange={this.handleValueChange}
+                quality={"valence"}
+                number={Math.floor(
+                  this.state.sliderValues.valence <= 1
+                    ? this.state.sliderValues.valence * 100
+                    : this.state.sliderValues.valence
+                )}
+              />
             </Sliders>
             <Recommendations>
               <ListsOfRecommendations
