@@ -282,7 +282,7 @@ const Page = styled.div`
   text-align: center;
   height: 100%;
   grid-template-columns: 1fr;
-  grid-template-rows: 100px 1fr 20px 3fr;
+  grid-template-rows: 100px 1fr 350px 3fr;
   grid-gap: 1px 1px;
   grid-template-areas: "Login" "CurrentTrack" "Sliders" "Recommendations";
 }

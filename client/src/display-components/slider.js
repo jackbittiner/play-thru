@@ -24,15 +24,21 @@ export default class QualitySlider extends React.Component {
     this.props.onValueChange(value, this.props.quality);
   };
   render() {
-    console.log(this.props.number);
+    const { number, quality } = this.props;
     return (
       <div>
-        <h3>{this.props.quality}</h3>
+        <h3>{quality}</h3>
         <StyledSlider
-          value={this.props.number}
+          value={number}
           min={0}
           max={100}
-          marks={{ 0: "0", 25: "25", 50: "50", 75: "75", 100: "100" }}
+          marks={{
+            0: "0",
+            25: "25",
+            50: "50",
+            75: "75",
+            100: "100"
+          }}
           onChange={this.onSliderChange}
         />
       </div>
