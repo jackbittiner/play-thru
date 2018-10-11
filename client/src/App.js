@@ -81,10 +81,10 @@ class App extends Component {
               ...this.state.nowPlaying.trackFeatures,
               popularity: response.item.popularity
             }
-          },
-          sliderValues: {
-            popularity: response.item.popularity
           }
+          // sliderValues: {
+          //   popularity: response.item.popularity
+          // }
         });
       this.getArtistGenres(response.item.artists[0].id);
       this.getTrackFeatures(response.item.id);
@@ -128,6 +128,13 @@ class App extends Component {
               energy: response.energy,
               valence: response.valence
             }
+          },
+          sliderValues: {
+            popularity: this.state.nowPlaying.trackFeatures.popularity,
+            tempo: response.tempo,
+            danceability: response.danceability,
+            energy: response.energy,
+            valence: response.valence
           }
         });
     });
@@ -186,6 +193,7 @@ class App extends Component {
   handleValueChange = (value, quality) => {
     this.setState({
       sliderValues: {
+        ...this.state.sliderValues,
         [quality]: value
       }
     });
@@ -228,6 +236,15 @@ class App extends Component {
                 onValueChange={this.handleValueChange}
                 quality={"popularity"}
                 number={this.state.sliderValues.popularity}
+              />
+              <QualitySlider
+                onValueChange={this.handleValueChange}
+                quality={"danceability"}
+                number={Math.floor(
+                  this.state.sliderValues.danceability <= 1
+                    ? this.state.sliderValues.danceability * 100
+                    : this.state.sliderValues.danceability
+                )}
               />
             </Sliders>
             <Recommendations>

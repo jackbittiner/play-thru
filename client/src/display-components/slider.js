@@ -24,6 +24,7 @@ export default class QualitySlider extends React.Component {
     this.props.onValueChange(value, this.props.quality);
   };
   render() {
+    console.log(this.props.number);
     return (
       <div>
         <h3>{this.props.quality}</h3>
