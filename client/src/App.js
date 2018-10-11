@@ -100,10 +100,7 @@ class App extends Component {
             ...this.state.nowPlaying,
             artist: {
               ...this.state.nowPlaying.artist,
-              artistGenres:
-                response.genres.length < 2
-                  ? response.genres
-                  : response.genres.slice(0, 2)
+              artistGenres: response.genres
             }
           }
         });
@@ -142,17 +139,13 @@ class App extends Component {
 
   getRelatedArtists(artistId) {
     spotifyApi.getArtistRelatedArtists(artistId).then(response => {
-      const relatedArtists =
-        response.artists.length < 2
-          ? response.artists
-          : response.artists.slice(0, 2);
       response &&
         this.setState({
           nowPlaying: {
             ...this.state.nowPlaying,
             artist: {
               ...this.state.nowPlaying.artist,
-              relatedArtists: relatedArtists.map(artist => artist.id)
+              relatedArtists: response.artists.map(artist => artist.id)
             }
           }
         });
@@ -164,8 +157,11 @@ class App extends Component {
     this.state.nowPlaying.trackFeatures.harmonicKeys.forEach(key => {
       const jsonObject = {
         limit: 5,
-        seed_artists: [...this.state.nowPlaying.artist.relatedArtists],
-        seed_genres: this.state.nowPlaying.artist.artistGenres,
+        seed_artists: _.sampleSize(
+          [...this.state.nowPlaying.artist.relatedArtists],
+          2
+        ),
+        seed_genres: _.sampleSize(this.state.nowPlaying.artist.artistGenres, 2),
         seed_tracks: [this.state.nowPlaying.trackId],
         target_key: key.pitchClass,
         target_mode: key.mode,
@@ -204,8 +200,6 @@ class App extends Component {
       this.state.recommendedTracks,
       "key"
     );
-
-    console.log(this.state.sliderValues);
 
     return (
       <Page>
