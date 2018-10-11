@@ -5,7 +5,7 @@ import _ from "lodash";
 
 import NowPlaying from "./display-components/now-playing";
 import ListsOfRecommendations from "./display-components/list-of-recommendations";
-import QualitySlider from "./display-components/slider"
+import QualitySlider from "./display-components/slider";
 
 import SpotifyWebApi from "spotify-web-api-js";
 const spotifyApi = new SpotifyWebApi();
@@ -80,7 +80,7 @@ class App extends Component {
             trackFeatures: {
               ...this.state.nowPlaying.trackFeatures,
               popularity: response.item.popularity
-            },
+            }
           },
           sliderValues: {
             popularity: response.item.popularity
@@ -183,20 +183,21 @@ class App extends Component {
     });
   }
 
-  handleValueChange = (value) => {
+  handleValueChange = (value, quality) => {
     this.setState({
       sliderValues: {
-        popularity: value
+        [quality]: value
       }
-    })
-  }
+    });
+  };
 
   render() {
-
     const recommendedTracksByKey = _.groupBy(
       this.state.recommendedTracks,
       "key"
     );
+
+    console.log(this.state.sliderValues);
 
     return (
       <Page>
@@ -227,7 +228,7 @@ class App extends Component {
                 onValueChange={this.handleValueChange}
                 quality={"popularity"}
                 number={this.state.sliderValues.popularity}
-                />
+              />
             </Sliders>
             <Recommendations>
               <ListsOfRecommendations
