@@ -156,7 +156,7 @@ class App extends Component {
     this.state.recommendedTracks = [];
     this.state.nowPlaying.trackFeatures.harmonicKeys.forEach(key => {
       const jsonObject = {
-        limit: 100,
+        limit: 5,
         seed_artists: _.sampleSize(
           [...this.state.nowPlaying.artist.relatedArtists],
           2
