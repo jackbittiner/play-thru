@@ -168,7 +168,15 @@ class App extends Component {
         min_tempo: this.state.nowPlaying.trackFeatures.tempo - 5,
         max_tempo: this.state.nowPlaying.trackFeatures.tempo + 5,
         target_time_signature: this.state.nowPlaying.trackFeatures
-          .time_signature
+          .time_signature,
+        min_valence: this.state.sliderValues.valence - 20,
+        max_valence: this.state.sliderValues.valence + 20,
+        min_danceability: this.state.sliderValues.danceability - 20,
+        max_danceability: this.state.sliderValues.danceability + 20,
+        min_popularity: this.state.sliderValues.popularity - 20,
+        max_popularity: this.state.sliderValues.popularity + 20,
+        min_energy: this.state.sliderValues.energy - 20,
+        max_energy: this.state.sliderValues.energy + 20
       };
       spotifyApi.getRecommendations(jsonObject).then(response => {
         response.tracks.forEach(track => {
