@@ -129,9 +129,9 @@ class App extends Component {
           sliderValues: {
             popularity: this.state.nowPlaying.trackFeatures.popularity,
             tempo: response.tempo,
-            danceability: response.danceability,
-            energy: response.energy,
-            valence: response.valence
+            danceability: response.danceability * 100,
+            energy: response.energy * 100,
+            valence: response.valence * 100
           }
         });
     });
@@ -169,14 +169,14 @@ class App extends Component {
         max_tempo: this.state.nowPlaying.trackFeatures.tempo + 5,
         target_time_signature: this.state.nowPlaying.trackFeatures
           .time_signature,
-        min_valence: this.state.sliderValues.valence - 20 / 100,
-        max_valence: this.state.sliderValues.valence + 20 / 100,
-        min_danceability: this.state.sliderValues.danceability - 20 / 100,
-        max_danceability: this.state.sliderValues.danceability + 20 / 100,
+        min_valence: (this.state.sliderValues.valence - 20) / 100,
+        max_valence: (this.state.sliderValues.valence + 20) / 100,
+        min_danceability: (this.state.sliderValues.danceability - 20) / 100,
+        max_danceability: (this.state.sliderValues.danceability + 20) / 100,
         min_popularity: this.state.sliderValues.popularity - 20,
         max_popularity: this.state.sliderValues.popularity + 20,
-        min_energy: this.state.sliderValues.energy - 20 / 100,
-        max_energy: this.state.sliderValues.energy + 20 / 100
+        min_energy: (this.state.sliderValues.energy - 20) / 100,
+        max_energy: (this.state.sliderValues.energy + 20) / 100
       };
       spotifyApi.getRecommendations(jsonObject).then(response => {
         response.tracks.forEach(track => {
@@ -242,29 +242,17 @@ class App extends Component {
               <QualitySlider
                 onValueChange={this.handleValueChange}
                 quality={"danceability"}
-                number={Math.floor(
-                  this.state.sliderValues.danceability <= 1
-                    ? this.state.sliderValues.danceability * 100
-                    : this.state.sliderValues.danceability
-                )}
+                number={Math.floor(this.state.sliderValues.danceability)}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
                 quality={"energy"}
-                number={Math.floor(
-                  this.state.sliderValues.energy <= 1
-                    ? this.state.sliderValues.energy * 100
-                    : this.state.sliderValues.energy
-                )}
+                number={Math.floor(this.state.sliderValues.energy)}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
                 quality={"valence"}
-                number={Math.floor(
-                  this.state.sliderValues.valence <= 1
-                    ? this.state.sliderValues.valence * 100
-                    : this.state.sliderValues.valence
-                )}
+                number={Math.floor(this.state.sliderValues.valence)}
               />
             </Sliders>
             <Recommendations>
