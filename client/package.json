@@ -12,9 +12,12 @@
     "styled-components": "^3.4.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently --kill-others \"react-scripts start\" \"node ../auth-server/authorization_code/app.js\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1"
   }
 }
