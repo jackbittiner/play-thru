@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { getHarmonicKeys } from './camelot-wheel/camelot-wheel';
-import _ from 'lodash';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { getHarmonicKeys } from "./camelot-wheel/camelot-wheel";
+import _ from "lodash";
 
-import NowPlaying from './display-components/now-playing';
-import ListsOfRecommendations from './display-components/list-of-recommendations';
-import QualitySlider from './display-components/slider';
+import NowPlaying from "./display-components/now-playing";
+import ListsOfRecommendations from "./display-components/list-of-recommendations";
+import QualitySlider from "./display-components/slider";
 
-import SpotifyWebApi from 'spotify-web-api-js';
+import SpotifyWebApi from "spotify-web-api-js";
+
+var Promise = require("bluebird");
 const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
@@ -21,12 +23,12 @@ class App extends Component {
     this.state = {
       loggedIn: token ? true : false,
       nowPlaying: {
-        name: '',
-        albumArt: '',
-        trackId: '',
+        name: "",
+        albumArt: "",
+        trackId: "",
         artist: {
-          artistId: '',
-          artistName: '',
+          artistId: "",
+          artistName: "",
           relatedArtists: [],
           artistGenres: []
         },
@@ -86,14 +88,17 @@ class App extends Component {
           //   popularity: response.item.popularity
           // }
         });
-      this.getArtistGenres(response.item.artists[0].id);
-      this.getTrackFeatures(response.item.id);
-      this.getRelatedArtists(response.item.artists[0].id);
+      Promise.join(
+        this.getArtistGenres(response.item.artists[0].id),
+        this.getTrackFeatures(response.item.id),
+        this.getRelatedArtists(response.item.artists[0].id),
+        () => this.getRecommendations()
+      );
     });
   }
 
   getArtistGenres(artistId) {
-    spotifyApi.getArtist(artistId).then(response => {
+    return spotifyApi.getArtist(artistId).then(response => {
       response &&
         this.setState({
           nowPlaying: {
@@ -108,7 +113,7 @@ class App extends Component {
   }
 
   getTrackFeatures(trackId) {
-    spotifyApi.getAudioFeaturesForTrack(trackId).then(response => {
+    return spotifyApi.getAudioFeaturesForTrack(trackId).then(response => {
       const harmonicKeys = getHarmonicKeys(response.key, response.mode);
       response &&
         this.setState({
@@ -138,7 +143,7 @@ class App extends Component {
   }
 
   getRelatedArtists(artistId) {
-    spotifyApi.getArtistRelatedArtists(artistId).then(response => {
+    return spotifyApi.getArtistRelatedArtists(artistId).then(response => {
       response &&
         this.setState({
           nowPlaying: {
@@ -197,7 +202,7 @@ class App extends Component {
   handlePlay = trackUri => {
     const songToPlay = { uris: [trackUri] };
     spotifyApi.play(songToPlay).then(response => {
-      console.log(response);
+      this.getNowPlaying();
     });
   };
 
@@ -213,10 +218,10 @@ class App extends Component {
   render() {
     const recommendedTracksByKey = _.groupBy(
       this.state.recommendedTracks,
-      'key'
+      "key"
     );
 
-    console.log(this.state.recommendedTracks);
+    console.log(this.state);
     return (
       <Page>
         {!this.state.loggedIn && (
@@ -233,33 +238,26 @@ class App extends Component {
               <button onClick={() => this.getNowPlaying()}>
                 Check Now Playing
               </button>
-              <button
-                onClick={() =>
-                  this.getRecommendations(this.state.nowPlaying.trackId)
-                }
-              >
-                Get getRecommendations
-              </button>
             </CurrentTrack>
             <Sliders>
               <QualitySlider
                 onValueChange={this.handleValueChange}
-                quality={'popularity'}
+                quality={"popularity"}
                 number={this.state.sliderValues.popularity}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
-                quality={'danceability'}
+                quality={"danceability"}
                 number={Math.floor(this.state.sliderValues.danceability)}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
-                quality={'energy'}
+                quality={"energy"}
                 number={Math.floor(this.state.sliderValues.energy)}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
-                quality={'valence'}
+                quality={"valence"}
                 number={Math.floor(this.state.sliderValues.valence)}
               />
             </Sliders>

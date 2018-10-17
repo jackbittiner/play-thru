@@ -1,5 +1,5 @@
-import React from 'react';
-import { getKeyName } from '../camelot-wheel/camelot-wheel';
+import React from "react";
+import { getKeyName } from "../camelot-wheel/camelot-wheel";
 
 export default function ListsOfRecommendations({
   recommendedTracksByKey,

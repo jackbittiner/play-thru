@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bluebird": "^3.5.2",
     "lodash": "^4.17.11",
     "rc-slider": "^8.6.3",
     "react": "^16.5.2",
