@@ -238,6 +238,9 @@ class App extends Component {
               <button onClick={() => this.getNowPlaying()}>
                 Check Now Playing
               </button>
+              <button onClick={() => this.getRecommendations()}>
+                Get Recommendations
+              </button>
             </CurrentTrack>
             <Sliders>
               <QualitySlider
