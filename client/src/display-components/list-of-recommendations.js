@@ -12,7 +12,13 @@ export default function ListsOfRecommendations({
   return (
     Object.keys(recommendedTracksByKey).length > 0 &&
     Object.values(recommendedTracksByKey).map((tracks, index) => {
-      return <RecommendationsByKey handleClick={handleClick} tracks={tracks} />;
+      return (
+        <RecommendationsByKey
+          key={index}
+          handleClick={handleClick}
+          tracks={tracks}
+        />
+      );
     })
   );
 }
