@@ -156,7 +156,7 @@ export default class Home extends Component {
     });
   }
 
-  getRecommendations() {
+  getRecommendations = () => {
     this.state.recommendedTracks = [];
     this.state.nowPlaying.trackFeatures.harmonicKeys.forEach(key => {
       const jsonObject = {
@@ -196,7 +196,7 @@ export default class Home extends Component {
           }));
       });
     });
-  }
+  };
 
   handlePlay = trackUri => {
     const songToPlay = { uris: [trackUri] };
@@ -238,21 +238,25 @@ export default class Home extends Component {
                 onValueChange={this.handleValueChange}
                 quality={"popularity"}
                 number={this.state.sliderValues.popularity}
+                getRecommendations={this.getRecommendations}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
                 quality={"danceability"}
                 number={Math.floor(this.state.sliderValues.danceability)}
+                getRecommendations={this.getRecommendations}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
                 quality={"energy"}
                 number={Math.floor(this.state.sliderValues.energy)}
+                getRecommendations={this.getRecommendations}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
                 quality={"valence"}
                 number={Math.floor(this.state.sliderValues.valence)}
+                getRecommendations={this.getRecommendations}
               />
             </Sliders>
             <Recommendations>

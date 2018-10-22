@@ -23,6 +23,11 @@ export default class QualitySlider extends React.Component {
     });
     this.props.onValueChange(value, this.props.quality);
   };
+
+  onSliderEnd = () => {
+    this.props.getRecommendations();
+  };
+
   render() {
     const { number, quality } = this.props;
     return (
@@ -40,6 +45,7 @@ export default class QualitySlider extends React.Component {
             100: "100"
           }}
           onChange={this.onSliderChange}
+          onAfterChange={this.onSliderEnd}
         />
       </StyledSlider>
     );
