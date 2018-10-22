@@ -70,6 +70,7 @@ export default class Home extends Component {
 
   getNowPlaying() {
     return spotifyApi.getMyCurrentPlaybackState().then(response => {
+      if (!response) return null;
       response &&
         this.setState({
           nowPlaying: {
@@ -274,10 +275,11 @@ const Page = styled.div`
   display: grid;
   text-align: center;
   height: 100%;
-  grid-template-columns: 1fr;
-  grid-template-rows: 100px 1fr 350px 3fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-gap: 1px 1px;
-  grid-template-areas: "Login" "CurrentTrack" "Sliders" "Recommendations";
+  grid-template-areas: "CurrentTrack Sliders" 
+  "Recommendations Recommendations";
 }
 `;
 
