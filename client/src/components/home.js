@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import styled from 'styled-components';
-import { getHarmonicKeys } from '../camelot-wheel/camelot-wheel';
-import _ from 'lodash';
+import styled from "styled-components";
+import { getHarmonicKeys } from "../camelot-wheel/camelot-wheel";
+import _ from "lodash";
 
-import NowPlaying from '../display-components/now-playing';
-import ListsOfRecommendations from '../display-components/list-of-recommendations';
-import QualitySlider from '../display-components/slider';
+import NowPlaying from "../display-components/now-playing";
+import ListsOfRecommendations from "../display-components/list-of-recommendations";
+import QualitySlider from "../display-components/slider";
 
-import SpotifyWebApi from 'spotify-web-api-js';
+import SpotifyWebApi from "spotify-web-api-js";
 
-var Promise = require('bluebird');
+var Promise = require("bluebird");
 const spotifyApi = new SpotifyWebApi();
 
 export default class Home extends Component {
@@ -24,12 +24,12 @@ export default class Home extends Component {
     this.state = {
       loggedIn: token ? true : false,
       nowPlaying: {
-        name: '',
-        albumArt: '',
-        trackId: '',
+        name: "",
+        albumArt: "",
+        trackId: "",
         artist: {
-          artistId: '',
-          artistName: '',
+          artistId: "",
+          artistName: "",
           relatedArtists: [],
           artistGenres: []
         },
@@ -86,9 +86,6 @@ export default class Home extends Component {
               popularity: response.item.popularity
             }
           }
-          // sliderValues: {
-          //   popularity: response.item.popularity
-          // }
         });
       Promise.join(
         this.getArtistGenres(response.item.artists[0].id),
@@ -203,8 +200,8 @@ export default class Home extends Component {
 
   handlePlay = trackUri => {
     const songToPlay = { uris: [trackUri] };
-    spotifyApi.play(songToPlay).then(response => {
-      this.getNowPlaying();
+    Promise.join(spotifyApi.play(songToPlay), () => {
+      setTimeout(() => this.getNowPlaying(), 500);
     });
   };
 
@@ -220,7 +217,7 @@ export default class Home extends Component {
   render() {
     const recommendedTracksByKey = _.groupBy(
       this.state.recommendedTracks,
-      'key'
+      "key"
     );
 
     return (
@@ -239,22 +236,22 @@ export default class Home extends Component {
             <Sliders>
               <QualitySlider
                 onValueChange={this.handleValueChange}
-                quality={'popularity'}
+                quality={"popularity"}
                 number={this.state.sliderValues.popularity}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
-                quality={'danceability'}
+                quality={"danceability"}
                 number={Math.floor(this.state.sliderValues.danceability)}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
-                quality={'energy'}
+                quality={"energy"}
                 number={Math.floor(this.state.sliderValues.energy)}
               />
               <QualitySlider
                 onValueChange={this.handleValueChange}
-                quality={'valence'}
+                quality={"valence"}
                 number={Math.floor(this.state.sliderValues.valence)}
               />
             </Sliders>
@@ -278,7 +275,7 @@ const Page = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-gap: 1px 1px;
-  grid-template-areas: "CurrentTrack Sliders" 
+  grid-template-areas: "CurrentTrack Sliders"
   "Recommendations Recommendations";
 }
 `;

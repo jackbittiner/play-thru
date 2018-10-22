@@ -26,9 +26,9 @@ export default class QualitySlider extends React.Component {
   render() {
     const { number, quality } = this.props;
     return (
-      <div>
+      <StyledSlider>
         <h3>{quality}</h3>
-        <StyledSlider
+        <SliderWithTooltip
           value={number}
           min={0}
           max={100}
@@ -41,14 +41,14 @@ export default class QualitySlider extends React.Component {
           }}
           onChange={this.onSliderChange}
         />
-      </div>
+      </StyledSlider>
     );
   }
 }
 
 const SliderWithTooltip = createSliderWithTooltip(Slider);
 
-const StyledSlider = styled(SliderWithTooltip)`
-  width: 800px;
+const StyledSlider = styled.div`
+  width: 80%;
   margin: 0 auto;
 `;

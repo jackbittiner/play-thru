@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Trail } from 'react-spring';
+import { Trail } from "react-spring";
 
-import { getKeyName } from '../camelot-wheel/camelot-wheel';
+import { getKeyName } from "../camelot-wheel/camelot-wheel";
 
 export default function ListsOfRecommendations({
   recommendedTracksByKey,
@@ -34,11 +34,11 @@ function RecommendationsByKey({ tracks, handleClick }) {
       >
         {tracks.map(track => styles => (
           <div style={styles}>
-            <listItem>
+            <ListItem>
               <button onClick={() => handleClick(track.uri)}>
                 {track.name} by {track.artists[0].name}
               </button>
-            </listItem>
+            </ListItem>
           </div>
         ))}
       </Trail>
@@ -46,7 +46,7 @@ function RecommendationsByKey({ tracks, handleClick }) {
   );
 }
 
-const listItem = styled.li`
+const ListItem = styled.li`
   list-style: none;
   padding: 2px;
   margin: 2px;
