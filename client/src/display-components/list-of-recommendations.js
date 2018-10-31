@@ -36,7 +36,13 @@ function RecommendationsByKey({ tracks, handleClick }) {
           <div style={styles}>
             <ListItem>
               <button onClick={() => handleClick(track.uri)}>
-                {track.name} by {track.artists[0].name}
+                <div>
+                  <img
+                    style={{ width: 32 + "px" }}
+                    src={track.album.images[2].url}
+                  />
+                  {track.name} by {track.artists[0].name}
+                </div>
               </button>
             </ListItem>
           </div>

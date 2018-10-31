@@ -221,53 +221,75 @@ export default class Home extends Component {
     );
 
     return (
-      <Page>
-        {this.state.loggedIn && (
-          <React.Fragment>
-            <CurrentTrack>
-              <NowPlaying nowPlaying={this.state.nowPlaying} />
-              <button onClick={() => this.getNowPlaying()}>
-                Check Now Playing
-              </button>
-            </CurrentTrack>
-            <Sliders>
-              <QualitySlider
-                onValueChange={this.handleValueChange}
-                quality={"popularity"}
-                number={this.state.sliderValues.popularity}
-                getRecommendations={this.getRecommendations}
-              />
-              <QualitySlider
-                onValueChange={this.handleValueChange}
-                quality={"danceability"}
-                number={Math.floor(this.state.sliderValues.danceability)}
-                getRecommendations={this.getRecommendations}
-              />
-              <QualitySlider
-                onValueChange={this.handleValueChange}
-                quality={"energy"}
-                number={Math.floor(this.state.sliderValues.energy)}
-                getRecommendations={this.getRecommendations}
-              />
-              <QualitySlider
-                onValueChange={this.handleValueChange}
-                quality={"valence"}
-                number={Math.floor(this.state.sliderValues.valence)}
-                getRecommendations={this.getRecommendations}
-              />
-            </Sliders>
-            <Recommendations>
-              <ListsOfRecommendations
-                handleClick={this.handlePlay}
-                recommendedTracksByKey={recommendedTracksByKey}
-              />
-            </Recommendations>
-          </React.Fragment>
-        )}
-      </Page>
+      <div>
+        <Page>
+          {this.state.loggedIn && (
+            <React.Fragment>
+              <CurrentTrack>
+                <NowPlaying nowPlaying={this.state.nowPlaying} />
+                <button onClick={() => this.getNowPlaying()}>
+                  Check Now Playing
+                </button>
+              </CurrentTrack>
+              <Sliders>
+                <QualitySlider
+                  onValueChange={this.handleValueChange}
+                  quality={"popularity"}
+                  number={this.state.sliderValues.popularity}
+                  getRecommendations={this.getRecommendations}
+                />
+                <QualitySlider
+                  onValueChange={this.handleValueChange}
+                  quality={"danceability"}
+                  number={Math.floor(this.state.sliderValues.danceability)}
+                  getRecommendations={this.getRecommendations}
+                />
+                <QualitySlider
+                  onValueChange={this.handleValueChange}
+                  quality={"energy"}
+                  number={Math.floor(this.state.sliderValues.energy)}
+                  getRecommendations={this.getRecommendations}
+                />
+                <QualitySlider
+                  onValueChange={this.handleValueChange}
+                  quality={"valence"}
+                  number={Math.floor(this.state.sliderValues.valence)}
+                  getRecommendations={this.getRecommendations}
+                />
+              </Sliders>
+              <Recommendations>
+                <ListsOfRecommendations
+                  handleClick={this.handlePlay}
+                  recommendedTracksByKey={recommendedTracksByKey}
+                />
+              </Recommendations>
+            </React.Fragment>
+          )}
+        </Page>
+        <Image backgroundImage={this.state.nowPlaying.albumArt || null} />
+      </div>
     );
   }
 }
+
+const Image = styled.div`
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  z-index: -1;
+  background-image: ${props => `url(${props.backgroundImage})`};
+  background-size: cover;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  overflow: hidden;
+  position: absolute;
+  top: 0px; left 0px;
+`;
 
 const Page = styled.div`
   display: grid;
