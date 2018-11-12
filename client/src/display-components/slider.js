@@ -7,7 +7,8 @@ export default class QualitySlider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.number
+      value: this.props.number,
+      ticker: 0
     };
   }
 
@@ -25,7 +26,12 @@ export default class QualitySlider extends React.Component {
   };
 
   onSliderEnd = () => {
-    this.props.getRecommendations();
+    if (this.state.ticker % 2 === 0) {
+      this.props.getRecommendations();
+    }
+    this.setState({
+      ticker: this.state.ticker + 1
+    });
   };
 
   render() {
