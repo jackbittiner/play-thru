@@ -1,7 +1,7 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import Login from './components/login';
-import Home from './components/home';
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import Login from "./pages/login/login";
+import Home from "./pages/home/home";
 
 const Main = () => (
   <main>

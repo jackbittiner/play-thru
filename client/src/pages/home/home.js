@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
 import styled from "styled-components";
-import { getHarmonicKeys } from "../camelot-wheel/camelot-wheel";
+import { getHarmonicKeys } from "./camelot-wheel/camelot-wheel";
 import _ from "lodash";
 
-import NowPlaying from "../display-components/now-playing";
-import ListsOfRecommendations from "../display-components/list-of-recommendations";
-import QualitySlider from "../display-components/slider";
+import NowPlaying from "./display-components/now-playing";
+import ListsOfRecommendations from "./display-components/list-of-recommendations";
+import QualitySlider from "./display-components/slider";
 
 import SpotifyWebApi from "spotify-web-api-js";
 
