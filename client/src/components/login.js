@@ -1,35 +1,7 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-
-import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
+import React, { Component } from "react";
+import styled from "styled-components";
 
 export default class Login extends Component {
-  constructor() {
-    super();
-    const params = this.getHashParams();
-    const token = params.access_token;
-    if (token) {
-      spotifyApi.setAccessToken(token);
-    }
-    this.state = {
-      loggedIn: token ? true : false
-    };
-  }
-
-  getHashParams() {
-    var hashParams = {};
-    var e,
-      r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.hash.substring(1);
-    e = r.exec(q);
-    while (e) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-      e = r.exec(q);
-    }
-    return hashParams;
-  }
-
   render() {
     return (
       <LoginSection>
@@ -40,12 +12,14 @@ export default class Login extends Component {
 }
 
 const LoginSection = styled.div`
-  width: 400px;
-  margin: 0 auto;
-  height: 200px;
-  background: teal;
-  text-align: centre;
-  padding: 100px;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: teal;
 `;
 
 const LogInButton = styled.a`
