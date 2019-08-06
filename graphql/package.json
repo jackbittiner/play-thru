@@ -1,0 +1,27 @@
+{
+  "name": "graphql-layer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "apollo-datasource-rest": "^0.6.1",
+    "apollo-server": "^2.8.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-preset-env": "^1.7.0",
+    "graphql": "^14.4.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-env": "^7.5.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
