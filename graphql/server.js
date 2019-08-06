@@ -7,11 +7,29 @@ const typeDefs = gql`
     art: String
     id: String!
     artist: Artist!
+    trackFeatures: TrackFeatures!
   }
 
   type Artist {
     id: String!
     name: String!
+  }
+
+  type TrackFeatures {
+    key: String!
+    tempo: Float!
+    time_signature: Int!
+    harmonicKeys: [Key]!
+    danceability: Float!
+    energy: Float!
+    valence: Float!
+    popularity: Float!
+  }
+
+  type Key {
+    name: String!
+    pitchClass: Int!
+    mode: Int!
   }
 
   type Query {
@@ -24,6 +42,10 @@ const resolvers = {
     currentTrack: (root, { authToken }, { dataSources }) =>
       dataSources.spotifyDatasource.getCurrentTrack(authToken)
   }
+  // CurrentTrack: {
+  //   trackFeatures: (root, { id, authToken }, { dataSources }) =>
+  //     dataSources.spotifyDatasource.getTrackFeatures(id, authToken)
+  // }
 };
 
 const server = new ApolloServer({

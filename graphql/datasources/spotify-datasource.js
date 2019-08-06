@@ -1,4 +1,5 @@
 import { RESTDataSource } from "apollo-datasource-rest";
+import { getHarmonicKeys, getKeyName } from "./camelot-wheel";
 
 export class SpotifyDatasource extends RESTDataSource {
   constructor() {
@@ -13,6 +14,11 @@ export class SpotifyDatasource extends RESTDataSource {
       }
     });
 
+    const trackFeatures = await this.getTrackFeatures(
+      result.item.id,
+      authToken
+    );
+
     return {
       name: result.item.name,
       art: result.item.album.images[0].url,
@@ -20,7 +26,36 @@ export class SpotifyDatasource extends RESTDataSource {
       artist: {
         id: result.item.artists[0].id,
         name: result.item.artists[0].name
+      },
+      trackFeatures: {
+        key: trackFeatures.key,
+        tempo: trackFeatures.tempo,
+        time_signature: trackFeatures.time_signature,
+        harmonicKeys: trackFeatures.harmonicKeys,
+        danceability: trackFeatures.danceability,
+        energy: trackFeatures.energy,
+        valence: trackFeatures.valence,
+        popularity: result.item.popularity
       }
+    };
+  }
+
+  async getTrackFeatures(id, authToken) {
+    const result = await this.get(`audio-features/${id}`, undefined, {
+      headers: {
+        Authorization: "Bearer " + authToken
+      }
+    });
+
+    return {
+      key: getKeyName(result.key, result.mode),
+      tempo: result.tempo,
+      time_signature: result.time_signature,
+      harmonicKeys: getHarmonicKeys(result.key, result.mode),
+      danceability: result.danceability,
+      energy: result.energy,
+      valence: result.valence,
+      popularity: result.popularity
     };
   }
 }
