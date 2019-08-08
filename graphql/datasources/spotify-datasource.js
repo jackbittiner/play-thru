@@ -14,11 +14,6 @@ export class SpotifyDatasource extends RESTDataSource {
       }
     });
 
-    const trackFeatures = await this.getTrackFeatures(
-      result.item.id,
-      authToken
-    );
-
     return {
       name: result.item.name,
       art: result.item.album.images[0].url,
@@ -27,16 +22,7 @@ export class SpotifyDatasource extends RESTDataSource {
         id: result.item.artists[0].id,
         name: result.item.artists[0].name
       },
-      trackFeatures: {
-        key: trackFeatures.key,
-        tempo: trackFeatures.tempo,
-        time_signature: trackFeatures.time_signature,
-        harmonicKeys: trackFeatures.harmonicKeys,
-        danceability: trackFeatures.danceability,
-        energy: trackFeatures.energy,
-        valence: trackFeatures.valence,
-        popularity: result.item.popularity
-      }
+      popularity: result.item.popularity
     };
   }
 
@@ -54,8 +40,7 @@ export class SpotifyDatasource extends RESTDataSource {
       harmonicKeys: getHarmonicKeys(result.key, result.mode),
       danceability: result.danceability,
       energy: result.energy,
-      valence: result.valence,
-      popularity: result.popularity
+      valence: result.valence
     };
   }
 }
