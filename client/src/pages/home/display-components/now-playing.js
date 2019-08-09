@@ -1,27 +1,63 @@
-import React from 'react';
-import { getKeyName } from '../camelot-wheel/camelot-wheel';
+import React from "react";
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 
-export default function NowPlaying({ nowPlaying }) {
-  if (nowPlaying.name)
+const GET_CURRENT_TRACK = gql`
+  query currentTrack($authToken: String!) {
+    currentTrack(authToken: $authToken) {
+      name
+      art
+      id
+      popularity
+      artist {
+        id
+        name
+      }
+      trackFeatures(authToken: $authToken) {
+        key
+        tempo
+        time_signature
+        harmonicKeys {
+          name
+          pitchClass
+          mode
+        }
+        danceability
+        energy
+        valence
+      }
+    }
+  }
+`;
+
+export default function NowPlaying({ token }) {
+  const { loading, error, data } = useQuery(GET_CURRENT_TRACK, {
+    variables: { authToken: token }
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  if (data)
     return (
       <div>
         <h2>
-          {nowPlaying.name} by {nowPlaying.artist.artistName}
+          {data.currentTrack.name} by {data.currentTrack.artist.name}
         </h2>
-        {nowPlaying.trackFeatures && (
-          <>
+        {data.currentTrack.trackFeatures && (
+          <React.Fragment>
             <p>
-              key ={' '}
-              {getKeyName(
-                nowPlaying.trackFeatures.key,
-                nowPlaying.trackFeatures.mode
-              )}{' '}
-              tempo = {nowPlaying.trackFeatures.tempo} time signature ={' '}
-              {nowPlaying.trackFeatures.time_signature}
+              {data.currentTrack.trackFeatures.key}
+              tempo = {data.currentTrack.trackFeatures.tempo} time signature ={" "}
+              {data.currentTrack.trackFeatures.time_signature}
             </p>
-          </>
+          </React.Fragment>
         )}
-        <img src={nowPlaying.albumArt} style={{ height: 150 }} alt={nowPlaying.artist.artistName} />
+        <img
+          src={data.currentTrack.art}
+          style={{ height: 150 }}
+          alt={data.currentTrack.artist.artistName}
+        />
       </div>
     );
   return null;
