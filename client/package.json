@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.0.0",
+    "apollo-boost": "^0.4.3",
     "bluebird": "^3.5.2",
+    "graphql": "^14.4.2",
     "lodash": "^4.17.15",
     "rc-slider": "^8.6.3",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react": "^16.9.0",
+    "react-apollo": "^3.0.0",
+    "react-dom": "^16.9.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^3.0.1",
     "react-spring": "^5.9.2",
@@ -15,6 +19,7 @@
     "styled-components": "^3.4.9"
   },
   "scripts": {
+    "prestart": "npm i",
     "start": "concurrently --kill-others \"react-scripts start\" \"node ../auth-server/authorization_code/app.js\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

@@ -1,12 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
-import _ from "lodash";
+import styled from 'styled-components';
 
-import NowPlaying from "./display-components/now-playing";
+import NowPlaying from './display-components/now-playing';
 
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
 const GET_CURRENT_TRACK = gql`
   query currentTrack($authToken: String!) {
@@ -89,17 +88,4 @@ const Page = styled.div`
 
 const CurrentTrack = styled.div`
   grid-area: CurrentTrack;
-`;
-
-const Sliders = styled.div`
-  grid-area: Sliders;
-`;
-
-const Recommendations = styled.div`
-  grid-area: Recommendations;
-  display: grid;
-  height: 100%;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-gap: 1px 1px;
 `;
