@@ -3,7 +3,7 @@ import Slider, { createSliderWithTooltip } from "rc-slider";
 import styled from "styled-components";
 import "rc-slider/assets/index.css";
 
-export default class QualitySlider extends React.Component {
+export default class QualitySlider extends Component {
   constructor(props) {
     super(props);
     this.state = {

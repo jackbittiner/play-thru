@@ -9,7 +9,7 @@ export default function NowPlaying({ nowPlaying }) {
           {nowPlaying.name} by {nowPlaying.artist.artistName}
         </h2>
         {nowPlaying.trackFeatures && (
-          <React.Fragment>
+          <>
             <p>
               key ={' '}
               {getKeyName(
@@ -19,9 +19,9 @@ export default function NowPlaying({ nowPlaying }) {
               tempo = {nowPlaying.trackFeatures.tempo} time signature ={' '}
               {nowPlaying.trackFeatures.time_signature}
             </p>
-          </React.Fragment>
+          </>
         )}
-        <img src={nowPlaying.albumArt} style={{ height: 150 }} />
+        <img src={nowPlaying.albumArt} style={{ height: 150 }} alt={nowPlaying.artist.artistName} />
       </div>
     );
   return null;
