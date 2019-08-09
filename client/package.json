@@ -5,18 +5,17 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.0.0",
     "apollo-boost": "^0.4.3",
-    "bluebird": "^3.5.2",
+    "bluebird": "^3.5.5",
     "graphql": "^14.4.2",
     "lodash": "^4.17.15",
-    "rc-slider": "^8.6.3",
+    "rc-slider": "^8.6.13",
     "react": "^16.9.0",
     "react-apollo": "^3.0.0",
     "react-dom": "^16.9.0",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
-    "react-spring": "^5.9.2",
-    "spotify-web-api-js": "^1.1.1",
-    "styled-components": "^3.4.9"
+    "react-spring": "^8.0.27",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "prestart": "npm i",
@@ -26,7 +25,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "concurrently": "^4.0.1"
+    "concurrently": "^4.1.1"
   },
   "browserslist": {
     "production": [
