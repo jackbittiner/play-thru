@@ -1,13 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 
 import styled from "styled-components";
 import _ from "lodash";
 
 import NowPlaying from "./display-components/now-playing";
 
-function HomeV2Container() {
-  const [showNowPlaying, setNowPlaying] = useState(false);
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 
+const GET_CURRENT_TRACK = gql`
+  query currentTrack($authToken: String!) {
+    currentTrack(authToken: $authToken) {
+      name
+      art
+      id
+      popularity
+      artist {
+        id
+        name
+      }
+      trackFeatures(authToken: $authToken) {
+        key
+        tempo
+        time_signature
+        harmonicKeys {
+          name
+          pitchClass
+          mode
+        }
+        danceability
+        energy
+        valence
+      }
+    }
+  }
+`;
+
+function HomeV2Container() {
   function getHashParams() {
     var hashParams = {};
     var e,
@@ -23,15 +52,20 @@ function HomeV2Container() {
   const params = getHashParams();
   const token = params.access_token;
 
+  const { loading, error, data, refetch } = useQuery(GET_CURRENT_TRACK, {
+    variables: { authToken: token }
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
   return (
     <Page>
       {token && (
         <React.Fragment>
           <CurrentTrack>
-            {showNowPlaying && <NowPlaying token={token} />}
-            <button onClick={() => setNowPlaying(true)}>
-              Check Now Playing
-            </button>
+            {data && <NowPlaying currentTrack={data.currentTrack} />}
+            <button onClick={() => refetch()}>Check Now Playing</button>
           </CurrentTrack>
         </React.Fragment>
       )}
@@ -40,47 +74,6 @@ function HomeV2Container() {
 }
 
 export default HomeV2Container;
-
-// export default class HomeV2 extends Component {
-//   constructor() {
-//     super();
-//     const params = this.getHashParams();
-//     const token = params.access_token;
-//     this.state = {
-//       loggedIn: token ? true : false
-//     };
-//   }
-
-//   getHashParams() {
-//     var hashParams = {};
-//     var e,
-//       r = /([^&;=]+)=?([^&;]*)/g,
-//       q = window.location.hash.substring(1);
-//     e = r.exec(q);
-//     while (e) {
-//       hashParams[e[1]] = decodeURIComponent(e[2]);
-//       e = r.exec(q);
-//     }
-//     return hashParams;
-//   }
-
-//   render() {
-//     return (
-//       <Page>
-//         {this.state.loggedIn && (
-//           <React.Fragment>
-//             <CurrentTrack>
-//               <NowPlaying nowPlaying={this.state.nowPlaying} />
-//               <button onClick={() => console.log("graphql query")}>
-//                 Check Now Playing
-//               </button>
-//             </CurrentTrack>
-//           </React.Fragment>
-//         )}
-//       </Page>
-//     );
-//   }
-// }
 
 const Page = styled.div`
   display: grid;
