@@ -11,12 +11,13 @@ It is currently a work in progress.
 ```
 // clone the repository
 git clone git@github.com:jackbittiner/get-next-track.git
-// install auth-server dependencies
-cd auth-server
-npm i
-// install client dependencies
-cd ../client
-npm i
+
+// start graphql server
+cd graphql
+npm start
+
+// start client
+cd client
 npm start
 ```
 
