@@ -8,7 +8,11 @@ async function getTrackFeatures(id, authToken, datasource) {
   });
 
   return {
-    key: getKeyName(result.key, result.mode),
+    key: {
+      name: getKeyName(result.key, result.mode),
+      pitchClass: result.key,
+      mode: result.mode
+    },
     tempo: result.tempo,
     time_signature: result.time_signature,
     harmonicKeys: getHarmonicKeys(result.key, result.mode),

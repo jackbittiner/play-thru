@@ -10,7 +10,7 @@ export default function NowPlaying({ currentTrack }) {
         {currentTrack.trackFeatures && (
           <React.Fragment>
             <p>
-              Key - {currentTrack.trackFeatures.key} tempo ={" "}
+              Key - {currentTrack.trackFeatures.key.name} tempo ={" "}
               {currentTrack.trackFeatures.tempo} time signature ={" "}
               {currentTrack.trackFeatures.time_signature}
             </p>

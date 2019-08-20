@@ -47,7 +47,11 @@ const mockHarmonicKeys = [
 ];
 
 const expectedResult = {
-  key: "Gm",
+  key: {
+    mode: 0,
+    name: "Gm",
+    pitchClass: 7
+  },
   tempo: 126.889,
   time_signature: 4,
   harmonicKeys: mockHarmonicKeys,

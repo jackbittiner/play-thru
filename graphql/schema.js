@@ -20,7 +20,7 @@ const typeDefs = gql`
   }
 
   type TrackFeatures {
-    key: String!
+    key: Key!
     tempo: Float!
     time_signature: Int!
     harmonicKeys: [Key]!

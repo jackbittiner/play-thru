@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import NowPlaying from './display-components/now-playing';
+import NowPlaying from "./display-components/now-playing";
 
-import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 
 const GET_CURRENT_TRACK = gql`
   query currentTrack($authToken: String!) {
@@ -19,7 +19,11 @@ const GET_CURRENT_TRACK = gql`
         name
       }
       trackFeatures(authToken: $authToken) {
-        key
+        key {
+          name
+          pitchClass
+          mode
+        }
         tempo
         time_signature
         harmonicKeys {
