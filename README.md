@@ -12,13 +12,11 @@ It is currently a work in progress.
 // clone the repository
 git clone git@github.com:jackbittiner/get-next-track.git
 
-// start graphql server
-cd graphql
-npm start
+// install all dependencies
+yarn install
 
-// start client
-cd client
-npm start
+// start all packages
+yarn start
 ```
 
 Then login, play a song on your spotify and click get recommendations.
