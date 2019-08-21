@@ -8,14 +8,19 @@ It is currently a work in progress.
 
 # Run the Project
 
+
+Clone the repository
 ```
-// clone the repository
 git clone git@github.com:jackbittiner/get-next-track.git
+```
 
-// install all dependencies
+Install all dependencies
+```
 yarn install
+```
 
-// start all packages
+Start all packages
+```
 yarn start
 ```
 
