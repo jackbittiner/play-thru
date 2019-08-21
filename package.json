@@ -8,9 +8,14 @@
     "client": "yarn workspace client start",
     "auth-server": "yarn workspace auth-server start",
     "graphql": "yarn workspace graphql start",
-    "start": "concurrently --kill-others-on-fail \"yarn auth-server\" \"yarn graphql\"  \"yarn client\" "
+    "start": "concurrently --kill-others-on-fail \"yarn auth-server\" \"yarn graphql\"  \"yarn client\" ",
+    "test": "jest"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.5.5",
     "concurrently": "^4.1.2"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
   }
 }
