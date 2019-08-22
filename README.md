@@ -1,5 +1,7 @@
 # NextUp
 
+[![Build Status](https://travis-ci.org/jackbittiner/get-next-track.svg?branch=master)](https://travis-ci.org/jackbittiner/get-next-track)
+
 This is a song recommendation app for DJs.
 
 When you play a song on Spotify, this app will recommend songs with a similar BPM and also written in the same, or harmonic, keys.
@@ -8,18 +10,20 @@ It is currently a work in progress.
 
 # Run the Project
 
-
 Clone the repository
+
 ```
 git clone git@github.com:jackbittiner/get-next-track.git
 ```
 
 Install all dependencies
+
 ```
 yarn install
 ```
 
 Start all packages
+
 ```
 yarn start
 ```
@@ -31,7 +35,6 @@ Then login, play a song on your spotify and click get recommendations.
 ```
 yarn test
 ```
-
 
 ## What's left to come
 
