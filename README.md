@@ -26,6 +26,12 @@ yarn start
 
 Then login, play a song on your spotify and click get recommendations.
 
+# Run the Tests
+
+```
+yarn test
+```
+
 
 ## What's left to come
 
