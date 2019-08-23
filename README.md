@@ -35,6 +35,9 @@ Then login, play a song on your spotify and click get recommendations.
 ```
 yarn test
 ```
+# Travis Pipeline
+
+https://travis-ci.org/jackbittiner/get-next-track
 
 ## What's left to come
 
