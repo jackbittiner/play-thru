@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 import NowPlaying from "./display-components/now-playing";
+import ListsOfRecommendations from "./display-components/list-of-recommendations";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -70,6 +71,12 @@ function HomeV2Container() {
             {data && <NowPlaying currentTrack={data.currentTrack} />}
             <button onClick={() => refetch()}>Check Now Playing</button>
           </CurrentTrack>
+          {data && (
+            <ListsOfRecommendations
+              token={token}
+              currentTrack={data.currentTrack}
+            />
+          )}
         </React.Fragment>
       )}
     </Page>
@@ -82,11 +89,6 @@ const Page = styled.div`
   display: grid;
   text-align: center;
   height: 100%;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-gap: 1px 1px;
-  grid-template-areas: "CurrentTrack Sliders"
-  "Recommendations Recommendations";
 }
 `;
 

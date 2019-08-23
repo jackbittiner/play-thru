@@ -1,47 +1,58 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Trail } from "react-spring";
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 
-import { getKeyName } from "../camelot-wheel/camelot-wheel";
+const GET_RECOMMENDATIONS = gql`
+  query recommendedTracksByKey(
+    $authToken: String!
+    $currentTrack: CurrentTrackInput!
+  ) {
+    recommendedTracksByKey(authToken: $authToken, currentTrack: $currentTrack) {
+      key {
+        name
+        pitchClass
+        mode
+      }
+      recommendedTracks {
+        artist
+        id
+        name
+        uri
+      }
+    }
+  }
+`;
 
-export default function ListsOfRecommendations({
-  recommendedTracksByKey,
-  handleClick
-}) {
-  return (
-    Object.keys(recommendedTracksByKey).length > 0 &&
-    Object.values(recommendedTracksByKey).map((tracks, index) => {
-      return (
-        <RecommendationsByKey
-          key={index}
-          handleClick={handleClick}
-          tracks={tracks}
-        />
-      );
-    })
+export default function ListsOfRecommendations({ token, currentTrack }) {
+  const { loading, error, data } = useQuery(GET_RECOMMENDATIONS, {
+    variables: { authToken: token, currentTrack: currentTrack }
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  return Object.values(data.recommendedTracksByKey).map(
+    (tracksByKey, index) => {
+      return <RecommendationsByKey key={index} tracksByKey={tracksByKey} />;
+    }
   );
 }
 
-function RecommendationsByKey({ tracks, handleClick }) {
+function RecommendationsByKey({ tracksByKey }) {
   return (
     <div>
-      <h3>{getKeyName(tracks[0].key, tracks[0].mode)}</h3>
-      <Trail
-        from={{ opacity: 0 }}
-        to={{ opacity: 1 }}
-        keys={tracks.map(track => track.uri)}
-      >
-        {tracks.map(track => styles => (
-          <div style={styles}>
-            <ListItem>
-              <button onClick={() => handleClick(track.uri)}>
-                {track.name} by {track.artists[0].name}
-              </button>
-            </ListItem>
-          </div>
-        ))}
-      </Trail>
+      <h3>{tracksByKey.key.name}</h3>
+      {tracksByKey.recommendedTracks.map(track => (
+        <div key={track.id}>
+          <ListItem>
+            <button onClick={() => console.log(track.uri)}>
+              {track.name} by {track.artist}
+            </button>
+          </ListItem>
+        </div>
+      ))}
     </div>
   );
 }
