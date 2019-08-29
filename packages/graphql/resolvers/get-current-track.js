@@ -9,6 +9,7 @@ async function getCurrentTrack(authToken, datasource) {
     name: result.item.name,
     art: result.item.album.images[0].url,
     id: result.item.id,
+    uri: result.item.uri,
     artist: {
       id: result.item.artists[0].id,
       name: result.item.artists[0].name

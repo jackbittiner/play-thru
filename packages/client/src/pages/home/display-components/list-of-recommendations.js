@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useQuery } from "@apollo/react-hooks";
+import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 const GET_RECOMMENDATIONS = gql`
@@ -35,24 +35,55 @@ export default function ListsOfRecommendations({ token, currentTrack }) {
 
   return Object.values(data.recommendedTracksByKey).map(
     (tracksByKey, index) => {
-      return <RecommendationsByKey key={index} tracksByKey={tracksByKey} />;
+      return (
+        <RecommendationsByKey
+          key={index}
+          tracksByKey={tracksByKey}
+          token={token}
+        />
+      );
     }
   );
 }
 
-function RecommendationsByKey({ tracksByKey }) {
+function RecommendationsByKey({ token, tracksByKey }) {
   return (
     <div>
       <h3>{tracksByKey.key.name}</h3>
       {tracksByKey.recommendedTracks.map(track => (
-        <div key={track.id}>
-          <ListItem>
-            <button onClick={() => console.log(track.uri)}>
-              {track.name} by {track.artist}
-            </button>
-          </ListItem>
-        </div>
+        <RecommendedTrack track={track} token={token} />
       ))}
+    </div>
+  );
+}
+
+function RecommendedTrack({ track, token }) {
+  const playerInput = { uris: [track.uri] };
+
+  const CHANGE_TRACK = gql`
+    query playTrack($playerInput: PlayerInput, $authToken: String!) {
+      player(playerInput: $playerInput, authToken: $authToken) {
+        playing
+        start
+      }
+    }
+  `;
+
+  const [execute, { loading, error, data }] = useLazyQuery(CHANGE_TRACK, {
+    variables: { playerInput: playerInput, authToken: token }
+  });
+
+  return (
+    <div key={track.id}>
+      <ListItem>
+        <button
+          onClick={() => {
+            execute();
+          }}
+        >
+          {track.name} by {track.artist}
+        </button>
+      </ListItem>
     </div>
   );
 }

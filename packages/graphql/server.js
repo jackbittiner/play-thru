@@ -4,6 +4,9 @@ import typeDefs from "./schema";
 import getCurrentTrack from "./resolvers/get-current-track";
 import getTrackFeatures from "./resolvers/get-track-features";
 import getRecommendations from "./resolvers/get-recommendations";
+import playTrack from "./resolvers/play-track";
+import getDevices from "./resolvers/get-devices";
+// import getPlayer from "./resolvers/get-player";
 
 const resolvers = {
   Query: {
@@ -16,7 +19,12 @@ const resolvers = {
       root,
       { authToken, currentTrack },
       { dataSources: { spotifyDatasource } }
-    ) => getRecommendations(authToken, currentTrack, spotifyDatasource)
+    ) => getRecommendations(authToken, currentTrack, spotifyDatasource),
+    devices: (root, { authToken }, { dataSources: { spotifyDatasource } }) =>
+      getDevices(authToken, spotifyDatasource),
+    player: (root, { authToken, playerInput }) => {
+      return { playing: playerInput.uris, playerInput, authToken };
+    }
   },
   CurrentTrack: {
     trackFeatures: (
@@ -24,6 +32,15 @@ const resolvers = {
       { authToken },
       { dataSources: { spotifyDatasource } }
     ) => getTrackFeatures(id, authToken, spotifyDatasource)
+  },
+  Player: {
+    start: (
+      { playerInput, authToken },
+      _args,
+      { dataSources: { spotifyDatasource } }
+    ) => {
+      return playTrack(playerInput, authToken, spotifyDatasource);
+    }
   }
 };
 

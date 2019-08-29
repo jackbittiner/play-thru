@@ -16,6 +16,7 @@ const expectedResult = {
   name: "Alaska",
   art: "Image.PNG",
   id: "4HfLQJtVT1KiX1eVedDyTm",
+  uri: "spotify:track:4HfLQJtVT1KiX1eVedDyTm",
   artist: {
     id: "2gR0iQTVBPHDKiNn1Kq8HI",
     name: "Ebo Taylor"
