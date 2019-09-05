@@ -26,6 +26,7 @@ const resolvers = {
       getTrackFeatures(id, authToken, spotify)
   },
   Player: {
+    playing: ({ playerInput: { uris } }) => uris,
     start: (
       { playerInput, authToken },
       _args,
