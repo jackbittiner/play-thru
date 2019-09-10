@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { useLazyQuery, useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+import { useLazyQuery, useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
 const GET_RECOMMENDATIONS = gql`
   query recommendedTracksByKey(
@@ -69,7 +69,7 @@ function RecommendedTrack({ track, token }) {
     }
   `;
 
-  const [execute, { loading, error, data }] = useLazyQuery(CHANGE_TRACK, {
+  const [playNewTrack] = useLazyQuery(CHANGE_TRACK, {
     variables: { playerInput: playerInput, authToken: token }
   });
 
@@ -78,7 +78,7 @@ function RecommendedTrack({ track, token }) {
       <ListItem>
         <button
           onClick={() => {
-            execute();
+            playNewTrack();
           }}
         >
           {track.name} by {track.artist}
