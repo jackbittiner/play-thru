@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "get-next-track",
+  "name": "playthru",
   "workspaces": [
     "packages/*"
   ],
