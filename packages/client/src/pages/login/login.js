@@ -14,7 +14,13 @@ const scopes = [
 export default class Login extends Component {
   render() {
     return (
-      <LoginSection>
+      <Page>
+        <VinylSection>
+          <Vinyl src={require("./assets/orange-vinyl.png")} />
+          <Vinyl src={require("./assets/black-vinyl.png")} />
+          <Vinyl src={require("./assets/red-vinyl.png")} />
+        </VinylSection>
+        <Title>PLAYTHRU</Title>
         <LogInButton
           href={
             "https://accounts.spotify.com/authorize" +
@@ -28,34 +34,39 @@ export default class Login extends Component {
         >
           Login to Spotify
         </LogInButton>
-      </LoginSection>
+      </Page>
     );
   }
 }
 
-const LoginSection = styled.div`
-  position: fixed;
-  padding: 0;
-  margin: 0;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: teal;
+const Title = styled.h1`
+  color: #266179;
+  font-size: 50px;
+  padding-bottom: 32px;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+`;
+
+const VinylSection = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 3em;
+`;
+
+const Vinyl = styled.img`
+  height: 100px;
+  width: 100px;
+`;
+
+const Page = styled.div`
+  background: #f5f8f2;
+  text-align: center;
 `;
 
 const LogInButton = styled.a`
-  display: block;
-  position: relative;
   color: #fff;
   background-color: #1db954;
   text-decoration: none;
-  text-align: center;
   border-radius: 500px;
   padding: 18px 48px 16px;
-  border-width: 0;
   letter-spacing: 2px;
-  width: 50%;
-  margin: auto;
-  top: 15%;
 `;
