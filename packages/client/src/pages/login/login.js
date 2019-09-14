@@ -1,11 +1,33 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+export const authEndpoint = "https://accounts.spotify.com/authorize";
+const clientId = "0e58e71063554851870abd7ea374bd45";
+const redirectUri = "http://localhost:3000/home/#";
+const scopes = [
+  "user-read-private",
+  "user-read-email",
+  "user-read-playback-state",
+  "user-modify-playback-state"
+];
+
 export default class Login extends Component {
   render() {
     return (
       <LoginSection>
-        <LogInButton href="http://localhost:8888">Login to Spotify</LogInButton>
+        <LogInButton
+          href={
+            "https://accounts.spotify.com/authorize" +
+            "?response_type=token" +
+            "&client_id=" +
+            clientId +
+            (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
+            "&redirect_uri=" +
+            encodeURIComponent(redirectUri)
+          }
+        >
+          Login to Spotify
+        </LogInButton>
       </LoginSection>
     );
   }
