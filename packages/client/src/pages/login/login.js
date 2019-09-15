@@ -19,7 +19,9 @@ export default class Login extends Component {
           <Vinyl src={require("./assets/black-vinyl.png")} />
           <Vinyl src={require("./assets/red-vinyl.png")} />
         </VinylSection>
-        <Title>PLAYTHRU</Title>
+        <Title>
+          <Bigger>P</Bigger>LAY<Big>T</Big>HRU
+        </Title>
         <LogInButton
           href={
             "https://accounts.spotify.com/authorize" +
@@ -43,6 +45,14 @@ const Title = styled.h1`
   font-size: 50px;
   padding-bottom: 32px;
   font-family: "DomaineDisplayNarrow", Georgia, serif;
+`;
+
+const Big = styled.span`
+  font-size: 62.5px;
+`;
+
+const Bigger = styled.span`
+  font-size: 75px;
 `;
 
 const VinylSection = styled.div`
