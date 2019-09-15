@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-export const authEndpoint = "https://accounts.spotify.com/authorize";
 const clientId = "0e58e71063554851870abd7ea374bd45";
 const redirectUri = "http://localhost:3000/home/#";
 const scopes = [
@@ -43,7 +42,7 @@ const Title = styled.h1`
   color: #266179;
   font-size: 50px;
   padding-bottom: 32px;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: "DomaineDisplayNarrow", Georgia, serif;
 `;
 
 const VinylSection = styled.div`
