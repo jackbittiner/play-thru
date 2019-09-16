@@ -1,4 +1,4 @@
-# NextUp
+# PlayThru
 
 [![Build Status](https://travis-ci.org/jackbittiner/get-next-track.svg?branch=master)](https://travis-ci.org/jackbittiner/get-next-track)
 
@@ -28,7 +28,7 @@ Start all packages
 yarn start
 ```
 
-Then login, play a song on your spotify and click get recommendations.
+Then login, play a song on your spotify account and refresh.
 
 # Run the Tests
 
@@ -41,10 +41,10 @@ https://travis-ci.org/jackbittiner/get-next-track
 
 ## What's left to come
 
-A big refactor. This was quickly made just to get to proof of concept.
+Deploy the code to heroku. Currently just figuring out the best way to deploy a monorepo.
 
-We're currently working on implementing a GraphQl layer for the spotify web api so we can avoid having horrible chained REST calls.
-
-Then we want to add more features and finetune the ones we currently have.
+Finish the functionality of the app and improve the overall UX.
 
 Then I think a lick of paint wouldn't go amiss.
+
+Submit to spotify devloper showcase.
