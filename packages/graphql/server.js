@@ -1,12 +1,12 @@
-import { ApolloServer } from 'apollo-server';
-import SpotifyDatasource from './datasources/spotify-datasource';
-import typeDefs from './schema';
-import getCurrentTrack from './resolvers/get-current-track';
-import getTrackFeatures from './resolvers/get-track-features';
-import getRecommendations from './resolvers/get-recommendations';
-import playTrack from './resolvers/play-track';
-import getDevices from './resolvers/get-devices';
-import getPlayer from './resolvers/get-player';
+import { ApolloServer } from "apollo-server";
+import SpotifyDatasource from "./datasources/spotify-datasource";
+import typeDefs from "./schema";
+import getCurrentTrack from "./resolvers/get-current-track";
+import getTrackFeatures from "./resolvers/get-track-features";
+import getRecommendations from "./resolvers/get-recommendations";
+import playTrack from "./resolvers/play-track";
+import getDevices from "./resolvers/get-devices";
+import getPlayer from "./resolvers/get-player";
 
 const resolvers = {
   Query: {
@@ -45,6 +45,6 @@ const server = new ApolloServer({
   })
 });
 
-server.listen().then(({ url }) => {
+server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });
