@@ -1,12 +1,13 @@
-import { ApolloServer } from "apollo-server";
-import SpotifyDatasource from "./datasources/spotify-datasource";
-import typeDefs from "./schema";
-import getCurrentTrack from "./resolvers/get-current-track";
-import getTrackFeatures from "./resolvers/get-track-features";
-import getRecommendations from "./resolvers/get-recommendations";
-import playTrack from "./resolvers/play-track";
-import getDevices from "./resolvers/get-devices";
-import getPlayer from "./resolvers/get-player";
+import { ApolloServer } from 'apollo-server';
+import SpotifyDatasource from './datasources/spotify-datasource';
+import typeDefs from './schema';
+import getCurrentTrack from './resolvers/get-current-track';
+import getTrackFeatures from './resolvers/get-track-features';
+import getRecommendations from './resolvers/get-recommendations';
+import playTrack from './resolvers/play-track';
+import getDevices from './resolvers/get-devices';
+import getPlayer from './resolvers/get-player';
+import { getTopTracks, getFavourites } from './resolvers/get-favourites';
 
 const resolvers = {
   Query: {
@@ -19,7 +20,8 @@ const resolvers = {
     ) => getRecommendations(authToken, currentTrack, spotify),
     devices: (_root, { authToken }, { dataSources: { spotify } }) =>
       getDevices(authToken, spotify),
-    player: (_root, args) => getPlayer(args)
+    player: (_root, args) => getPlayer(args),
+    favourites: (_root, { authToken }) => getFavourites({ authToken })
   },
   CurrentTrack: {
     trackFeatures: ({ id }, { authToken }, { dataSources: { spotify } }) =>
@@ -34,6 +36,10 @@ const resolvers = {
     ) => {
       return playTrack(playerInput, authToken, spotify);
     }
+  },
+  Favourites: {
+    tracks: ({ authToken }, _args, { dataSources: { spotify } }) =>
+      getTopTracks(authToken, spotify)
   }
 };
 
