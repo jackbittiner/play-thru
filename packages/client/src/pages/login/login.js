@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 const clientId = "0e58e71063554851870abd7ea374bd45";
-const redirectUri = process.env.REDIRECTURI || "http://localhost:3000/home/#";
+const redirectUri =
+  process.env.REACT_APP_REDIRECTURI || "http://localhost:3000/home/#";
 const scopes = [
   "user-read-private",
   "user-read-email",

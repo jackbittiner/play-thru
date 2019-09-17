@@ -11,7 +11,7 @@ import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 const httpLink = createHttpLink({
-  uri: process.env.GRAPHQLURI || "http://localhost:4000"
+  uri: process.env.REACT_APP_GRAPHQLURI || "http://localhost:4000"
 });
 
 const client = new ApolloClient({
