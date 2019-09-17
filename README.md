@@ -1,12 +1,14 @@
 # PlayThru
 
-[![Build Status](https://travis-ci.org/jackbittiner/get-next-track.svg?branch=master)](https://travis-ci.org/jackbittiner/get-next-track)
+[![Build Status](https://travis-ci.org/jackbittiner/play-thru.svg?branch=master)](https://travis-ci.org/jackbittiner/play-thru)
 
 This is a song recommendation app for DJs.
 
 When you play a song on Spotify, this app will recommend songs with a similar BPM and also written in the same, or harmonic, keys.
 
 It is currently a work in progress.
+
+Play with it here: [PlayThru](https://play-thru.herokuapp.com/)
 
 # Run the Project
 
