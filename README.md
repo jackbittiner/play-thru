@@ -43,9 +43,9 @@ https://travis-ci.org/jackbittiner/get-next-track
 
 ## What's left to come
 
-Deploy the code to heroku. Currently just figuring out the best way to deploy a monorepo.
+Deploy code automatically at the end of travis build.
 
-Finish the functionality of the app and improve the overall UX.
+Have a search functionalilty for when you first go on the app.
 
 Then I think a lick of paint wouldn't go amiss.
 
