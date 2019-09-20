@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server';
+import { gql } from "apollo-server";
 
 const typeDefs = gql`
   type Query {
@@ -7,7 +7,7 @@ const typeDefs = gql`
       authToken: String!
       currentTrack: CurrentTrackInput!
     ): [RecommendedTracksByKey]
-    player(authToken: String!, playerInput: PlayerInput): Player
+    player(authToken: String!, playerInput: PlayerInput, device: String): Player
     devices(authToken: String!): [Device]
     favourites(authToken: String!): Favourites
   }

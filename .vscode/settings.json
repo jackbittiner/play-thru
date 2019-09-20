@@ -1,6 +1,4 @@
 {
-    "cSpell.words": [
-        "playthru"
-    ],
-    "editor.formatOnSave": true
+  "cSpell.words": ["danceability", "playthru", "refetch"],
+  "editor.formatOnSave": true
 }
