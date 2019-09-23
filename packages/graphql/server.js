@@ -1,13 +1,13 @@
-import { ApolloServer } from 'apollo-server';
-import SpotifyDatasource from './datasources/spotify-datasource';
-import typeDefs from './schema';
-import getCurrentTrack from './resolvers/get-current-track';
-import getTrackFeatures from './resolvers/get-track-features';
-import getRecommendations from './resolvers/get-recommendations';
-import playTrack from './resolvers/play-track';
-import getDevices from './resolvers/get-devices';
-import getPlayer from './resolvers/get-player';
-import { getTopTracks, getFavourites } from './resolvers/get-favourites';
+import { ApolloServer } from "apollo-server";
+import SpotifyDatasource from "./datasources/spotify-datasource";
+import typeDefs from "./schema";
+import getCurrentTrack from "./resolvers/get-current-track";
+import getTrackFeatures from "./resolvers/get-track-features";
+import getRecommendations from "./resolvers/get-recommendations";
+import playTrack from "./resolvers/play-track";
+import getDevices from "./resolvers/get-devices";
+import getPlayer from "./resolvers/get-player";
+import { getTopTracks, getFavourites } from "./resolvers/get-favourites";
 
 const resolvers = {
   Query: {
@@ -30,11 +30,11 @@ const resolvers = {
   Player: {
     playing: ({ playerInput: { uris } }) => uris,
     start: (
-      { playerInput, authToken },
+      { playerInput, authToken, device },
       _args,
       { dataSources: { spotify } }
     ) => {
-      return playTrack(playerInput, authToken, spotify);
+      return playTrack(playerInput, authToken, spotify, device);
     }
   },
   Favourites: {

@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { useLazyQuery, useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 
 const GET_RECOMMENDATIONS = gql`
   query recommendedTracksByKey(
@@ -57,12 +57,20 @@ function RecommendationsByKey({ token, tracksByKey }) {
   );
 }
 
-function RecommendedTrack({ track, token }) {
+export function RecommendedTrack({ track, token, currentDevice }) {
   const playerInput = { uris: [track.uri] };
-
+  const deviceId = currentDevice && currentDevice.id;
   const CHANGE_TRACK = gql`
-    query playTrack($playerInput: PlayerInput, $authToken: String!) {
-      player(playerInput: $playerInput, authToken: $authToken) {
+    query playTrack(
+      $playerInput: PlayerInput
+      $authToken: String!
+      $device: String
+    ) {
+      player(
+        playerInput: $playerInput
+        authToken: $authToken
+        device: $device
+      ) {
         playing
         start
       }
@@ -70,7 +78,7 @@ function RecommendedTrack({ track, token }) {
   `;
 
   const [playNewTrack] = useLazyQuery(CHANGE_TRACK, {
-    variables: { playerInput: playerInput, authToken: token }
+    variables: { playerInput: playerInput, authToken: token, device: deviceId }
   });
 
   return (

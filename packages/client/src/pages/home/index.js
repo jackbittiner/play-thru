@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styled from "styled-components";
 
 import NowPlaying from "./display-components/now-playing";
 import ListsOfRecommendations from "./display-components/list-of-recommendations";
+import TopTracks from "./display-components/top-tracks";
+import isEmpty from "lodash/isEmpty";
+import DeviceSelector from "./display-components/device-selector";
+import getHashParams from "./utils/get-hash-params";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -41,31 +45,23 @@ const GET_CURRENT_TRACK = gql`
 `;
 
 function HomeV2Container() {
-  function getHashParams() {
-    var hashParams = {};
-    var e,
-      r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.hash.substring(1);
-    e = r.exec(q);
-    while (e) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-      e = r.exec(q);
-    }
-    return hashParams;
-  }
   const params = getHashParams();
   const token = params.access_token;
 
-  const { loading, error, data, refetch } = useQuery(GET_CURRENT_TRACK, {
+  const [currentDevice, setCurrentDevice] = useState();
+  const { _loading, _error, data, refetch } = useQuery(GET_CURRENT_TRACK, {
     variables: { authToken: token }
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
   return (
     <Page>
-      {token && (
+      {isEmpty(data) && (
+        <React.Fragment>
+          <DeviceSelector token={token} setCurrentDevice={setCurrentDevice} />
+          <TopTracks token={token} currentDevice={currentDevice} />
+        </React.Fragment>
+      )}
+      {token && !isEmpty(data) && (
         <React.Fragment>
           <CurrentTrack>
             {data && <NowPlaying currentTrack={data.currentTrack} />}
