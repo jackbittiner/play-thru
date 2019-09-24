@@ -1,5 +1,5 @@
 async function playTrack(playerInput, authToken, spotifyDatasource, device) {
-  const deviceQueryParam = `?device_id=` + device;
+  const deviceQueryParam = device ? `?device_id=` + device : "";
 
   await spotifyDatasource.put(
     `me/player/play` + deviceQueryParam,
