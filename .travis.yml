@@ -10,3 +10,4 @@ before_install:
 deploy:
   provider: script
   script: bash deploy.sh
+  skip-cleanup: true
