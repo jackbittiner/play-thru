@@ -1,12 +1,13 @@
 language: node_js
 node_js:
-- 10.13.0
+  - 10.13.0
 cache:
   directories:
-  - node_modules
+    - node_modules
 before_install:
-- openssl aes-256-cbc -K $encrypted_a6430bf73811_key -iv $encrypted_a6430bf73811_iv
-  -in deploy.sh.enc -out deploy.sh -d
+  - openssl aes-256-cbc -K $encrypted_a6430bf73811_key -iv $encrypted_a6430bf73811_iv
+    -in login-to-heroku.sh.enc -out login-to-heroku.sh -d
+  - login-to-heroku.sh
 deploy:
   provider: script
   script: bash deploy.sh
