@@ -7,8 +7,8 @@ async function getRecommendations(authToken, currentTrack, datasource) {
         max_key: key.pitchClass,
         min_mode: key.mode,
         max_mode: key.mode,
-        min_tempo: currentTrack.trackFeatures.key.tempo - 10,
-        max_tempo: currentTrack.trackFeatures.key.tempo + 10,
+        min_tempo: currentTrack.trackFeatures.tempo - 10,
+        max_tempo: currentTrack.trackFeatures.tempo + 10,
         seed_tracks: [currentTrack.id]
       };
 
