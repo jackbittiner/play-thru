@@ -43,10 +43,14 @@ https://travis-ci.org/jackbittiner/get-next-track
 
 ## What's left to come
 
-Deploy code automatically at the end of travis build.
+Integrate spotify's SDK so that the browser can be a spotify client to play the choons.
 
 Have a search functionalilty for when you first go on the app.
 
+Play a new song at the beginning of a segment, at the end of the next segment of the current song. (This makes sense in my head)
+
 Then I think a lick of paint wouldn't go amiss.
+
+And some UI tests would be nice too.
 
 Submit to spotify devloper showcase.
