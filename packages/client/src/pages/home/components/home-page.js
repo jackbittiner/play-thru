@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 import styled from "styled-components";
 
-import NowPlaying from "./components/now-playing";
-import ListsOfRecommendations from "./components/list-of-recommendations";
-import TopTracks from "./components/top-tracks";
+import NowPlaying from "./now-playing";
+import ListsOfRecommendations from "./list-of-recommendations";
+import TopTracks from "./top-tracks";
 import isEmpty from "lodash/isEmpty";
-import DeviceSelector from "./components/device-selector";
+import DeviceSelector from "./device-selector";
 
 function HomePage({ data, token, refetch }) {
   const [currentDevice, setCurrentDevice] = useState();

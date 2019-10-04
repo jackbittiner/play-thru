@@ -1,7 +1,8 @@
 import React from "react";
-import getHashParams from "./utils/get-hash-params";
+import getHashParams from "../utils/get-hash-params";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import HomePage from "./home-page";
 
 const GET_CURRENT_TRACK = gql`
   query currentTrack($authToken: String!) {

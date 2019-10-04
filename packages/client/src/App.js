@@ -1,13 +1,13 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "./pages/login/login";
-import Home from "./pages/home/";
+import { HomePageContainer } from "./pages/home/";
 
 const Main = () => (
   <main>
     <Switch>
       <Route exact path="/" component={Login} />
-      <Route exact path="/home" component={Home} />
+      <Route exact path="/home" component={HomePageContainer} />
     </Switch>
   </main>
 );
