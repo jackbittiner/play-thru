@@ -57,9 +57,8 @@ function RecommendationsByKey({ token, tracksByKey }) {
   );
 }
 
-export function RecommendedTrack({ track, token, currentDevice }) {
+export function RecommendedTrack({ track, token, deviceId }) {
   const playerInput = { uris: [track.uri] };
-  const deviceId = currentDevice && currentDevice.id;
   const CHANGE_TRACK = gql`
     query playTrack(
       $playerInput: PlayerInput

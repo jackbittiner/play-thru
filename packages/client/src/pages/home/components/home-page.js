@@ -6,17 +6,13 @@ import NowPlaying from "./now-playing";
 import ListsOfRecommendations from "./list-of-recommendations";
 import TopTracks from "./top-tracks";
 import isEmpty from "lodash/isEmpty";
-import DeviceSelector from "./device-selector";
 
-function HomePage({ data, token, refetch }) {
-  const [currentDevice, setCurrentDevice] = useState();
-
+function HomePage({ data, token, refetch, deviceId }) {
   return (
     <Page>
       {isEmpty(data) && (
         <React.Fragment>
-          <DeviceSelector token={token} setCurrentDevice={setCurrentDevice} />
-          <TopTracks token={token} currentDevice={currentDevice} />
+          <TopTracks token={token} deviceId={deviceId} />
         </React.Fragment>
       )}
       {token && !isEmpty(data) && (

@@ -1,37 +1,37 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import styled from "styled-components";
 
-const clientId = '0e58e71063554851870abd7ea374bd45';
+const clientId = "0e58e71063554851870abd7ea374bd45";
 const redirectUri =
-  process.env.REACT_APP_REDIRECTURI || 'http://localhost:3000/home/#';
+  process.env.REACT_APP_REDIRECTURI || "http://localhost:3000/home/#";
 const scopes = [
-  'user-read-private',
-  'user-read-email',
-  'user-read-playback-state',
-  'user-modify-playback-state',
-  'user-top-read'
+  "user-read-private",
+  "user-read-email",
+  "user-read-playback-state",
+  "user-modify-playback-state",
+  "user-top-read",
+  "streaming"
 ];
-
 export default class Login extends Component {
   render() {
     return (
       <Page>
         <VinylSection>
-          <Vinyl src={require('./assets/orange-vinyl.png')} />
-          <Vinyl src={require('./assets/black-vinyl.png')} />
-          <Vinyl src={require('./assets/red-vinyl.png')} />
+          <Vinyl src={require("./assets/orange-vinyl.png")} />
+          <Vinyl src={require("./assets/black-vinyl.png")} />
+          <Vinyl src={require("./assets/red-vinyl.png")} />
         </VinylSection>
         <Title>
           <Bigger>P</Bigger>LAY<Big>T</Big>HRU
         </Title>
         <LogInButton
           href={
-            'https://accounts.spotify.com/authorize' +
-            '?response_type=token' +
-            '&client_id=' +
+            "https://accounts.spotify.com/authorize" +
+            "?response_type=token" +
+            "&client_id=" +
             clientId +
-            (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-            '&redirect_uri=' +
+            (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
+            "&redirect_uri=" +
             encodeURIComponent(redirectUri)
           }
         >
@@ -46,7 +46,7 @@ const Title = styled.h1`
   color: #266179;
   font-size: 50px;
   padding-bottom: 32px;
-  font-family: 'DomaineDisplayNarrow', Georgia, serif;
+  font-family: "DomaineDisplayNarrow", Georgia, serif;
 `;
 
 const Big = styled.span`

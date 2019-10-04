@@ -18,7 +18,7 @@ const GET_TOP_TRACKS = gql`
   }
 `;
 
-export default function TopTracks({ token, currentDevice }) {
+export default function TopTracks({ token, deviceId }) {
   const { loading, error, data } = useQuery(GET_TOP_TRACKS, {
     variables: { authToken: token }
   });
@@ -31,7 +31,7 @@ export default function TopTracks({ token, currentDevice }) {
       <RecommendedTrack
         track={track}
         token={token}
-        currentDevice={currentDevice}
+        deviceId={deviceId}
         key={track.id}
       />
     ));
