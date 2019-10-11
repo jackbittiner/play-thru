@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import getHashParams from "../utils/get-hash-params";
-import { useQuery } from "@apollo/react-hooks";
+import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import HomePage from "./home-page";
 import Script from "react-load-script";
 
 const GET_CURRENT_TRACK = gql`
-  query currentTrack($authToken: String!) {
-    currentTrack(authToken: $authToken) {
+  query track($authToken: String!, $trackId: String!) {
+    track(authToken: $authToken, trackId: $trackId) {
       name
       art
       id
@@ -66,8 +66,13 @@ function HomePageContainer() {
       });
 
       player.addListener("player_state_changed", state => {
-        console.log(state);
-        refetch();
+        console.log(state.track_window.current_track.id);
+        getCurrentTrack({
+          variables: {
+            authToken: token,
+            trackId: state.track_window.current_track.id
+          }
+        });
       });
 
       player.addListener("ready", ({ device_id }) => {
@@ -83,9 +88,7 @@ function HomePageContainer() {
     };
   };
 
-  const { _loading, _error, data, refetch } = useQuery(GET_CURRENT_TRACK, {
-    variables: { authToken: token }
-  });
+  const [getCurrentTrack, { data, refetch }] = useLazyQuery(GET_CURRENT_TRACK);
 
   return (
     <>

@@ -18,14 +18,11 @@ function HomePage({ data, token, refetch, deviceId }) {
       {token && !isEmpty(data) && (
         <React.Fragment>
           <CurrentTrack>
-            {data && <NowPlaying currentTrack={data.currentTrack} />}
+            {data && <NowPlaying currentTrack={data.track} />}
             <button onClick={() => refetch()}>Check Now Playing</button>
           </CurrentTrack>
           {data && (
-            <ListsOfRecommendations
-              token={token}
-              currentTrack={data.currentTrack}
-            />
+            <ListsOfRecommendations token={token} currentTrack={data.track} />
           )}
         </React.Fragment>
       )}
