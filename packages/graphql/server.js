@@ -1,7 +1,6 @@
 import { ApolloServer } from "apollo-server";
 import SpotifyDatasource from "./datasources/spotify-datasource";
 import typeDefs from "./schema";
-import getCurrentTrack from "./resolvers/get-current-track";
 import getTrackFeatures from "./resolvers/get-track-features";
 import getRecommendations from "./resolvers/get-recommendations";
 import playTrack from "./resolvers/play-track";
@@ -12,8 +11,6 @@ import { getTopTracks, getFavourites } from "./resolvers/get-favourites";
 
 const resolvers = {
   Query: {
-    currentTrack: (_root, { authToken }, { dataSources: { spotify } }) =>
-      getCurrentTrack(authToken, spotify),
     track: (_root, { authToken, trackId }, { dataSources: { spotify } }) =>
       getTrackById(authToken, trackId, spotify),
     recommendedTracksByKey: (
@@ -25,10 +22,6 @@ const resolvers = {
       getDevices(authToken, spotify),
     player: (_root, args) => getPlayer(args),
     favourites: (_root, { authToken }) => getFavourites({ authToken })
-  },
-  CurrentTrack: {
-    trackFeatures: ({ id }, { authToken }, { dataSources: { spotify } }) =>
-      getTrackFeatures(id, authToken, spotify)
   },
   Track: {
     trackFeatures: ({ id }, { authToken }, { dataSources: { spotify } }) =>
