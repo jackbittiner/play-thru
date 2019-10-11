@@ -20,9 +20,11 @@ function HomePage({ data, token, deviceId }) {
           <CurrentTrack>
             {data && <NowPlaying currentTrack={data.track} />}
           </CurrentTrack>
-          {data && (
-            <ListsOfRecommendations token={token} currentTrack={data.track} />
-          )}
+          <Recommendations>
+            {data && (
+              <ListsOfRecommendations token={token} currentTrack={data.track} />
+            )}
+          </Recommendations>
         </React.Fragment>
       )}
     </Page>
@@ -38,6 +40,14 @@ const Page = styled.div`
 }
 `;
 
-const CurrentTrack = styled.div`
-  grid-area: CurrentTrack;
+const CurrentTrack = styled.div``;
+
+const Recommendations = styled.div`
+  display: grid;
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 `;
