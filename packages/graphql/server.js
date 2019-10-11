@@ -4,7 +4,6 @@ import typeDefs from "./schema";
 import getTrackFeatures from "./resolvers/get-track-features";
 import getRecommendations from "./resolvers/get-recommendations";
 import playTrack from "./resolvers/play-track";
-import getDevices from "./resolvers/get-devices";
 import getPlayer from "./resolvers/get-player";
 import getTrackById from "./resolvers/get-track-by-id";
 import { getTopTracks, getFavourites } from "./resolvers/get-favourites";
@@ -18,8 +17,6 @@ const resolvers = {
       { authToken, currentTrack },
       { dataSources: { spotify } }
     ) => getRecommendations(authToken, currentTrack, spotify),
-    devices: (_root, { authToken }, { dataSources: { spotify } }) =>
-      getDevices(authToken, spotify),
     player: (_root, args) => getPlayer(args),
     favourites: (_root, { authToken }) => getFavourites({ authToken })
   },

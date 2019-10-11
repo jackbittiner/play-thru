@@ -8,7 +8,6 @@ const typeDefs = gql`
       currentTrack: CurrentTrackInput!
     ): [RecommendedTracksByKey]
     player(authToken: String!, playerInput: PlayerInput, device: String): Player
-    devices(authToken: String!): [Device]
     favourites(authToken: String!): Favourites
   }
 
@@ -103,16 +102,6 @@ const typeDefs = gql`
   type Player {
     playing: [String]
     start: String
-  }
-
-  type Device {
-    id: String!
-    is_active: Boolean
-    is_private_session: Boolean
-    is_restricted: Boolean
-    name: String
-    type: String
-    volume_percent: Int
   }
 `;
 
