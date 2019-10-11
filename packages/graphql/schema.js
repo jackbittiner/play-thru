@@ -3,6 +3,7 @@ import { gql } from "apollo-server";
 const typeDefs = gql`
   type Query {
     currentTrack(authToken: String!): CurrentTrack
+    track(authToken: String!, trackId: String!): Track
     recommendedTracksByKey(
       authToken: String!
       currentTrack: CurrentTrackInput!
@@ -18,6 +19,16 @@ const typeDefs = gql`
   }
 
   type CurrentTrack {
+    name: String!
+    art: String
+    id: String!
+    uri: String!
+    artist: Artist!
+    popularity: Float!
+    trackFeatures(authToken: String!): TrackFeatures!
+  }
+
+  type Track {
     name: String!
     art: String
     id: String!
