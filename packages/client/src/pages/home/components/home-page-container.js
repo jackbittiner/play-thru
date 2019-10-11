@@ -5,7 +5,7 @@ import { gql } from "apollo-boost";
 import HomePage from "./home-page";
 import Script from "react-load-script";
 
-const GET_CURRENT_TRACK = gql`
+const GET_TRACK = gql`
   query track($authToken: String!, $trackId: String!) {
     track(authToken: $authToken, trackId: $trackId) {
       name
@@ -88,7 +88,7 @@ function HomePageContainer() {
     };
   };
 
-  const [getCurrentTrack, { data, refetch }] = useLazyQuery(GET_CURRENT_TRACK);
+  const [getCurrentTrack, { data }] = useLazyQuery(GET_TRACK);
 
   return (
     <>
@@ -96,12 +96,7 @@ function HomePageContainer() {
         url="https://sdk.scdn.co/spotify-player.js"
         onLoad={() => handleScriptLoad()}
       />
-      <HomePage
-        data={data}
-        refetch={refetch}
-        token={token}
-        deviceId={deviceId}
-      />
+      <HomePage data={data} token={token} deviceId={deviceId} />
     </>
   );
 }

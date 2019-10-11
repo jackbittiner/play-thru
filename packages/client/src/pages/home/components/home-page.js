@@ -7,7 +7,7 @@ import ListsOfRecommendations from "./list-of-recommendations";
 import TopTracks from "./top-tracks";
 import isEmpty from "lodash/isEmpty";
 
-function HomePage({ data, token, refetch, deviceId }) {
+function HomePage({ data, token, deviceId }) {
   return (
     <Page>
       {isEmpty(data) && (
@@ -19,7 +19,6 @@ function HomePage({ data, token, refetch, deviceId }) {
         <React.Fragment>
           <CurrentTrack>
             {data && <NowPlaying currentTrack={data.track} />}
-            <button onClick={() => refetch()}>Check Now Playing</button>
           </CurrentTrack>
           {data && (
             <ListsOfRecommendations token={token} currentTrack={data.track} />
