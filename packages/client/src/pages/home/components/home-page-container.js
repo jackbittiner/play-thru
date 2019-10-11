@@ -67,6 +67,7 @@ function HomePageContainer() {
 
       player.addListener("player_state_changed", state => {
         console.log(state);
+        refetch();
       });
 
       player.addListener("ready", ({ device_id }) => {
