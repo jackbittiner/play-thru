@@ -5,8 +5,7 @@ import { RecommendedTrack } from "./list-of-recommendations";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
-import ScaleLoader from "react-spinners/ScaleLoader";
-import { css } from "@emotion/core";
+import LoadingIndicator from "./loading-indicator";
 import styled from "styled-components";
 
 const GET_TOP_TRACKS = gql`
@@ -29,14 +28,7 @@ export default function TopTracks({ token, deviceId }) {
   if (loading)
     return (
       <Page>
-        <ScaleLoader
-          css={cssOverride}
-          sizeUnit={"px"}
-          height={50}
-          width={10}
-          radius={5}
-          color={"#57E5DE"}
-        />
+        <LoadingIndicator />
       </Page>
     );
   if (error) return <p>Error ---- Top Tracks</p>;
@@ -57,9 +49,4 @@ const Page = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-`;
-
-const cssOverride = css`
-  display: block;
-  margin: auto;
 `;
