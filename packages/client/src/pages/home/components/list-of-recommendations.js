@@ -51,7 +51,7 @@ function RecommendationsByKey({ token, tracksByKey }) {
     <div>
       <h3>{tracksByKey.key.name}</h3>
       {tracksByKey.recommendedTracks.map(track => (
-        <RecommendedTrack track={track} token={token} />
+        <RecommendedTrack track={track} token={token} key={track.uri} />
       ))}
     </div>
   );
