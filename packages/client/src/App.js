@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Login from "./pages/login/login";
+import Login from "./pages/login/";
 import { HomePageContainer } from "./pages/home/";
 
 const Main = () => (
