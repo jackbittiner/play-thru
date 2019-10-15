@@ -9,6 +9,7 @@ const typeDefs = gql`
     ): [RecommendedTracksByKey]
     player(authToken: String!, playerInput: PlayerInput, device: String): Player
     favourites(authToken: String!): Favourites
+    searchResults(authToken: String!, query: String!): [SearchTrack]!
   }
 
   type Favourites {
@@ -83,6 +84,14 @@ const typeDefs = gql`
   }
 
   type RecommendedTrack {
+    artist: String!
+    id: String!
+    name: String!
+    uri: String!
+    art: String!
+  }
+
+  type SearchTrack {
     artist: String!
     id: String!
     name: String!

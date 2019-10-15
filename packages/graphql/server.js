@@ -7,6 +7,7 @@ import playTrack from "./resolvers/play-track";
 import getPlayer from "./resolvers/get-player";
 import getTrackById from "./resolvers/get-track-by-id";
 import { getTopTracks, getFavourites } from "./resolvers/get-favourites";
+import getSearchResults from "./resolvers/get-search-results";
 
 const resolvers = {
   Query: {
@@ -18,7 +19,12 @@ const resolvers = {
       { dataSources: { spotify } }
     ) => getRecommendations(authToken, currentTrack, spotify),
     player: (_root, args) => getPlayer(args),
-    favourites: (_root, { authToken }) => getFavourites({ authToken })
+    favourites: (_root, { authToken }) => getFavourites({ authToken }),
+    searchResults: (
+      _root,
+      { authToken, query },
+      { dataSources: { spotify } }
+    ) => getSearchResults(authToken, query, spotify)
   },
   Track: {
     trackFeatures: ({ id }, { authToken }, { dataSources: { spotify } }) =>
