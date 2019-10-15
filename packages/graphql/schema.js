@@ -88,7 +88,6 @@ const typeDefs = gql`
     id: String!
     name: String!
     uri: String!
-    art: String!
   }
 
   type SearchTrack {
@@ -96,6 +95,7 @@ const typeDefs = gql`
     id: String!
     name: String!
     uri: String!
+    art: String!
   }
 
   input PlayerInput {
