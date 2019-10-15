@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Search from "./search";
 import LoadingIndicator from "../loading-indicator";
 import { gql } from "apollo-boost";
@@ -23,6 +23,8 @@ const SearchContainer = ({ authToken, deviceId }) => {
     SEARCH_QUERY
   );
 
+  const [searchBarText, setSearchBarText] = useState("");
+
   if (loading)
     return (
       <Page>
@@ -37,6 +39,8 @@ const SearchContainer = ({ authToken, deviceId }) => {
       data={data}
       authToken={authToken}
       deviceId={deviceId}
+      searchBarText={searchBarText}
+      setSearchBarText={setSearchBarText}
     />
   );
 };

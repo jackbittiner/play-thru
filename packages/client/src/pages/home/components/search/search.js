@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { debounce } from "lodash";
 import { RecommendedTrack } from "../list-of-recommendations";
 
 import styled from "styled-components";
 
-const Search = ({ getSearchResults, data, authToken, deviceId }) => {
+const Search = ({
+  getSearchResults,
+  data,
+  authToken,
+  deviceId,
+  searchBarText,
+  setSearchBarText
+}) => {
   const debouncedInputHandler = debounce(e => {
+    setSearchBarText(e.target.value);
     getSearchResults({
       variables: {
         authToken: authToken,
@@ -28,12 +36,14 @@ const Search = ({ getSearchResults, data, authToken, deviceId }) => {
   return (
     <>
       <StyledInput
+        autoFocus
         onChange={e => {
           e.persist();
           debouncedInputHandler(e);
         }}
         type="text"
         placeholder="Pick a bangin' song to start your set..."
+        defaultValue={searchBarText}
       />
       {tracks}
     </>
