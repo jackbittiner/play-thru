@@ -10,12 +10,38 @@ It is currently a work in progress.
 
 Play with it here: [PlayThru](https://play-thru.herokuapp.com/)
 
-# Run the Project
+### Usage
+
+#### Prerequisites
+
+Acess to a spotify premium account
+
+#### Instructions
+
+1.  Login to Spotify via Play Thru
+2.  Ensure spotify is connected to the Play Thru app (see image below)
+3.  Select a song using Play Thru and it will play the song and make suggestions on the next song
+
+![connected-device](./readme-assets/connected-device.png)
+
+# Contributing
+
+## Open Tasks
+
+Can be found [here](https://github.com/jackbittiner/play-thru/projects/1)
+
+## Run the Project
+
+#### Prerequesites
+
+`node v10.13.0`
+
+#### Instructions
 
 Clone the repository
 
 ```
-git clone git@github.com:jackbittiner/get-next-track.git
+git clone git@github.com:jackbittiner/play-thru.git
 ```
 
 Install all dependencies
@@ -30,13 +56,15 @@ Start all packages
 yarn start
 ```
 
-Then login, play a song, and see what to play next.
-
-# Run the Tests
+## Run the Tests
 
 ```
 yarn test
 ```
+
+## Travis Pipeline
+
+https://travis-ci.org/jackbittiner/play-thru
 
 # How does it work?
 
@@ -63,18 +91,16 @@ Now what is going on here?
 
 We use these rules to request recommendations from Spotify in these keys (and in a similar tempo to the track, of course)
 
-# Travis Pipeline
-
-https://travis-ci.org/jackbittiner/get-next-track
-
 ## What's left to come
 
-Have a search functionalilty for when you first go on the app.
+- Have a search functionalilty for when you first go on the app.
 
-Play the new song at the beginning of a section, at the end of the next section of the current song. (This makes sense in my head)
+- Play the new song at the beginning of a section, at the end of the next section of the current song. (This makes sense in my head)
 
-Then I think a lick of paint wouldn't go amiss.
+- Then I think a lick of paint wouldn't go amiss.
 
-And some UI tests would be nice too.
+- And some UI tests would be nice too.
 
-Submit to spotify devloper showcase.
+- Submit to spotify devloper showcase.
+
+If you would like to follow the progress in more detail, the project board can be found [here](https://github.com/jackbittiner/play-thru/projects/1)
