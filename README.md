@@ -8,7 +8,7 @@ This app is trying to solve that problem. It will recommend songs to you in a si
 
 It is currently a work in progress.
 
-Play with it here: [PlayThru](https://play-thru.herokuapp.com/)
+Play with the live app here: [PlayThru](https://play-thru.herokuapp.com/)
 
 ### Usage
 
@@ -18,55 +18,13 @@ Acess to a spotify premium account
 
 #### Instructions
 
-1.  Login to Spotify via Play Thru
-2.  Ensure spotify is connected to the Play Thru app (see image below)
-3.  Select a song using Play Thru and it will play the song and make suggestions on the next song
+1.  Login to Spotify via PlayThru
+2.  Ensure spotify is connected to the PlayThru app (see image below)
+3.  Select a song using PlayThru and it will play the song and make suggestions on the next song
 
 ![connected-device](./readme-assets/connected-device.png)
 
-# Contributing
-
-## Open Tasks
-
-Can be found [here](https://github.com/jackbittiner/play-thru/projects/1)
-
-## Run the Project
-
-#### Prerequesites
-
-`node v10.13.0`
-
-#### Instructions
-
-Clone the repository
-
-```
-git clone git@github.com:jackbittiner/play-thru.git
-```
-
-Install all dependencies
-
-```
-yarn install
-```
-
-Start all packages
-
-```
-yarn start
-```
-
-## Run the Tests
-
-```
-yarn test
-```
-
-## Travis Pipeline
-
-https://travis-ci.org/jackbittiner/play-thru
-
-# How does it work?
+## How does it work?
 
 We use the spotify API to get the track features for a song. The most important information we use is the tempo, the key and the mode.
 
@@ -78,7 +36,7 @@ We then ask Spotify for a list of recommendations based on this information.
 
 This is where the Camelot Wheel comes in.
 
-## The Camelot Wheel
+### The Camelot Wheel
 
 ![camelot-wheel](./readme-assets/camelot-wheel.jpg)
 
@@ -104,3 +62,45 @@ We use these rules to request recommendations from Spotify in these keys (and in
 - Submit to spotify devloper showcase.
 
 If you would like to follow the progress in more detail, the project board can be found [here](https://github.com/jackbittiner/play-thru/projects/1)
+
+## Contributing
+
+### Open Tasks
+
+Can be found [here](https://github.com/jackbittiner/play-thru/projects/1)
+
+### Run the Project
+
+#### Prerequisites
+
+`node v10.13.0`
+
+#### Instructions
+
+Clone the repository
+
+```
+git clone git@github.com:jackbittiner/play-thru.git
+```
+
+Install all dependencies
+
+```
+yarn install
+```
+
+Start all packages
+
+```
+yarn start
+```
+
+### Run the Tests
+
+```
+yarn test
+```
+
+### Travis Pipeline
+
+https://travis-ci.org/jackbittiner/play-thru
