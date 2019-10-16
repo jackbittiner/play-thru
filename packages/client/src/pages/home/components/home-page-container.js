@@ -6,8 +6,8 @@ import HomePage from "./home-page";
 import Script from "react-load-script";
 
 const GET_TRACK = gql`
-  query track($authToken: String!, $trackId: String!) {
-    track(authToken: $authToken, trackId: $trackId) {
+  query currentTrack($authToken: String!, $trackId: String!) {
+    currentTrack(authToken: $authToken, trackId: $trackId) {
       name
       art
       id
@@ -29,9 +29,6 @@ const GET_TRACK = gql`
           pitchClass
           mode
         }
-        danceability
-        energy
-        valence
       }
     }
   }

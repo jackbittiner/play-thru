@@ -15,10 +15,7 @@ async function getTrackFeatures(id, authToken, datasource) {
     },
     tempo: result.tempo,
     time_signature: result.time_signature,
-    harmonicKeys: getHarmonicKeys(result.key, result.mode),
-    danceability: result.danceability,
-    energy: result.energy,
-    valence: result.valence
+    harmonicKeys: getHarmonicKeys(result.key, result.mode)
   };
 }
 

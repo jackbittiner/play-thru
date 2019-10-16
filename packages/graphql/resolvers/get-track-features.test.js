@@ -54,10 +54,7 @@ const expectedResult = {
   },
   tempo: 126.889,
   time_signature: 4,
-  harmonicKeys: mockHarmonicKeys,
-  danceability: 0.882,
-  energy: 0.767,
-  valence: 0.968
+  harmonicKeys: mockHarmonicKeys
 };
 
 const spotifyApiResult = {

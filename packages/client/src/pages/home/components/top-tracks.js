@@ -16,6 +16,7 @@ const GET_TOP_TRACKS = gql`
         name
         uri
         artist
+        art
       }
     }
   }

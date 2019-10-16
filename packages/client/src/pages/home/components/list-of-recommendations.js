@@ -20,6 +20,7 @@ const GET_RECOMMENDATIONS = gql`
         id
         name
         uri
+        art
       }
     }
   }

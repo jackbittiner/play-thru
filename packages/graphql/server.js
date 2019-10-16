@@ -11,8 +11,11 @@ import getSearchResults from "./resolvers/get-search-results";
 
 const resolvers = {
   Query: {
-    track: (_root, { authToken, trackId }, { dataSources: { spotify } }) =>
-      getTrackById(authToken, trackId, spotify),
+    currentTrack: (
+      _root,
+      { authToken, trackId },
+      { dataSources: { spotify } }
+    ) => getTrackById(authToken, trackId, spotify),
     recommendedTracksByKey: (
       _root,
       { authToken, currentTrack },
@@ -26,7 +29,7 @@ const resolvers = {
       { dataSources: { spotify } }
     ) => getSearchResults(authToken, query, spotify)
   },
-  Track: {
+  CurrentTrack: {
     trackFeatures: ({ id }, { authToken }, { dataSources: { spotify } }) =>
       getTrackFeatures(id, authToken, spotify)
   },

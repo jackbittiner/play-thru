@@ -23,7 +23,8 @@ async function getRecommendations(authToken, currentTrack, datasource) {
           artist: track.artists[0].name,
           id: track.id,
           name: track.name,
-          uri: track.uri
+          uri: track.uri,
+          art: track.album.images[0].url
         };
       });
 

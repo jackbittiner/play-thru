@@ -2,22 +2,22 @@ import { gql } from "apollo-server";
 
 const typeDefs = gql`
   type Query {
-    track(authToken: String!, trackId: String!): Track
+    currentTrack(authToken: String!, trackId: String!): CurrentTrack!
     recommendedTracksByKey(
       authToken: String!
       currentTrack: CurrentTrackInput!
     ): [RecommendedTracksByKey]
     player(authToken: String!, playerInput: PlayerInput, device: String): Player
     favourites(authToken: String!): Favourites
-    searchResults(authToken: String!, query: String!): [SearchTrack]!
+    searchResults(authToken: String!, query: String!): [Track]!
   }
 
   type Favourites {
     artists: [Artist]!
-    tracks: [RecommendedTrack]!
+    tracks: [Track]!
   }
 
-  type Track {
+  type CurrentTrack {
     name: String!
     art: String
     id: String!
@@ -51,9 +51,6 @@ const typeDefs = gql`
     tempo: Float!
     time_signature: Int!
     harmonicKeys: [Key]!
-    danceability: Float!
-    energy: Float!
-    valence: Float!
   }
 
   input TrackFeaturesInput {
@@ -61,9 +58,6 @@ const typeDefs = gql`
     tempo: Float!
     time_signature: Int!
     harmonicKeys: [KeyInput]!
-    danceability: Float!
-    energy: Float!
-    valence: Float!
   }
 
   type Key {
@@ -80,17 +74,10 @@ const typeDefs = gql`
 
   type RecommendedTracksByKey {
     key: Key!
-    recommendedTracks: [RecommendedTrack]!
+    recommendedTracks: [Track]!
   }
 
-  type RecommendedTrack {
-    artist: String!
-    id: String!
-    name: String!
-    uri: String!
-  }
-
-  type SearchTrack {
+  type Track {
     artist: String!
     id: String!
     name: String!

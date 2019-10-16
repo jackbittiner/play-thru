@@ -22,7 +22,8 @@ const expectedResult = [
         artist: "Ebo Taylor",
         id: "5A7eooPKJHtr0UJmatjH4a",
         name: "Another Brick in the Wall, Pt. 3",
-        uri: "spotify:track:5A7eooPKJHtr0UJmatjH4a"
+        uri: "spotify:track:5A7eooPKJHtr0UJmatjH4a",
+        art: "something.png"
       }
     ]
   },
@@ -33,7 +34,8 @@ const expectedResult = [
         artist: "Ebo Taylor",
         id: "5A7eooPKJHtr0UJmatjH4a",
         name: "Another Brick in the Wall, Pt. 3",
-        uri: "spotify:track:5A7eooPKJHtr0UJmatjH4a"
+        uri: "spotify:track:5A7eooPKJHtr0UJmatjH4a",
+        art: "something.png"
       }
     ]
   },
@@ -44,7 +46,8 @@ const expectedResult = [
         artist: "Ebo Taylor",
         id: "5A7eooPKJHtr0UJmatjH4a",
         name: "Another Brick in the Wall, Pt. 3",
-        uri: "spotify:track:5A7eooPKJHtr0UJmatjH4a"
+        uri: "spotify:track:5A7eooPKJHtr0UJmatjH4a",
+        art: "something.png"
       }
     ]
   },
@@ -55,7 +58,8 @@ const expectedResult = [
         artist: "Ebo Taylor",
         id: "5A7eooPKJHtr0UJmatjH4a",
         name: "Another Brick in the Wall, Pt. 3",
-        uri: "spotify:track:5A7eooPKJHtr0UJmatjH4a"
+        uri: "spotify:track:5A7eooPKJHtr0UJmatjH4a",
+        art: "something.png"
       }
     ]
   }
@@ -104,6 +108,9 @@ const artist = {
 const spotifyApiResult = {
   tracks: [
     {
+      album: {
+        images: [{ url: "something.png" }]
+      },
       artists: [artist],
       disc_number: 1,
       duration_ms: 74411,

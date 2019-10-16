@@ -28,10 +28,12 @@ function HomePage({ data, deviceId }) {
       {!isEmpty(data) && (
         <React.Fragment>
           <CurrentTrack>
-            {data && <NowPlaying currentTrack={data.track} />}
+            {data && <NowPlaying currentTrack={data.currentTrack} />}
           </CurrentTrack>
           <Recommendations>
-            {data && <ListsOfRecommendations currentTrack={data.track} />}
+            {data && (
+              <ListsOfRecommendations currentTrack={data.currentTrack} />
+            )}
           </Recommendations>
         </React.Fragment>
       )}

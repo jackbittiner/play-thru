@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { debounce } from "lodash";
 import { RecommendedTrack } from "../list-of-recommendations";
 
