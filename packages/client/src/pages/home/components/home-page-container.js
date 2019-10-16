@@ -50,6 +50,10 @@ function HomePageContainer() {
 
   const authToken = sessionStorage.getItem("accessToken");
 
+  if (!authToken) {
+    window.location.href = "/";
+  }
+
   const handleScriptLoad = () => {
     window.onSpotifyWebPlaybackSDKReady = () => {
       const player = new window.Spotify.Player({
