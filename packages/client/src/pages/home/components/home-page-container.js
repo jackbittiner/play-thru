@@ -43,7 +43,7 @@ function HomePageContainer() {
 
   if (token) {
     sessionStorage.setItem("accessToken", params.access_token);
-    window.location.href = "/home";
+    window.history.replaceState({}, document.title, "/home");
   }
 
   const [deviceId, setDevice] = useState(null);
