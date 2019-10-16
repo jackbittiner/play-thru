@@ -1,6 +1,6 @@
 import React from "react";
 import { debounce } from "lodash";
-import { RecommendedTrack } from "../list-of-recommendations";
+import Track from "../track";
 
 import styled from "styled-components";
 
@@ -25,7 +25,7 @@ const Search = ({
   const tracks =
     data &&
     data.searchResults.map(track => (
-      <RecommendedTrack track={track} deviceId={deviceId} key={track.id} />
+      <Track track={track} deviceId={deviceId} key={track.id} />
     ));
 
   return (

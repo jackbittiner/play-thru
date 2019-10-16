@@ -1,6 +1,6 @@
 import React from "react";
 
-import { RecommendedTrack } from "./list-of-recommendations";
+import Track from "./track";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -22,7 +22,7 @@ const GET_TOP_TRACKS = gql`
   }
 `;
 
-export default function TopTracks({ token, deviceId }) {
+export default function TopTracks({ deviceId }) {
   const authToken = sessionStorage.getItem("accessToken");
   const { loading, error, data } = useQuery(GET_TOP_TRACKS, {
     variables: { authToken: authToken }
@@ -38,7 +38,7 @@ export default function TopTracks({ token, deviceId }) {
   const tracks = data && data.favourites.tracks;
   if (tracks)
     return tracks.map(track => (
-      <RecommendedTrack track={track} deviceId={deviceId} key={track.id} />
+      <Track track={track} deviceId={deviceId} key={track.id} />
     ));
 }
 
