@@ -25,16 +25,11 @@ const SearchContainer = ({ deviceId }) => {
 
   const [searchBarText, setSearchBarText] = useState("");
 
-  if (loading)
-    return (
-      <Page>
-        <LoadingIndicator />
-      </Page>
-    );
   if (error) return <p>Error ---- Search Container</p>;
 
   return (
     <Search
+      loading={loading}
       getSearchResults={getSearchResults}
       data={data}
       deviceId={deviceId}
