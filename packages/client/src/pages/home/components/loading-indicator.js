@@ -1,6 +1,7 @@
 import React from "react";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { css } from "@emotion/core";
+import colours from "../../../common/colours";
 
 const LoadingIndicator = () => (
   <ScaleLoader
@@ -9,7 +10,7 @@ const LoadingIndicator = () => (
     height={50}
     width={10}
     radius={5}
-    color={"#57E5DE"}
+    color={colours.turquoise}
   />
 );
 
