@@ -25,9 +25,11 @@ const GET_RECOMMENDATIONS = gql`
   }
 `;
 
-export default function ListsOfRecommendations({ token, currentTrack }) {
+export default function ListsOfRecommendations({ currentTrack }) {
+  const authToken = sessionStorage.getItem("accessToken");
+
   const { loading, error, data } = useQuery(GET_RECOMMENDATIONS, {
-    variables: { authToken: token, currentTrack: currentTrack }
+    variables: { authToken: authToken, currentTrack: currentTrack }
   });
 
   if (loading) return <p>Loading...</p>;
@@ -35,29 +37,24 @@ export default function ListsOfRecommendations({ token, currentTrack }) {
 
   return Object.values(data.recommendedTracksByKey).map(
     (tracksByKey, index) => {
-      return (
-        <RecommendationsByKey
-          key={index}
-          tracksByKey={tracksByKey}
-          token={token}
-        />
-      );
+      return <RecommendationsByKey key={index} tracksByKey={tracksByKey} />;
     }
   );
 }
 
-function RecommendationsByKey({ token, tracksByKey }) {
+function RecommendationsByKey({ tracksByKey }) {
   return (
     <div>
       <h3>{tracksByKey.key.name}</h3>
       {tracksByKey.recommendedTracks.map(track => (
-        <RecommendedTrack track={track} token={token} key={track.uri} />
+        <RecommendedTrack track={track} key={track.uri} />
       ))}
     </div>
   );
 }
 
-export function RecommendedTrack({ track, token, deviceId }) {
+export function RecommendedTrack({ track, deviceId }) {
+  const authToken = sessionStorage.getItem("accessToken");
   const playerInput = { uris: [track.uri] };
   const CHANGE_TRACK = gql`
     query playTrack(
@@ -77,7 +74,11 @@ export function RecommendedTrack({ track, token, deviceId }) {
   `;
 
   const [playNewTrack] = useLazyQuery(CHANGE_TRACK, {
-    variables: { playerInput: playerInput, authToken: token, device: deviceId }
+    variables: {
+      playerInput: playerInput,
+      authToken: authToken,
+      device: deviceId
+    }
   });
 
   return (

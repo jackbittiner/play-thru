@@ -10,30 +10,28 @@ import SearchContainer from "./search/search-container";
 import TopTracks from "./top-tracks";
 import isEmpty from "lodash/isEmpty";
 
-function HomePage({ data, token, deviceId }) {
+function HomePage({ data, deviceId }) {
   return (
     <Page>
       {isEmpty(data) && (
         <FirstSongSection>
           <Search>
             <h3>Search for a song to start your set</h3>
-            <SearchContainer authToken={token} deviceId={deviceId} />
+            <SearchContainer deviceId={deviceId} />
           </Search>
           <Favourites>
             <h3>Or play one of your classics</h3>
-            <TopTracks token={token} deviceId={deviceId} />
+            <TopTracks deviceId={deviceId} />
           </Favourites>
         </FirstSongSection>
       )}
-      {token && !isEmpty(data) && (
+      {!isEmpty(data) && (
         <React.Fragment>
           <CurrentTrack>
             {data && <NowPlaying currentTrack={data.track} />}
           </CurrentTrack>
           <Recommendations>
-            {data && (
-              <ListsOfRecommendations token={token} currentTrack={data.track} />
-            )}
+            {data && <ListsOfRecommendations currentTrack={data.track} />}
           </Recommendations>
         </React.Fragment>
       )}

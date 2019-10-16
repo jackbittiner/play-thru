@@ -41,14 +41,21 @@ function HomePageContainer() {
   const params = getHashParams();
   const token = params.access_token;
 
+  if (token) {
+    sessionStorage.setItem("accessToken", params.access_token);
+    window.location.href = "/home";
+  }
+
   const [deviceId, setDevice] = useState(null);
+
+  const authToken = sessionStorage.getItem("accessToken");
 
   const handleScriptLoad = () => {
     window.onSpotifyWebPlaybackSDKReady = () => {
       const player = new window.Spotify.Player({
         name: "Play Thru",
         getOAuthToken: cb => {
-          cb(token);
+          cb(authToken);
         }
       });
 
@@ -69,7 +76,7 @@ function HomePageContainer() {
         console.log(state.track_window.current_track.id);
         getCurrentTrack({
           variables: {
-            authToken: token,
+            authToken: authToken,
             trackId: state.track_window.current_track.id
           }
         });
@@ -96,7 +103,7 @@ function HomePageContainer() {
         url="https://sdk.scdn.co/spotify-player.js"
         onLoad={() => handleScriptLoad()}
       />
-      <HomePage data={data} token={token} deviceId={deviceId} />
+      <HomePage data={data} deviceId={deviceId} />
     </>
   );
 }

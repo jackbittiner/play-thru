@@ -22,8 +22,9 @@ const GET_TOP_TRACKS = gql`
 `;
 
 export default function TopTracks({ token, deviceId }) {
+  const authToken = sessionStorage.getItem("accessToken");
   const { loading, error, data } = useQuery(GET_TOP_TRACKS, {
-    variables: { authToken: token }
+    variables: { authToken: authToken }
   });
   if (loading)
     return (
@@ -36,12 +37,7 @@ export default function TopTracks({ token, deviceId }) {
   const tracks = data && data.favourites.tracks;
   if (tracks)
     return tracks.map(track => (
-      <RecommendedTrack
-        track={track}
-        token={token}
-        deviceId={deviceId}
-        key={track.id}
-      />
+      <RecommendedTrack track={track} deviceId={deviceId} key={track.id} />
     ));
 }
 

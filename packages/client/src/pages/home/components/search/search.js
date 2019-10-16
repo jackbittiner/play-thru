@@ -7,11 +7,11 @@ import styled from "styled-components";
 const Search = ({
   getSearchResults,
   data,
-  authToken,
   deviceId,
   searchBarText,
   setSearchBarText
 }) => {
+  const authToken = sessionStorage.getItem("accessToken");
   const debouncedInputHandler = debounce(e => {
     setSearchBarText(e.target.value);
     getSearchResults({
@@ -25,12 +25,7 @@ const Search = ({
   const tracks =
     data &&
     data.searchResults.map(track => (
-      <RecommendedTrack
-        track={track}
-        token={authToken}
-        deviceId={deviceId}
-        key={track.id}
-      />
+      <RecommendedTrack track={track} deviceId={deviceId} key={track.id} />
     ));
 
   return (

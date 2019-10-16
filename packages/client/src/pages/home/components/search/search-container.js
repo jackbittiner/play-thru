@@ -18,7 +18,7 @@ const SEARCH_QUERY = gql`
   }
 `;
 
-const SearchContainer = ({ authToken, deviceId }) => {
+const SearchContainer = ({ deviceId }) => {
   const [getSearchResults, { loading, error, data }] = useLazyQuery(
     SEARCH_QUERY
   );
@@ -37,7 +37,6 @@ const SearchContainer = ({ authToken, deviceId }) => {
     <Search
       getSearchResults={getSearchResults}
       data={data}
-      authToken={authToken}
       deviceId={deviceId}
       searchBarText={searchBarText}
       setSearchBarText={setSearchBarText}
