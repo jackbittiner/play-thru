@@ -1,9 +1,5 @@
-async function getCurrentTrack(authToken, trackId, datasource) {
-  const result = await datasource.get(`tracks/${trackId}`, undefined, {
-    headers: {
-      Authorization: "Bearer " + authToken
-    }
-  });
+async function getCurrentTrack(trackId, datasource) {
+  const result = await datasource.get(`tracks/${trackId}`);
 
   return {
     name: result.name,

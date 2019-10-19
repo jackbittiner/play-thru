@@ -9,24 +9,19 @@ import LoadingIndicator from "./loading-indicator";
 import styled from "styled-components";
 
 const GET_TOP_TRACKS = gql`
-  query getTracks($authToken: String!) {
-    favourites(authToken: $authToken) {
-      tracks {
-        id
-        name
-        uri
-        artist
-        art
-      }
+  query getTracks {
+    favourites {
+      id
+      name
+      uri
+      artist
+      art
     }
   }
 `;
 
 export default function TopTracks({ deviceId }) {
-  const authToken = sessionStorage.getItem("accessToken");
-  const { loading, error, data } = useQuery(GET_TOP_TRACKS, {
-    variables: { authToken: authToken }
-  });
+  const { loading, error, data } = useQuery(GET_TOP_TRACKS);
   if (loading)
     return (
       <Page>
@@ -35,7 +30,7 @@ export default function TopTracks({ deviceId }) {
     );
   if (error) return <p>Error ---- Top Tracks</p>;
 
-  const tracks = data && data.favourites.tracks;
+  const tracks = data && data.favourites;
   if (tracks)
     return tracks.map(track => (
       <Track track={track} deviceId={deviceId} key={track.id} />

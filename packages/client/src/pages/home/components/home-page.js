@@ -11,7 +11,6 @@ import TopTracks from "./top-tracks";
 import isEmpty from "lodash/isEmpty";
 
 function HomePage({ data, deviceId }) {
-  console.log(data);
   return (
     <Page>
       {isEmpty(data) && (

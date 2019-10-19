@@ -1,15 +1,7 @@
-async function playTrack(playerInput, authToken, spotifyDatasource, device) {
+async function playTrack(playerInput, spotifyDatasource, device) {
   const deviceQueryParam = device ? `?device_id=` + device : "";
 
-  await spotifyDatasource.put(
-    `me/player/play` + deviceQueryParam,
-    playerInput,
-    {
-      headers: {
-        Authorization: "Bearer " + authToken
-      }
-    }
-  );
+  await spotifyDatasource.put(`me/player/play` + deviceQueryParam, playerInput);
 
   /// find way to return successful or error state
   return "success";

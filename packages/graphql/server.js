@@ -6,46 +6,33 @@ import getRecommendations from "./resolvers/get-recommendations";
 import playTrack from "./resolvers/play-track";
 import getPlayer from "./resolvers/get-player";
 import getTrackById from "./resolvers/get-track-by-id";
-import { getTopTracks, getFavourites } from "./resolvers/get-favourites";
+import { getTopTracks } from "./resolvers/get-favourites";
 import getSearchResults from "./resolvers/get-search-results";
 
 const resolvers = {
   Query: {
-    currentTrack: (
-      _root,
-      { authToken, trackId },
-      { dataSources: { spotify } }
-    ) => getTrackById(authToken, trackId, spotify),
+    currentTrack: (_root, { trackId }, { dataSources: { spotify } }) =>
+      getTrackById(trackId, spotify),
     recommendedTracksByKey: (
       _root,
-      { authToken, currentTrack },
+      { currentTrack },
       { dataSources: { spotify } }
-    ) => getRecommendations(authToken, currentTrack, spotify),
+    ) => getRecommendations(currentTrack, spotify),
     player: (_root, args) => getPlayer(args),
-    favourites: (_root, { authToken }) => getFavourites({ authToken }),
-    searchResults: (
-      _root,
-      { authToken, query },
-      { dataSources: { spotify } }
-    ) => getSearchResults(authToken, query, spotify)
+    favourites: (_root, _args, { dataSources: { spotify } }) =>
+      getTopTracks(spotify),
+    searchResults: (_root, { query }, { dataSources: { spotify } }) =>
+      getSearchResults(query, spotify)
   },
   CurrentTrack: {
-    trackFeatures: ({ id }, { authToken }, { dataSources: { spotify } }) =>
-      getTrackFeatures(id, authToken, spotify)
+    trackFeatures: ({ id }, _args, { dataSources: { spotify } }) =>
+      getTrackFeatures(id, spotify)
   },
   Player: {
     playing: ({ playerInput: { uris } }) => uris,
-    start: (
-      { playerInput, authToken, device },
-      _args,
-      { dataSources: { spotify } }
-    ) => {
-      return playTrack(playerInput, authToken, spotify, device);
+    start: ({ playerInput, device }, _args, { dataSources: { spotify } }) => {
+      return playTrack(playerInput, spotify, device);
     }
-  },
-  Favourites: {
-    tracks: ({ authToken }, _args, { dataSources: { spotify } }) =>
-      getTopTracks(authToken, spotify)
   }
 };
 
@@ -54,7 +41,11 @@ const server = new ApolloServer({
   resolvers,
   dataSources: () => ({
     spotify: new SpotifyDatasource()
-  })
+  }),
+  context: ({ req }) => {
+    const accessToken = req.headers.authorization || "";
+    return { accessToken };
+  }
 });
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {

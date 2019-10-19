@@ -14,7 +14,6 @@ const Search = ({
   searchBarText,
   setSearchBarText
 }) => {
-  const authToken = sessionStorage.getItem("accessToken");
   const debouncedInputHandler = debounce(e => {
     const inputText = e.target.value;
     setSearchBarText(e.target.value);
@@ -22,7 +21,6 @@ const Search = ({
     if (!inputText) return;
     getSearchResults({
       variables: {
-        authToken: authToken,
         query: inputText
       }
     });

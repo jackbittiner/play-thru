@@ -5,12 +5,10 @@ describe("getRecommendations", function() {
     get: jest.fn(() => spotifyApiResult)
   };
   it("should resolve the data from spotify", function(done) {
-    return getRecommendations("authToken", trackInput, spotifyDatasource).then(
-      result => {
-        expect(result).toStrictEqual(expectedResult);
-        done();
-      }
-    );
+    return getRecommendations(trackInput, spotifyDatasource).then(result => {
+      expect(result).toStrictEqual(expectedResult);
+      done();
+    });
   });
 });
 

@@ -1,11 +1,7 @@
 import { getHarmonicKeys, getKeyName } from "./camelot-wheel";
 
-async function getTrackFeatures(id, authToken, datasource) {
-  const result = await datasource.get(`audio-features/${id}`, undefined, {
-    headers: {
-      Authorization: "Bearer " + authToken
-    }
-  });
+async function getTrackFeatures(id, datasource) {
+  const result = await datasource.get(`audio-features/${id}`);
 
   return {
     key: {

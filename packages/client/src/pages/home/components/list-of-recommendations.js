@@ -6,11 +6,8 @@ import { gql } from "apollo-boost";
 import Track from "./track";
 
 const GET_RECOMMENDATIONS = gql`
-  query recommendedTracksByKey(
-    $authToken: String!
-    $currentTrack: CurrentTrackInput!
-  ) {
-    recommendedTracksByKey(authToken: $authToken, currentTrack: $currentTrack) {
+  query recommendedTracksByKey($currentTrack: CurrentTrackInput!) {
+    recommendedTracksByKey(currentTrack: $currentTrack) {
       key {
         name
         pitchClass
@@ -28,10 +25,8 @@ const GET_RECOMMENDATIONS = gql`
 `;
 
 export default function ListsOfRecommendations({ currentTrack }) {
-  const authToken = sessionStorage.getItem("accessToken");
-
   const { loading, error, data } = useQuery(GET_RECOMMENDATIONS, {
-    variables: { authToken: authToken, currentTrack: currentTrack }
+    variables: { currentTrack: currentTrack }
   });
 
   if (loading) return <p>Loading...</p>;
