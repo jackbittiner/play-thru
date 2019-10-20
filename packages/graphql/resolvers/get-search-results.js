@@ -1,14 +1,8 @@
-async function getSearchResults(authToken, query, datasource) {
+async function getSearchResults(query, datasource) {
   const encodedQueryString = encodeURIComponent(query);
 
   const result = await datasource.get(
-    `search?q=${encodedQueryString}&type=track&limit=10`,
-    undefined,
-    {
-      headers: {
-        Authorization: "Bearer " + authToken
-      }
-    }
+    `search?q=${encodedQueryString}&type=track&limit=10`
   );
 
   const searchResults = result.tracks.items.map(track => {

@@ -5,11 +5,7 @@ describe("getTrackById", function() {
     get: jest.fn(() => spotifyApiResult)
   };
   it("should resolve the data from spotify", function(done) {
-    return getTrackById(
-      "authToken",
-      "thisisatrackid00",
-      spotifyDatasource
-    ).then(result => {
+    return getTrackById("thisisatrackid00", spotifyDatasource).then(result => {
       expect(result).toStrictEqual(expectedResult);
       done();
     });

@@ -5,4 +5,8 @@ export default class SpotifyDatasource extends RESTDataSource {
     super();
     this.baseURL = "https://api.spotify.com/v1";
   }
+
+  willSendRequest(request) {
+    request.headers.set("Authorization", this.context.accessToken);
+  }
 }

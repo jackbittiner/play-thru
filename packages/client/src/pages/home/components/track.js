@@ -5,19 +5,10 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 export default function Track({ track, deviceId }) {
-  const authToken = sessionStorage.getItem("accessToken");
   const playerInput = { uris: [track.uri] };
   const CHANGE_TRACK = gql`
-    query playTrack(
-      $playerInput: PlayerInput
-      $authToken: String!
-      $device: String
-    ) {
-      player(
-        playerInput: $playerInput
-        authToken: $authToken
-        device: $device
-      ) {
+    query playTrack($playerInput: PlayerInput, $device: String) {
+      player(playerInput: $playerInput, device: $device) {
         playing
         start
       }
@@ -27,7 +18,6 @@ export default function Track({ track, deviceId }) {
   const [playNewTrack] = useLazyQuery(CHANGE_TRACK, {
     variables: {
       playerInput: playerInput,
-      authToken: authToken,
       device: deviceId
     }
   });
