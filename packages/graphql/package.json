@@ -17,12 +17,11 @@
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "nodemon": "^1.19.4"
+    "@babel/preset-env": "^7.5.5"
   },
   "scripts": {
     "test": "jest",
-    "start": "nodemon -r esm server.js"
+    "start": "node -r esm server.js"
   },
   "author": "",
   "license": "ISC"
