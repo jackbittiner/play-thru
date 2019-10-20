@@ -14,10 +14,12 @@ describe("getTrackFeatures", function() {
     });
   });
   it("should resolve the data from spotify", function(done) {
-    return getTrackFeatures("123123123", spotifyDatasource).then(result => {
-      expect(result).toStrictEqual(expectedResult);
-      done();
-    });
+    return getTrackFeatures("123123123", "authToken", spotifyDatasource).then(
+      result => {
+        expect(result).toStrictEqual(expectedResult);
+        done();
+      }
+    );
   });
 });
 

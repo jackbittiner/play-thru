@@ -1,4 +1,4 @@
-async function getRecommendations(currentTrack, datasource) {
+async function getRecommendations(authToken, currentTrack, datasource) {
   const recommendationsByKey = currentTrack.trackFeatures.harmonicKeys.map(
     async key => {
       const requestBody = {
@@ -12,7 +12,11 @@ async function getRecommendations(currentTrack, datasource) {
         seed_tracks: [currentTrack.id]
       };
 
-      const result = await datasource.get(`recommendations`, requestBody);
+      const result = await datasource.get(`recommendations`, requestBody, {
+        headers: {
+          Authorization: "Bearer " + authToken
+        }
+      });
 
       const recommendedTracks = result.tracks.map(track => {
         return {

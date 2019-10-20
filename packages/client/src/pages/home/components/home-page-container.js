@@ -6,8 +6,8 @@ import HomePage from "./home-page";
 import Script from "react-load-script";
 
 const GET_TRACK = gql`
-  query currentTrack($trackId: String!) {
-    currentTrack(trackId: $trackId) {
+  query currentTrack($authToken: String!, $trackId: String!) {
+    currentTrack(authToken: $authToken, trackId: $trackId) {
       name
       art
       id
@@ -16,7 +16,7 @@ const GET_TRACK = gql`
         id
         name
       }
-      trackFeatures {
+      trackFeatures(authToken: $authToken) {
         key {
           name
           pitchClass
@@ -77,6 +77,7 @@ function HomePageContainer() {
         console.log(state.track_window.current_track.id);
         getCurrentTrack({
           variables: {
+            authToken: authToken,
             trackId: state.track_window.current_track.id
           }
         });

@@ -2,13 +2,19 @@ import { gql } from "apollo-server";
 
 const typeDefs = gql`
   type Query {
-    currentTrack(trackId: String!): CurrentTrack!
+    currentTrack(authToken: String!, trackId: String!): CurrentTrack!
     recommendedTracksByKey(
+      authToken: String!
       currentTrack: CurrentTrackInput!
     ): [RecommendedTracksByKey]
-    player(playerInput: PlayerInput, device: String): Player
-    favourites: [Track]!
-    searchResults(query: String!): [Track]!
+    player(authToken: String!, playerInput: PlayerInput, device: String): Player
+    favourites(authToken: String!): Favourites
+    searchResults(authToken: String!, query: String!): [Track]!
+  }
+
+  type Favourites {
+    artists: [Artist]!
+    tracks: [Track]!
   }
 
   type CurrentTrack {
@@ -18,7 +24,7 @@ const typeDefs = gql`
     uri: String!
     artist: Artist!
     popularity: Float!
-    trackFeatures: TrackFeatures!
+    trackFeatures(authToken: String!): TrackFeatures!
   }
 
   input CurrentTrackInput {

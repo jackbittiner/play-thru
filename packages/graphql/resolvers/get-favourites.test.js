@@ -5,7 +5,7 @@ describe("getTopTracks", function() {
     get: jest.fn(() => spotifyApiResult)
   };
   it("should get and return a list of favourite tracks", function(done) {
-    return getTopTracks(spotifyDatasource).then(result => {
+    return getTopTracks("authToken", spotifyDatasource).then(result => {
       expect(result).toStrictEqual(expectedResult);
       done();
     });

@@ -4,8 +4,8 @@ import { gql } from "apollo-boost";
 import { useLazyQuery } from "@apollo/react-hooks";
 
 const SEARCH_QUERY = gql`
-  query search($query: String!) {
-    searchResults(query: $query) {
+  query search($authToken: String!, $query: String!) {
+    searchResults(authToken: $authToken, query: $query) {
       artist
       id
       name

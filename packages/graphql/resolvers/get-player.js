@@ -1,6 +1,7 @@
-async function getPlayer({ playerInput, device }) {
+async function getPlayer({ playerInput, authToken, device }) {
   return {
     playerInput,
+    authToken,
     device
   };
 }
