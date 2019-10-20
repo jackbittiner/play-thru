@@ -8,8 +8,7 @@
     "client": "yarn workspace client start",
     "graphql": "yarn workspace graphql start",
     "start": "concurrently --kill-others-on-fail \"yarn graphql\"  \"yarn client\" ",
-    "test-graphql": "cd packages/graphql && npm test",
-    "test-client": "cd packages/client && npm test"
+    "test": "yarn workspace graphql test && yarn workspace client test"
   },
   "dependencies": {
     "concurrently": "^4.1.2"
