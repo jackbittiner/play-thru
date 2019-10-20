@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
-import { gql } from "apollo-boost";
-import Track from "./track";
+import { CHANGE_TRACK } from "./change-track";
+import Track from "./index";
 import { MockedProvider } from "@apollo/react-testing";
 import wait from "waait";
 
@@ -12,14 +12,7 @@ describe("Track", () => {
     const mocks = [
       {
         request: {
-          query: gql`
-            query playTrack($playerInput: PlayerInput, $device: String) {
-              player(playerInput: $playerInput, device: $device) {
-                playing
-                start
-              }
-            }
-          `,
+          query: CHANGE_TRACK,
           variables: {
             playerInput: { uris: ["asdfgh12"] },
             device: "12345asdfgh"
