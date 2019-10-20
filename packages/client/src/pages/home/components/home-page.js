@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 import NowPlaying from "./now-playing";
-import ListsOfRecommendations from "./list-of-recommendations";
+import ListsOfRecommendations from "./recommendations/list-of-recommendations";
 
 import SearchContainer from "./search/search-container";
 

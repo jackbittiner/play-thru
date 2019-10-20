@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/react-hooks": "^3.0.1",
+    "@apollo/react-hooks": "^3.0.0",
+    "@apollo/react-testing": "^3.0.0",
     "apollo-boost": "^0.4.4",
     "apollo-link-context": "^1.0.19",
     "bluebird": "^3.5.5",
@@ -13,7 +14,7 @@
     "lodash": "^4.17.15",
     "rc-slider": "^8.6.13",
     "react": "^16.9.0",
-    "react-apollo": "^3.0.1",
+    "react-apollo": "^3.0.0",
     "react-dom": "^16.9.0",
     "react-icons": "^3.7.0",
     "react-load-script": "0.0.6",
@@ -22,7 +23,8 @@
     "react-spinners": "^0.6.1",
     "react-spring": "^8.0.27",
     "react-test-renderer": "^16.10.2",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "waait": "^1.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
