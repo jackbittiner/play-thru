@@ -7,6 +7,7 @@ import playTrack from "./resolvers/play-track";
 import getTrackById from "./resolvers/get-track-by-id";
 import { getTopTracks } from "./resolvers/get-favourites";
 import getSearchResults from "./resolvers/get-search-results";
+import createPlaylistOfTrakcs from "./resolvers/create-playlist-of-tracks";
 
 const resolvers = {
   Query: {
@@ -33,6 +34,13 @@ const resolvers = {
       { dataSources: { spotify } }
     ) => {
       return playTrack(trackUri, deviceId, spotify);
+    },
+    createPlaylistOfTrakcs: (
+      _root,
+      { trackUris },
+      { dataSources: { spotify } }
+    ) => {
+      return createPlaylistOfTrakcs(trackUris, spotify);
     }
   }
 };

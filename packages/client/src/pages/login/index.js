@@ -10,7 +10,9 @@ const scopes = [
   "user-read-playback-state",
   "user-modify-playback-state",
   "user-top-read",
-  "streaming"
+  "streaming",
+  "playlist-modify-public",
+  "playlist-modify-private"
 ];
 export default class Login extends Component {
   render() {
