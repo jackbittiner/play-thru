@@ -20,7 +20,15 @@ describe("Track", () => {
         },
         result: () => {
           lazyQueryCalled = true;
-          return { data: { player: { start: true, playing: true } } };
+          return {
+            data: {
+              playTrack: {
+                status: "success",
+                trackUri: "asdfgh12",
+                deviceId: "12345asdfgh"
+              }
+            }
+          };
         }
       }
     ];
@@ -30,6 +38,8 @@ describe("Track", () => {
         <Track
           track={{ name: "song", artist: "artist", uri: "asdfgh12" }}
           deviceId={"12345asdfgh"}
+          addTrackToSetlistState={jest.fn()}
+          setlistState={[]}
         />
       </MockedProvider>
     );
