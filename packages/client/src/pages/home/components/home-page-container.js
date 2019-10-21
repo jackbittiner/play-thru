@@ -1,38 +1,9 @@
 import React, { useState } from "react";
 import getHashParams from "../utils/get-hash-params";
 import { useLazyQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+import { GET_TRACK } from "./get-track";
 import HomePage from "./home-page";
 import Script from "react-load-script";
-
-const GET_TRACK = gql`
-  query currentTrack($trackId: String!) {
-    currentTrack(trackId: $trackId) {
-      name
-      art
-      id
-      popularity
-      artist {
-        id
-        name
-      }
-      trackFeatures {
-        key {
-          name
-          pitchClass
-          mode
-        }
-        tempo
-        time_signature
-        harmonicKeys {
-          name
-          pitchClass
-          mode
-        }
-      }
-    }
-  }
-`;
 
 function HomePageContainer({ location }) {
   const params = getHashParams(location);
