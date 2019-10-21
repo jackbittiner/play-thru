@@ -34,8 +34,8 @@ const GET_TRACK = gql`
   }
 `;
 
-function HomePageContainer() {
-  const params = getHashParams();
+function HomePageContainer({ location }) {
+  const params = getHashParams(location);
   const token = params.access_token;
 
   if (token) {
