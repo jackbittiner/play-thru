@@ -1,24 +1,12 @@
 import React from "react";
 
-import Track from "./track";
+import Track from "../track";
 
 import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+import { GET_TOP_TRACKS } from "./get-top-tracks";
 
-import LoadingIndicator from "./loading-indicator";
+import LoadingIndicator from "../loading-indicator";
 import styled from "styled-components";
-
-const GET_TOP_TRACKS = gql`
-  query getTracks {
-    favourites {
-      id
-      name
-      uri
-      artist
-      art
-    }
-  }
-`;
 
 export default function TopTracks({ deviceId }) {
   const { loading, error, data } = useQuery(GET_TOP_TRACKS);
