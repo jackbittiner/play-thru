@@ -1,7 +1,7 @@
 import React from "react";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { css } from "@emotion/core";
-import colours from "../../../common/colours";
+import colours from "../../../../common/colours";
 
 const LoadingIndicator = () => (
   <ScaleLoader
