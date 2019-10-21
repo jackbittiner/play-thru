@@ -6,9 +6,12 @@ const typeDefs = gql`
     recommendedTracksByKey(
       currentTrack: CurrentTrackInput!
     ): [RecommendedTracksByKey]
-    player(playerInput: PlayerInput, device: String): Player
     favourites: [Track]!
     searchResults(query: String!): [Track]!
+  }
+
+  type Mutation {
+    playTrack(trackUri: String, deviceId: String): PlayTrackObject!
   }
 
   type CurrentTrack {
@@ -79,19 +82,10 @@ const typeDefs = gql`
     art: String!
   }
 
-  input PlayerInput {
-    uris: [String]
-    offset: OffsetInput
-    position_ms: Int
-  }
-
-  input OffsetInput {
-    position: Int
-  }
-
-  type Player {
-    playing: [String]
-    start: String
+  type PlayTrackObject {
+    status: String
+    trackUri: String
+    deviceId: String
   }
 `;
 

@@ -4,7 +4,6 @@ import typeDefs from "./schema";
 import getTrackFeatures from "./resolvers/get-track-features";
 import getRecommendations from "./resolvers/get-recommendations";
 import playTrack from "./resolvers/play-track";
-import getPlayer from "./resolvers/get-player";
 import getTrackById from "./resolvers/get-track-by-id";
 import { getTopTracks } from "./resolvers/get-favourites";
 import getSearchResults from "./resolvers/get-search-results";
@@ -18,7 +17,6 @@ const resolvers = {
       { currentTrack },
       { dataSources: { spotify } }
     ) => getRecommendations(currentTrack, spotify),
-    player: (_root, args) => getPlayer(args),
     favourites: (_root, _args, { dataSources: { spotify } }) =>
       getTopTracks(spotify),
     searchResults: (_root, { query }, { dataSources: { spotify } }) =>
@@ -28,10 +26,13 @@ const resolvers = {
     trackFeatures: ({ id }, _args, { dataSources: { spotify } }) =>
       getTrackFeatures(id, spotify)
   },
-  Player: {
-    playing: ({ playerInput: { uris } }) => uris,
-    start: ({ playerInput, device }, _args, { dataSources: { spotify } }) => {
-      return playTrack(playerInput, spotify, device);
+  Mutation: {
+    playTrack: (
+      _root,
+      { trackUri, deviceId },
+      { dataSources: { spotify } }
+    ) => {
+      return playTrack(trackUri, deviceId, spotify);
     }
   }
 };

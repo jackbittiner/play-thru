@@ -1,10 +1,19 @@
-async function playTrack(playerInput, spotifyDatasource, device) {
-  const deviceQueryParam = device ? `?device_id=` + device : "";
+async function playTrack(trackUri, deviceId, spotifyDatasource) {
+  const deviceQueryParam = deviceId ? `?device_id=` + deviceId : "";
 
-  await spotifyDatasource.put(`me/player/play` + deviceQueryParam, playerInput);
-
-  /// find way to return successful or error state
-  return "success";
+  try {
+    await spotifyDatasource.put(`me/player/play` + deviceQueryParam, {
+      uris: [trackUri]
+    });
+    return { status: "success", trackUri, deviceId };
+  } catch (error) {
+    const response = {
+      status: "error: " + error,
+      trackUri,
+      deviceId
+    };
+    return response;
+  }
 }
 
 export default playTrack;

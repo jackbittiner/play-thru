@@ -14,8 +14,8 @@ describe("Track", () => {
         request: {
           query: CHANGE_TRACK,
           variables: {
-            playerInput: { uris: ["asdfgh12"] },
-            device: "12345asdfgh"
+            trackUri: "asdfgh12",
+            deviceId: "12345asdfgh"
           }
         },
         result: () => {

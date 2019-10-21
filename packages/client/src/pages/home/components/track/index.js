@@ -1,16 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useLazyQuery } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import { CHANGE_TRACK } from "./change-track";
 
 export default function Track({ track, deviceId }) {
-  const playerInput = { uris: [track.uri] };
-
-  const [playNewTrack] = useLazyQuery(CHANGE_TRACK, {
+  const [playNewTrack] = useMutation(CHANGE_TRACK, {
     variables: {
-      playerInput: playerInput,
-      device: deviceId
+      trackUri: track.uri,
+      deviceId: deviceId
     }
   });
 
