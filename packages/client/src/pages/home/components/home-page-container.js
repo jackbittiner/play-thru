@@ -15,6 +15,7 @@ function HomePageContainer({ location }) {
   }
 
   const [deviceId, setDevice] = useState(null);
+  const [paused, setPausedState] = useState(true);
 
   const authToken = sessionStorage.getItem("accessToken");
 
@@ -45,7 +46,7 @@ function HomePageContainer({ location }) {
       });
 
       player.addListener("player_state_changed", state => {
-        console.log(state.track_window.current_track.id);
+        setPausedState(state.paused);
         getCurrentTrack({
           variables: {
             trackId: state.track_window.current_track.id
@@ -74,7 +75,7 @@ function HomePageContainer({ location }) {
         url="https://sdk.scdn.co/spotify-player.js"
         onLoad={() => handleScriptLoad()}
       />
-      <HomePage data={data} deviceId={deviceId} />
+      <HomePage data={data} deviceId={deviceId} paused={paused} />
     </>
   );
 }

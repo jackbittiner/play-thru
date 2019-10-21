@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styled from "styled-components";
 
@@ -6,22 +6,33 @@ import NowPlaying from "./now-playing";
 import ListsOfRecommendations from "./recommendations/list-of-recommendations";
 
 import SearchContainer from "./search/search-container";
+import Setlist from "./setlist";
 
 import TopTracks from "./top-tracks";
 import isEmpty from "lodash/isEmpty";
 
-function HomePage({ data, deviceId }) {
+function HomePage({ data, deviceId, paused }) {
+  const [setlistState, addTrackToSetlistState] = useState([]);
+
   return (
     <Page>
-      {isEmpty(data) && (
+      {isEmpty(data) && paused && (
         <FirstSongSection>
           <Search>
             <h3>Search for a song to start your set</h3>
-            <SearchContainer deviceId={deviceId} />
+            <SearchContainer
+              deviceId={deviceId}
+              addTrackToSetlistState={addTrackToSetlistState}
+              setlistState={setlistState}
+            />
           </Search>
           <Favourites>
             <h3>Or play one of your classics</h3>
-            <TopTracks deviceId={deviceId} />
+            <TopTracks
+              deviceId={deviceId}
+              addTrackToSetlistState={addTrackToSetlistState}
+              setlistState={setlistState}
+            />
           </Favourites>
         </FirstSongSection>
       )}
@@ -32,9 +43,15 @@ function HomePage({ data, deviceId }) {
           </CurrentTrack>
           <Recommendations>
             {data && (
-              <ListsOfRecommendations currentTrack={data.currentTrack} />
+              <ListsOfRecommendations
+                currentTrack={data.currentTrack}
+                addTrackToSetlistState={addTrackToSetlistState}
+                setlistState={setlistState}
+              />
             )}
           </Recommendations>
+          <h3>Setlist</h3>
+          <Setlist setlist={setlistState} />
         </React.Fragment>
       )}
     </Page>
