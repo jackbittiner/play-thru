@@ -55,6 +55,7 @@ function HomePageContainer({ location }) {
       });
 
       player.addListener("ready", ({ device_id }) => {
+        sessionStorage.removeItem("setlist");
         setDevice(device_id);
         console.log("Ready with Device ID", device_id);
       });
