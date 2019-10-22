@@ -4,6 +4,7 @@ import { CREATE_PLAYLIST_OF_TRACKS } from "./create-playlist-of-tracks";
 import Setlist from "./index";
 import { MockedProvider } from "@apollo/react-testing";
 import wait from "waait";
+import * as getSetlist from "./get-setlist";
 
 describe("Setlist", () => {
   it("should make a playlist with songs that have been played", async () => {
@@ -14,7 +15,7 @@ describe("Setlist", () => {
         request: {
           query: CREATE_PLAYLIST_OF_TRACKS,
           variables: {
-            trackUris: ["track1", "track2", "track3"]
+            trackUris: ["track1"]
           }
         },
         result: () => {
@@ -28,15 +29,13 @@ describe("Setlist", () => {
       }
     ];
 
+    getSetlist.getSetlist = jest.fn().mockImplementation(() => {
+      return [{ name: "track1", uri: "track1" }];
+    });
+
     const component = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <Setlist
-          setlist={[
-            { name: "track1", uri: "track1" },
-            { name: "track2", uri: "track2" },
-            { name: "track3", uri: "track3" }
-          ]}
-        />
+        <Setlist currentTrack={[{ name: "track1", uri: "track1" }]} />
       </MockedProvider>
     );
 

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_PLAYLIST_OF_TRACKS } from "./create-playlist-of-tracks";
 
+import { getSetlist } from "./get-setlist";
+
 const Setlist = ({ currentTrack }) => {
   const [setlist, setSetlist] = useState([]);
 
@@ -33,11 +35,3 @@ const Setlist = ({ currentTrack }) => {
 };
 
 export default Setlist;
-
-function getSetlist(currentTrack) {
-  const setlist = JSON.parse(sessionStorage.getItem("setlist")) || [];
-  setlist.push(currentTrack);
-  sessionStorage.setItem("setlist", [JSON.stringify(setlist)]);
-
-  return setlist;
-}
