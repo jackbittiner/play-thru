@@ -38,8 +38,6 @@ describe("Track", () => {
         <Track
           track={{ name: "song", artist: "artist", uri: "asdfgh12" }}
           deviceId={"12345asdfgh"}
-          addTrackToSetlistState={jest.fn()}
-          setlistState={[]}
         />
       </MockedProvider>
     );

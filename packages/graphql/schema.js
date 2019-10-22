@@ -32,6 +32,7 @@ const typeDefs = gql`
     artist: ArtistInput!
     popularity: Float!
     trackFeatures: TrackFeaturesInput!
+    uri: String!
   }
 
   type Artist {

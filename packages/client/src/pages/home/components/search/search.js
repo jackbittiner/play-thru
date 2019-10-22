@@ -12,9 +12,7 @@ const Search = ({
   loading,
   deviceId,
   searchBarText,
-  setSearchBarText,
-  addTrackToSetlistState,
-  setlistState
+  setSearchBarText
 }) => {
   const debouncedInputHandler = debounce(e => {
     const inputText = e.target.value;
@@ -32,13 +30,7 @@ const Search = ({
     data &&
     data.searchResults &&
     data.searchResults.map(track => (
-      <Track
-        track={track}
-        deviceId={deviceId}
-        key={track.id}
-        addTrackToSetlistState={addTrackToSetlistState}
-        setlistState={setlistState}
-      />
+      <Track track={track} deviceId={deviceId} key={track.id} />
     ));
 
   return (

@@ -7,6 +7,7 @@ export const GET_TRACK = gql`
       art
       id
       popularity
+      uri
       artist {
         id
         name

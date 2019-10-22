@@ -4,12 +4,7 @@ import styled from "styled-components";
 import { useMutation } from "@apollo/react-hooks";
 import { CHANGE_TRACK } from "./change-track";
 
-export default function Track({
-  track,
-  deviceId,
-  addTrackToSetlistState,
-  setlistState
-}) {
+export default function Track({ track, deviceId }) {
   const [playNewTrack] = useMutation(CHANGE_TRACK, {
     variables: {
       trackUri: track.uri,
@@ -22,7 +17,6 @@ export default function Track({
       <ListItem>
         <button
           onClick={() => {
-            addTrackToSetlistState(setlistState.concat(track));
             playNewTrack();
           }}
         >
