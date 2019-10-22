@@ -1,11 +1,7 @@
 import React from "react";
 import Track from "../track";
 
-function RecommendationsByKey({
-  tracksByKey,
-  addTrackToSetlistState,
-  setlistState
-}) {
+function RecommendationsByKey({ tracksByKey, changeTrack, setlist }) {
   return (
     <div>
       <h3>{tracksByKey.key.name}</h3>
@@ -13,8 +9,8 @@ function RecommendationsByKey({
         <Track
           track={track}
           key={track.uri}
-          addTrackToSetlistState={addTrackToSetlistState}
-          setlistState={setlistState}
+          changeTrack={changeTrack}
+          setlist={setlist}
         />
       ))}
     </div>

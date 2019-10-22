@@ -1,54 +1,40 @@
 import React from "react";
 import { mount } from "enzyme";
-import { CHANGE_TRACK } from "./change-track";
 import Track from "./index";
-import { MockedProvider } from "@apollo/react-testing";
-import wait from "waait";
 
-describe("Track", () => {
-  it("should play a new track when clicked", async () => {
-    let lazyQueryCalled = false;
+test("plays song with correct variables", () => {
+  const changeTrackMock = jest.fn();
 
-    const mocks = [
-      {
-        request: {
-          query: CHANGE_TRACK,
-          variables: {
-            trackUri: "asdfgh12",
-            deviceId: "12345asdfgh"
-          }
-        },
-        result: () => {
-          lazyQueryCalled = true;
-          return {
-            data: {
-              playTrack: {
-                status: "success",
-                trackUri: "asdfgh12",
-                deviceId: "12345asdfgh"
-              }
-            }
-          };
-        }
-      }
-    ];
+  const wrapper = mount(
+    <Track
+      track={{
+        artist: "something",
+        id: "123456",
+        name: "name",
+        uri: "spotify:track:11dFghVXANMlKmJXsNCbNl",
+        art: "String!"
+      }}
+      deviceId={"deviceId1234"}
+      changeTrack={changeTrackMock}
+      setlist={[]}
+    />
+  );
 
-    const component = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Track
-          track={{ name: "song", artist: "artist", uri: "asdfgh12" }}
-          deviceId={"12345asdfgh"}
-          addTrackToSetlistState={jest.fn()}
-          setlistState={[]}
-        />
-      </MockedProvider>
-    );
+  const button = wrapper.find("button");
 
-    const button = component.find("button");
-    button.simulate("click");
-
-    await wait(0);
-    component.update();
-    expect(lazyQueryCalled).toBe(true);
+  button.simulate("click");
+  expect(changeTrackMock).toHaveBeenCalledTimes(1);
+  expect(changeTrackMock).toHaveBeenCalledWith({
+    variables: {
+      track: {
+        artist: "something",
+        id: "123456",
+        name: "name",
+        uri: "spotify:track:11dFghVXANMlKmJXsNCbNl",
+        art: "String!"
+      },
+      deviceId: "deviceId1234",
+      setlist: []
+    }
   });
 });

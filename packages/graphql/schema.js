@@ -11,7 +11,11 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    playTrack(trackUri: String, deviceId: String): PlayTrackObject!
+    playTrack(
+      track: TrackInput
+      deviceId: String
+      setlist: [TrackInput]
+    ): PlayTrackObject!
     createPlaylistOfTrakcs(trackUris: [String]): Boolean
   }
 
@@ -83,10 +87,19 @@ const typeDefs = gql`
     art: String!
   }
 
+  input TrackInput {
+    artist: String!
+    id: String!
+    name: String!
+    uri: String!
+    art: String!
+  }
+
   type PlayTrackObject {
     status: String
-    trackUri: String
+    track: Track
     deviceId: String
+    setlist: [Track]
   }
 `;
 

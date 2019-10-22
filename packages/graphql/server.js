@@ -30,10 +30,10 @@ const resolvers = {
   Mutation: {
     playTrack: (
       _root,
-      { trackUri, deviceId },
+      { track, deviceId, setlist },
       { dataSources: { spotify } }
     ) => {
-      return playTrack(trackUri, deviceId, spotify);
+      return playTrack(track, deviceId, setlist, spotify);
     },
     createPlaylistOfTrakcs: (
       _root,

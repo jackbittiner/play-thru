@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import styled from "styled-components";
 
@@ -11,47 +11,57 @@ import Setlist from "./setlist";
 import TopTracks from "./top-tracks";
 import isEmpty from "lodash/isEmpty";
 
-function HomePage({ data, deviceId, paused }) {
-  const [setlistState, addTrackToSetlistState] = useState([]);
+import { useMutation } from "@apollo/react-hooks";
+
+import { CHANGE_TRACK } from "./change-track";
+
+function HomePage({ currentTrack, deviceId, paused }) {
+  const [changeTrack, { data }] = useMutation(CHANGE_TRACK);
+
+  const setlist = (data && data.playTrack && data.playTrack.setlist) || [];
+
+  console.log(data);
 
   return (
     <Page>
-      {isEmpty(data) && paused && (
+      {isEmpty(currentTrack) && paused && (
         <FirstSongSection>
           <Search>
             <h3>Search for a song to start your set</h3>
             <SearchContainer
               deviceId={deviceId}
-              addTrackToSetlistState={addTrackToSetlistState}
-              setlistState={setlistState}
+              changeTrack={changeTrack}
+              setlist={setlist}
             />
           </Search>
           <Favourites>
             <h3>Or play one of your classics</h3>
             <TopTracks
               deviceId={deviceId}
-              addTrackToSetlistState={addTrackToSetlistState}
-              setlistState={setlistState}
+              changeTrack={changeTrack}
+              setlist={setlist}
             />
           </Favourites>
         </FirstSongSection>
       )}
-      {!isEmpty(data) && (
+      {!isEmpty(currentTrack) && (
         <React.Fragment>
           <CurrentTrack>
-            {data && <NowPlaying currentTrack={data.currentTrack} />}
+            {currentTrack && (
+              <NowPlaying currentTrack={currentTrack} setlist={setlist} />
+            )}
           </CurrentTrack>
           <Recommendations>
-            {data && (
+            {currentTrack && (
               <ListsOfRecommendations
-                currentTrack={data.currentTrack}
-                addTrackToSetlistState={addTrackToSetlistState}
-                setlistState={setlistState}
+                currentTrack={currentTrack}
+                changeTrack={changeTrack}
+                setlist={setlist}
               />
             )}
           </Recommendations>
           <h3>Setlist</h3>
-          <Setlist setlist={setlistState} />
+          <Setlist setlist={setlist} />
         </React.Fragment>
       )}
     </Page>

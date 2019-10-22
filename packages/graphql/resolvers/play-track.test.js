@@ -8,12 +8,14 @@ describe("playTrack", function() {
 
     const expectedResult = {
       status: "success",
-      trackUri: "trackUri:asd123",
-      deviceId: "deviceId:asdfg234"
+      track: trackToPlay,
+      deviceId: "deviceId:asdfg234",
+      setlist: expectedSetlist
     };
     return playTrack(
-      "trackUri:asd123",
+      trackToPlay,
       "deviceId:asdfg234",
+      setlistSoFar,
       spotifyDatasource
     ).then(result => {
       expect(result).toStrictEqual(expectedResult);
@@ -30,12 +32,14 @@ describe("playTrack", function() {
 
     const expectedResult = {
       status: "error: Error: bad request",
-      trackUri: "trackUri:asd123",
-      deviceId: "deviceId:asdfg234"
+      track: trackToPlay,
+      deviceId: "deviceId:asdfg234",
+      setlist: setlistSoFar
     };
     return playTrack(
-      "trackUri:asd123",
+      trackToPlay,
       "deviceId:asdfg234",
+      setlistSoFar,
       spotifyDatasource
     ).then(result => {
       expect(result).toStrictEqual(expectedResult);
@@ -43,3 +47,38 @@ describe("playTrack", function() {
     });
   });
 });
+
+const trackToPlay = {
+  artist: "new artist",
+  id: "123456",
+  name: "this is a good song",
+  uri: "spotify:track:11dFghVXANMlKmJXsNCbNl",
+  art: "String!"
+};
+
+const setlistSoFar = [
+  {
+    artist: "old artist",
+    id: "asdfg",
+    name: "oh what a track",
+    uri: "spotify:track:11dFghVXANMlKmJXsNCbNl",
+    art: "String!"
+  }
+];
+
+const expectedSetlist = [
+  {
+    artist: "old artist",
+    id: "asdfg",
+    name: "oh what a track",
+    uri: "spotify:track:11dFghVXANMlKmJXsNCbNl",
+    art: "String!"
+  },
+  {
+    artist: "new artist",
+    id: "123456",
+    name: "this is a good song",
+    uri: "spotify:track:11dFghVXANMlKmJXsNCbNl",
+    art: "String!"
+  }
+];

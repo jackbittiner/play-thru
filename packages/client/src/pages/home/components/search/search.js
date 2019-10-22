@@ -13,8 +13,8 @@ const Search = ({
   deviceId,
   searchBarText,
   setSearchBarText,
-  addTrackToSetlistState,
-  setlistState
+  changeTrack,
+  setlist
 }) => {
   const debouncedInputHandler = debounce(e => {
     const inputText = e.target.value;
@@ -36,8 +36,8 @@ const Search = ({
         track={track}
         deviceId={deviceId}
         key={track.id}
-        addTrackToSetlistState={addTrackToSetlistState}
-        setlistState={setlistState}
+        changeTrack={changeTrack}
+        setlist={setlist}
       />
     ));
 
