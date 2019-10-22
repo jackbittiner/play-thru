@@ -51,13 +51,7 @@ We use these rules to request recommendations from Spotify in these keys (and in
 
 ## What's left to come
 
-- Have a search functionalilty for when you first go on the app.
-
-- Play the new song at the beginning of a section, at the end of the next section of the current song. (This makes sense in my head)
-
-- Then I think a lick of paint wouldn't go amiss.
-
-- And some UI tests would be nice too.
+- A tasty design based on the camelot wheel
 
 - Submit to spotify devloper showcase.
 
