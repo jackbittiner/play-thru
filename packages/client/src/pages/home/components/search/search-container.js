@@ -15,7 +15,11 @@ const SEARCH_QUERY = gql`
   }
 `;
 
-const SearchContainer = ({ deviceId, changeTrack, setlist }) => {
+const SearchContainer = ({
+  deviceId,
+  addTrackToSetlistState,
+  setlistState
+}) => {
   const [getSearchResults, { loading, error, data }] = useLazyQuery(
     SEARCH_QUERY
   );
@@ -32,8 +36,8 @@ const SearchContainer = ({ deviceId, changeTrack, setlist }) => {
       deviceId={deviceId}
       searchBarText={searchBarText}
       setSearchBarText={setSearchBarText}
-      changeTrack={changeTrack}
-      setlist={setlist}
+      addTrackToSetlistState={addTrackToSetlistState}
+      setlistState={setlistState}
     />
   );
 };

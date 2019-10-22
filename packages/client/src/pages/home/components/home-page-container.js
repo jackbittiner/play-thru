@@ -75,11 +75,7 @@ function HomePageContainer({ location }) {
         url="https://sdk.scdn.co/spotify-player.js"
         onLoad={() => handleScriptLoad()}
       />
-      <HomePage
-        currentTrack={(data && data.currentTrack) || null}
-        deviceId={deviceId}
-        paused={paused}
-      />
+      <HomePage data={data} deviceId={deviceId} paused={paused} />
     </>
   );
 }

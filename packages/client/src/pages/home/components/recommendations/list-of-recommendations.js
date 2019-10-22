@@ -7,8 +7,8 @@ import RecommendationsByKey from "./recommendations-by-key";
 
 export default function ListsOfRecommendations({
   currentTrack,
-  changeTrack,
-  setlist
+  addTrackToSetlistState,
+  setlistState
 }) {
   const { loading, error, data } = useQuery(GET_RECOMMENDATIONS, {
     variables: { currentTrack: currentTrack }
@@ -23,8 +23,8 @@ export default function ListsOfRecommendations({
         <RecommendationsByKey
           key={index}
           tracksByKey={tracksByKey}
-          changeTrack={changeTrack}
-          setlist={setlist}
+          addTrackToSetlistState={addTrackToSetlistState}
+          setlistState={setlistState}
         />
       );
     }

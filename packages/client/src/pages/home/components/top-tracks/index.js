@@ -8,7 +8,11 @@ import { GET_TOP_TRACKS } from "./get-top-tracks";
 import LoadingIndicator from "../loading-indicator";
 import styled from "styled-components";
 
-export default function TopTracks({ deviceId, changeTrack, setlist }) {
+export default function TopTracks({
+  deviceId,
+  addTrackToSetlistState,
+  setlistState
+}) {
   const { loading, error, data } = useQuery(GET_TOP_TRACKS);
   if (loading)
     return (
@@ -25,8 +29,8 @@ export default function TopTracks({ deviceId, changeTrack, setlist }) {
         track={track}
         deviceId={deviceId}
         key={track.id}
-        changeTrack={changeTrack}
-        setlist={setlist}
+        addTrackToSetlistState={addTrackToSetlistState}
+        setlistState={setlistState}
       />
     ));
 }
