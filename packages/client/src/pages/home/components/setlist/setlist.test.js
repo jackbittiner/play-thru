@@ -15,7 +15,8 @@ describe("Setlist", () => {
         request: {
           query: CREATE_PLAYLIST_OF_TRACKS,
           variables: {
-            trackUris: ["track1"]
+            trackUris: ["track1"],
+            userId: "jbitts"
           }
         },
         result: () => {
@@ -35,7 +36,10 @@ describe("Setlist", () => {
 
     const component = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <Setlist currentTrack={[{ name: "track1", uri: "track1" }]} />
+        <Setlist
+          currentTrack={[{ name: "track1", uri: "track1" }]}
+          userId={"jbitts"}
+        />
       </MockedProvider>
     );
 

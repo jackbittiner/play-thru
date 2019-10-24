@@ -1,7 +1,4 @@
-async function createPlaylistOfTracks(trackUris, spotifyDatasource) {
-  const me = await spotifyDatasource.get(`me/`);
-  const userId = me.id;
-
+async function createPlaylistOfTracks(trackUris, userId, spotifyDatasource) {
   const header = {
     headers: {
       "Content-Type": "application/json"

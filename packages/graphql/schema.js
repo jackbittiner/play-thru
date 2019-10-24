@@ -13,7 +13,7 @@ const typeDefs = gql`
 
   type Mutation {
     playTrack(trackUri: String, deviceId: String): PlayTrackObject!
-    createPlaylistOfTrakcs(trackUris: [String]): Boolean
+    createPlaylistOfTrakcs(trackUris: [String], userId: String!): Boolean
   }
 
   type CurrentTrack {

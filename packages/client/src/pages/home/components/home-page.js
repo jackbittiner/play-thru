@@ -11,9 +11,10 @@ import Setlist from "./setlist";
 import TopTracks from "./top-tracks";
 import isEmpty from "lodash/isEmpty";
 
-function HomePage({ data, deviceId, paused }) {
+function HomePage({ data, deviceId, paused, userId }) {
   return (
     <Page>
+      <p>{userId}</p>
       {isEmpty(data) && paused && (
         <FirstSongSection>
           <Search>
@@ -36,7 +37,7 @@ function HomePage({ data, deviceId, paused }) {
               <ListsOfRecommendations currentTrack={data.currentTrack} />
             )}
           </Recommendations>
-          <Setlist currentTrack={data.currentTrack} />
+          <Setlist currentTrack={data.currentTrack} userId={userId} />
         </React.Fragment>
       )}
     </Page>

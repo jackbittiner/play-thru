@@ -5,7 +5,7 @@ import { CREATE_PLAYLIST_OF_TRACKS } from "./create-playlist-of-tracks";
 
 import { getSetlist } from "./get-setlist";
 
-const Setlist = ({ currentTrack }) => {
+const Setlist = ({ currentTrack, userId }) => {
   const [setlist, setSetlist] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,8 @@ const Setlist = ({ currentTrack }) => {
 
   const [createPlaylist] = useMutation(CREATE_PLAYLIST_OF_TRACKS, {
     variables: {
-      trackUris: trackUris
+      trackUris: trackUris,
+      userId: userId
     }
   });
 

@@ -40,10 +40,10 @@ const resolvers = {
     },
     createPlaylistOfTrakcs: (
       _root,
-      { trackUris },
+      { trackUris, userId },
       { dataSources: { spotify } }
     ) => {
-      return createPlaylistOfTrakcs(trackUris, spotify);
+      return createPlaylistOfTrakcs(trackUris, userId, spotify);
     }
   }
 };

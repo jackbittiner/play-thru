@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import getHashParams from "../utils/get-hash-params";
-import { useLazyQuery } from "@apollo/react-hooks";
+import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { GET_TRACK } from "./get-track";
+import { GET_CURRENT_USER } from "./get-current-user";
 import HomePage from "./home-page";
 import Script from "react-load-script";
 
@@ -70,13 +71,22 @@ function HomePageContainer({ location }) {
 
   const [getCurrentTrack, { data }] = useLazyQuery(GET_TRACK);
 
+  const { data: accountData } = useQuery(GET_CURRENT_USER);
+
+  const userId = (accountData && accountData.account.id) || "";
+
   return (
     <>
       <Script
         url="https://sdk.scdn.co/spotify-player.js"
         onLoad={() => handleScriptLoad()}
       />
-      <HomePage data={data} deviceId={deviceId} paused={paused} />
+      <HomePage
+        data={data}
+        deviceId={deviceId}
+        paused={paused}
+        userId={userId}
+      />
     </>
   );
 }

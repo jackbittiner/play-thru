@@ -1,7 +1,8 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import HomePageContainer from "./home-page-container";
 import * as getHashParams from "../utils/get-hash-params";
+import { MockedProvider } from "@apollo/react-testing";
 
 describe("HomePageContainer", () => {
   it("should add accessToken to session storage if present in URL", () => {
@@ -19,7 +20,11 @@ describe("HomePageContainer", () => {
       };
     });
 
-    const component = shallow(<HomePageContainer location={location} />);
+    const component = mount(
+      <MockedProvider>
+        <HomePageContainer location={location} />
+      </MockedProvider>
+    );
 
     expect(sessionStorage.setItem).toHaveBeenLastCalledWith(
       "accessToken",
