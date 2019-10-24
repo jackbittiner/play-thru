@@ -8,6 +8,7 @@ const typeDefs = gql`
     ): [RecommendedTracksByKey]
     favourites: [Track]!
     searchResults(query: String!): [Track]!
+    account: Account!
   }
 
   type Mutation {
@@ -88,6 +89,10 @@ const typeDefs = gql`
     status: String
     trackUri: String
     deviceId: String
+  }
+
+  type Account {
+    id: String!
   }
 `;
 

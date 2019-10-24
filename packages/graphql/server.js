@@ -8,6 +8,7 @@ import getTrackById from "./resolvers/get-track-by-id";
 import { getTopTracks } from "./resolvers/get-favourites";
 import getSearchResults from "./resolvers/get-search-results";
 import createPlaylistOfTrakcs from "./resolvers/create-playlist-of-tracks";
+import getCurrentUser from "./resolvers/get-current-user";
 
 const resolvers = {
   Query: {
@@ -21,7 +22,9 @@ const resolvers = {
     favourites: (_root, _args, { dataSources: { spotify } }) =>
       getTopTracks(spotify),
     searchResults: (_root, { query }, { dataSources: { spotify } }) =>
-      getSearchResults(query, spotify)
+      getSearchResults(query, spotify),
+    account: (_root, _args, { dataSources: { spotify } }) =>
+      getCurrentUser(spotify)
   },
   CurrentTrack: {
     trackFeatures: ({ id }, _args, { dataSources: { spotify } }) =>
