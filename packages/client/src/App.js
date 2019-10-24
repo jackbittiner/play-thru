@@ -2,6 +2,9 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "./pages/login/";
 import { HomePageContainer } from "./pages/home/";
+import ReactGA from "react-ga";
+
+ReactGA.initialize("UA-150824990-1");
 
 const Main = () => (
   <main>
@@ -12,10 +15,12 @@ const Main = () => (
   </main>
 );
 
-const App = () => (
-  <div className="app">
-    <Main />
-  </div>
-);
+const App = () => {
+  return (
+    <div className="app">
+      <Main />
+    </div>
+  );
+};
 
 export default App;
