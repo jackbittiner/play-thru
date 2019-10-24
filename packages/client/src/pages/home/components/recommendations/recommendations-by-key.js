@@ -6,7 +6,7 @@ function RecommendationsByKey({ tracksByKey }) {
     <div>
       <h3>{tracksByKey.key.name}</h3>
       {tracksByKey.recommendedTracks.map(track => (
-        <Track track={track} key={track.uri} />
+        <Track track={track} key={track.uri} trackTypeGA={"Recommendation"} />
       ))}
     </div>
   );

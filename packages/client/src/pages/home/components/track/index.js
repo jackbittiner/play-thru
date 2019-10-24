@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { useMutation } from "@apollo/react-hooks";
 import { CHANGE_TRACK } from "./change-track";
 
-export default function Track({ track, deviceId }) {
+import ReactGA from "react-ga";
+
+export default function Track({ track, deviceId, trackTypeGA }) {
   const [playNewTrack] = useMutation(CHANGE_TRACK, {
     variables: {
       trackUri: track.uri,
@@ -17,6 +19,11 @@ export default function Track({ track, deviceId }) {
       <ListItem>
         <button
           onClick={() => {
+            ReactGA.event({
+              category: "Play Track",
+              action: trackTypeGA,
+              label: `Track: ${track.id}`
+            });
             playNewTrack();
           }}
         >
