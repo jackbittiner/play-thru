@@ -21,7 +21,12 @@ export default function TopTracks({ deviceId }) {
   const tracks = data && data.favourites;
   if (tracks)
     return tracks.map(track => (
-      <Track track={track} deviceId={deviceId} key={track.id} />
+      <Track
+        track={track}
+        deviceId={deviceId}
+        key={track.id}
+        trackTypeGA={"Favourites"}
+      />
     ));
 }
 

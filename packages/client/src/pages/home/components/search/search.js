@@ -30,7 +30,12 @@ const Search = ({
     data &&
     data.searchResults &&
     data.searchResults.map(track => (
-      <Track track={track} deviceId={deviceId} key={track.id} />
+      <Track
+        track={track}
+        deviceId={deviceId}
+        key={track.id}
+        trackTypeGA={"Search"}
+      />
     ));
 
   return (

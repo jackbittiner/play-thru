@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import ReactGA from "react-ga";
 
 const clientId = "0e58e71063554851870abd7ea374bd45";
 const redirectUri =
@@ -16,35 +17,37 @@ const scopes = [
   "playlist-modify-public",
   "playlist-modify-private"
 ];
-export default class Login extends Component {
-  render() {
-    return (
-      <Page>
-        <VinylSection>
-          <Vinyl src={require("./assets/orange-vinyl.png")} />
-          <Vinyl src={require("./assets/black-vinyl.png")} />
-          <Vinyl src={require("./assets/red-vinyl.png")} />
-        </VinylSection>
-        <Title>
-          <Bigger>P</Bigger>LAY<Big>T</Big>HRU
-        </Title>
-        <LogInButton
-          href={
-            "https://accounts.spotify.com/authorize" +
-            "?response_type=token" +
-            "&client_id=" +
-            clientId +
-            (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
-            "&redirect_uri=" +
-            encodeURIComponent(redirectUri)
-          }
-        >
-          Login to Spotify
-        </LogInButton>
-      </Page>
-    );
-  }
-}
+const Login = ({ location }) => {
+  useEffect(() => {
+    ReactGA.pageview(location.pathname);
+  });
+
+  return (
+    <Page>
+      <VinylSection>
+        <Vinyl src={require("./assets/orange-vinyl.png")} />
+        <Vinyl src={require("./assets/black-vinyl.png")} />
+        <Vinyl src={require("./assets/red-vinyl.png")} />
+      </VinylSection>
+      <Title>
+        <Bigger>P</Bigger>LAY<Big>T</Big>HRU
+      </Title>
+      <LogInButton
+        href={
+          "https://accounts.spotify.com/authorize" +
+          "?response_type=token" +
+          "&client_id=" +
+          clientId +
+          (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
+          "&redirect_uri=" +
+          encodeURIComponent(redirectUri)
+        }
+      >
+        Login to Spotify
+      </LogInButton>
+    </Page>
+  );
+};
 
 const Title = styled.h1`
   color: #266179;
@@ -85,3 +88,5 @@ const LogInButton = styled.a`
   padding: 18px 48px 16px;
   letter-spacing: 2px;
 `;
+
+export default Login;

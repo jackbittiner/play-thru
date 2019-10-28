@@ -5,6 +5,8 @@ import { CREATE_PLAYLIST_OF_TRACKS } from "./create-playlist-of-tracks";
 
 import { getSetlist } from "./get-setlist";
 
+import ReactGA from "react-ga";
+
 const Setlist = ({ currentTrack, userId }) => {
   const [setlist, setSetlist] = useState([]);
 
@@ -30,7 +32,18 @@ const Setlist = ({ currentTrack, userId }) => {
     <div>
       <h3>Setlist</h3>
       {tracks}
-      <button onClick={() => createPlaylist()}>Make Playlist</button>
+      <button
+        onClick={() => {
+          ReactGA.event({
+            category: "Setlist",
+            action: "Convert to Playlist",
+            label: `${setlist.length} songs`
+          });
+          createPlaylist();
+        }}
+      >
+        Make Playlist
+      </button>
     </div>
   );
 };

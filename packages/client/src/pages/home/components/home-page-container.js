@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import getHashParams from "../utils/get-hash-params";
 import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { GET_TRACK } from "./get-track";
 import { GET_CURRENT_USER } from "./get-current-user";
 import HomePage from "./home-page";
 import Script from "react-load-script";
+import ReactGA from "react-ga";
 
 function HomePageContainer({ location }) {
+  useEffect(() => {
+    ReactGA.pageview(location.pathname);
+  });
+
   const params = getHashParams(location);
   const token = params.access_token;
 
@@ -74,6 +79,8 @@ function HomePageContainer({ location }) {
   const { data: accountData } = useQuery(GET_CURRENT_USER);
 
   const userId = (accountData && accountData.account.id) || "";
+
+  userId !== "" && ReactGA.set({ userId: userId });
 
   return (
     <>
