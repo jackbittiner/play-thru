@@ -11,8 +11,13 @@ import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { setContext } from "apollo-link-context";
 
+const targetUri =
+  process.env.NODE_ENV === "production"
+    ? "https://api.playthru.xyz/api/server.js"
+    : "http://localhost:4000";
+
 const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_GRAPHQLURI || "http://localhost:4000"
+  uri: targetUri
 });
 
 const authLink = setContext((_, { headers }) => {

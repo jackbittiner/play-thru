@@ -57,7 +57,9 @@ const server = new ApolloServer({
   context: ({ req }) => {
     const accessToken = req.headers.authorization || "";
     return { accessToken };
-  }
+  },
+  playground: true,
+  introspection: true
 });
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
