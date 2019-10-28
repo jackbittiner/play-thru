@@ -8,7 +8,7 @@ This app is trying to solve that problem. It will recommend songs to you in a si
 
 It is currently a work in progress.
 
-Play with the live app here: [PlayThru](https://play-thru.herokuapp.com/)
+Play with the live app here: [PlayThru](https://playthru.xyz/)
 
 ### Usage
 
