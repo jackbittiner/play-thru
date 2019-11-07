@@ -7,6 +7,7 @@
   "scripts": {
     "client": "yarn workspace client start",
     "graphql": "yarn workspace graphql start",
+    "prestart": "git config pull.rebase true",
     "start": "concurrently --kill-others-on-fail \"yarn graphql\"  \"yarn client\" ",
     "test": "yarn workspace graphql test && yarn workspace client test"
   },
