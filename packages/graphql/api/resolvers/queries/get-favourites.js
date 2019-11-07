@@ -1,4 +1,4 @@
-export async function getTopTracks(datasource) {
+async function getTopTracks(datasource) {
   const result = await datasource.get(`me/top/${ITEM_TYPE.TRACKS}`);
 
   const tracks = result.items.map(track => {
@@ -18,3 +18,5 @@ export const ITEM_TYPE = {
   TRACKS: "tracks",
   ALBUMS: "albums"
 };
+
+export default getTopTracks;

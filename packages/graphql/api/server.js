@@ -1,14 +1,16 @@
 import { ApolloServer } from "apollo-server";
 import SpotifyDatasource from "./datasources/spotify-datasource";
 import typeDefs from "./schema";
-import getTrackFeatures from "./resolvers/get-track-features";
-import getRecommendations from "./resolvers/get-recommendations";
-import playTrack from "./resolvers/play-track";
-import getTrackById from "./resolvers/get-track-by-id";
-import { getTopTracks } from "./resolvers/get-favourites";
-import getSearchResults from "./resolvers/get-search-results";
-import createPlaylistOfTrakcs from "./resolvers/create-playlist-of-tracks";
-import getCurrentUser from "./resolvers/get-current-user";
+import {
+  getTrackFeatures,
+  getRecommendations,
+  playTrack,
+  getTrackById,
+  getTopTracks,
+  getSearchResults,
+  createPlaylistOfTrakcs,
+  getCurrentUser
+} from "./resolvers";
 
 const resolvers = {
   Query: {

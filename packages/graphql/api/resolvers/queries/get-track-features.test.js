@@ -1,5 +1,5 @@
 import getTrackFeatures from "./get-track-features";
-import * as camelotWheel from "./camelot-wheel";
+import * as camelotWheel from "../camelot-wheel/camelot-wheel";
 
 describe("getTrackFeatures", function() {
   const spotifyDatasource = {

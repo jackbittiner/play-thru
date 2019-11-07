@@ -1,4 +1,4 @@
-import { getHarmonicKeys, getKeyName } from "./camelot-wheel";
+import { getHarmonicKeys, getKeyName } from "../camelot-wheel/camelot-wheel";
 
 async function getTrackFeatures(id, datasource) {
   const result = await datasource.get(`audio-features/${id}`);

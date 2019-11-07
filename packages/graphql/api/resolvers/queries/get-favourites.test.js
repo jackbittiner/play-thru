@@ -1,4 +1,4 @@
-import { getTopTracks } from "./get-favourites";
+import getTopTracks from "./get-favourites";
 
 describe("getTopTracks", function() {
   const spotifyDatasource = {
