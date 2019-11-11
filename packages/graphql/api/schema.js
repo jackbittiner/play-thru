@@ -93,7 +93,6 @@ const typeDefs = gql`
 
   type Account {
     id: String!
-    isPremium: Boolean!
   }
 `;
 

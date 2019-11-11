@@ -6,7 +6,6 @@ import { GET_CURRENT_USER } from "./get-current-user";
 import HomePage from "./home-page";
 import Script from "react-load-script";
 import ReactGA from "react-ga";
-import FreeAccountError from "./free-account-error";
 
 function HomePageContainer({ location }) {
   useEffect(() => {
@@ -80,11 +79,8 @@ function HomePageContainer({ location }) {
   const { data: accountData } = useQuery(GET_CURRENT_USER);
 
   const userId = (accountData && accountData.account.id) || "";
-  const isPremium = accountData && accountData.account.isPremium;
 
   userId !== "" && ReactGA.set({ userId: userId });
-
-  if (!isPremium) return <FreeAccountError />;
 
   return (
     <>
