@@ -6,6 +6,7 @@ import { GET_CURRENT_USER } from "./get-current-user";
 import HomePage from "./home-page";
 import Script from "react-load-script";
 import ReactGA from "react-ga";
+import FreeAccountError from "./free-account-error";
 
 function HomePageContainer({ location }) {
   useEffect(() => {
@@ -76,14 +77,18 @@ function HomePageContainer({ location }) {
 
   const [getCurrentTrack, { data }] = useLazyQuery(GET_TRACK);
 
-  const { data: accountData } = useQuery(GET_CURRENT_USER);
+  const { data: accountData, loading } = useQuery(GET_CURRENT_USER);
 
   const userId = (accountData && accountData.account.id) || "";
 
+  const isPremium = accountData && accountData.account.isPremium;
+
   userId !== "" && ReactGA.set({ userId: userId });
 
+  if (!loading && !isPremium) return <FreeAccountError />;
+
   return (
-    <>
+    <React.Fragment>
       <Script
         url="https://sdk.scdn.co/spotify-player.js"
         onLoad={() => handleScriptLoad()}
@@ -94,7 +99,7 @@ function HomePageContainer({ location }) {
         paused={paused}
         userId={userId}
       />
-    </>
+    </React.Fragment>
   );
 }
 
