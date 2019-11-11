@@ -4,20 +4,20 @@
   "description": "",
   "main": "./api/server.js",
   "dependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "apollo-datasource-rest": "^0.6.1",
-    "apollo-server": "^2.9.3",
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "apollo-datasource-rest": "^0.6.6",
+    "apollo-server": "^2.9.7",
     "babel-core": "^7.0.0-bridge.0",
     "babel-preset-env": "^1.7.0",
     "esm": "^3.2.25",
-    "graphql": "^14.4.2"
+    "graphql": "^14.5.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/node": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.5.5"
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.7.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/preset-env": "^7.7.1"
   },
   "scripts": {
     "test": "jest",
