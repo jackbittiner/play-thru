@@ -7,6 +7,7 @@ import HomePage from "./home-page";
 import Script from "react-load-script";
 import ReactGA from "react-ga";
 import FreeAccountError from "./free-account-error";
+import handleScriptLoad from "./handle-spotify-script-load";
 
 function HomePageContainer({ location }) {
   useEffect(() => {
@@ -30,51 +31,6 @@ function HomePageContainer({ location }) {
     window.location.href = "/";
   }
 
-  const handleScriptLoad = () => {
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      const player = new window.Spotify.Player({
-        name: "Play Thru",
-        getOAuthToken: cb => {
-          cb(authToken);
-        }
-      });
-
-      player.addListener("initialization_error", ({ message }) => {
-        console.error(message);
-      });
-      player.addListener("authentication_error", ({ message }) => {
-        console.error(message);
-      });
-      player.addListener("account_error", ({ message }) => {
-        console.error(message);
-      });
-      player.addListener("playback_error", ({ message }) => {
-        console.error(message);
-      });
-
-      player.addListener("player_state_changed", state => {
-        setPausedState(state.paused);
-        getCurrentTrack({
-          variables: {
-            trackId: state.track_window.current_track.id
-          }
-        });
-      });
-
-      player.addListener("ready", ({ device_id }) => {
-        sessionStorage.removeItem("setlist");
-        setDevice(device_id);
-        console.log("Ready with Device ID", device_id);
-      });
-
-      player.addListener("not_ready", ({ device_id }) => {
-        console.log("Device ID has gone offline", device_id);
-      });
-
-      player.connect();
-    };
-  };
-
   const [getCurrentTrack, { data }] = useLazyQuery(GET_TRACK);
 
   const { data: accountData, loading } = useQuery(GET_CURRENT_USER);
@@ -91,7 +47,14 @@ function HomePageContainer({ location }) {
     <React.Fragment>
       <Script
         url="https://sdk.scdn.co/spotify-player.js"
-        onLoad={() => handleScriptLoad()}
+        onLoad={() =>
+          handleScriptLoad({
+            authToken,
+            setPausedState,
+            getCurrentTrack,
+            setDevice
+          })
+        }
       />
       <HomePage
         data={data}
