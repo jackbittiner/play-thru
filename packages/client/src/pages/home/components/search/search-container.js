@@ -16,7 +16,7 @@ const SEARCH_QUERY = gql`
 `;
 
 const SearchContainer = ({ deviceId }) => {
-  const [getSearchResults, { loading, error, data }] = useLazyQuery(
+  const [getSearchResults, { loading, error, data, client }] = useLazyQuery(
     SEARCH_QUERY
   );
 
@@ -32,6 +32,7 @@ const SearchContainer = ({ deviceId }) => {
       deviceId={deviceId}
       searchBarText={searchBarText}
       setSearchBarText={setSearchBarText}
+      client={client}
     />
   );
 };

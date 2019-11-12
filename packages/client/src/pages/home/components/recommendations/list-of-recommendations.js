@@ -6,7 +6,7 @@ import { GET_RECOMMENDATIONS } from "./get-recommendations";
 import RecommendationsByKey from "./recommendations-by-key";
 
 export default function ListsOfRecommendations({ currentTrack }) {
-  const { loading, error, data } = useQuery(GET_RECOMMENDATIONS, {
+  const { loading, error, data, client } = useQuery(GET_RECOMMENDATIONS, {
     variables: { currentTrack: currentTrack }
   });
 
@@ -15,7 +15,13 @@ export default function ListsOfRecommendations({ currentTrack }) {
 
   return Object.values(data.recommendedTracksByKey).map(
     (tracksByKey, index) => {
-      return <RecommendationsByKey key={index} tracksByKey={tracksByKey} />;
+      return (
+        <RecommendationsByKey
+          key={index}
+          tracksByKey={tracksByKey}
+          client={client}
+        />
+      );
     }
   );
 }

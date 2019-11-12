@@ -9,7 +9,7 @@ import LoadingIndicator from "../loading-indicator";
 import styled from "styled-components";
 
 export default function TopTracks({ deviceId }) {
-  const { loading, error, data } = useQuery(GET_TOP_TRACKS);
+  const { loading, error, data, client } = useQuery(GET_TOP_TRACKS);
   if (loading)
     return (
       <Page>
@@ -26,6 +26,7 @@ export default function TopTracks({ deviceId }) {
         deviceId={deviceId}
         key={track.id}
         trackTypeGA={"Favourites"}
+        client={client}
       />
     ));
 }

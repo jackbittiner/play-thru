@@ -12,7 +12,8 @@ const Search = ({
   loading,
   deviceId,
   searchBarText,
-  setSearchBarText
+  setSearchBarText,
+  client
 }) => {
   const debouncedInputHandler = debounce(e => {
     const inputText = e.target.value;
@@ -35,6 +36,7 @@ const Search = ({
         deviceId={deviceId}
         key={track.id}
         trackTypeGA={"Search"}
+        client={client}
       />
     ));
 
