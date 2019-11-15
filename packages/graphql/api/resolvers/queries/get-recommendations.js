@@ -9,7 +9,10 @@ async function getRecommendations(currentTrack, datasource) {
         max_mode: key.mode,
         min_tempo: currentTrack.trackFeatures.tempo - 10,
         max_tempo: currentTrack.trackFeatures.tempo + 10,
-        seed_tracks: [currentTrack.id]
+        min_time_signature: currentTrack.trackFeatures.time_signature,
+        max_time_signature: currentTrack.trackFeatures.time_signature,
+        seed_tracks: [currentTrack.id],
+        seed_artists: [currentTrack.artist.id]
       };
 
       const result = await datasource.get(`recommendations`, requestBody);
