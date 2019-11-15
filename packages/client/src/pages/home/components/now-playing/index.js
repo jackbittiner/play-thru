@@ -8,6 +8,8 @@ export default function NowPlaying({ currentTrack }) {
         <Image src={currentTrack.art} alt={currentTrack.artist.artistName} />
         <TrackName>{currentTrack.name}</TrackName>
         <ArtistName>{currentTrack.artist.name}</ArtistName>
+        <p>Key: {currentTrack.trackFeatures.key.name}</p>
+        <p>Tempo: {Math.round(currentTrack.trackFeatures.tempo)}</p>
       </CurrentTrack>
     );
   return null;
@@ -27,4 +29,8 @@ const TrackName = styled.h2`
 
 const ArtistName = styled.h3`
   margin: 0.5em;
+`;
+
+const TrackInfo = styled.div`
+  display: flex;
 `;
