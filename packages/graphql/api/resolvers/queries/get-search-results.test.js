@@ -4,11 +4,25 @@ describe("getTrackById", function() {
   const spotifyDatasource = {
     get: jest.fn(() => spotifyApiResult)
   };
-  it("should resolve the data from spotify", function(done) {
-    return getSearchResults("hello", spotifyDatasource).then(result => {
-      expect(result).toStrictEqual(expectedResult);
-      done();
-    });
+  let expected;
+  let apiResult;
+
+  beforeEach(() => {
+    expected = expectedResult;
+    apiResult = spotifyApiResult;
+  });
+
+  it("should resolve the data from spotify", async () => {
+    const result = await getSearchResults("hello", spotifyDatasource);
+    expect(result).toEqual(expected);
+  });
+
+  it("should handle an api result with no images", async () => {
+    apiResult.tracks.items[0].album.images = [];
+
+    delete expected[0].art;
+    const result = await getSearchResults("hello", spotifyDatasource);
+    expect(result).toEqual(expected);
   });
 });
 

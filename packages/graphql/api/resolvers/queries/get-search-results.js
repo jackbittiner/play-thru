@@ -6,12 +6,13 @@ async function getSearchResults(query, datasource) {
   );
 
   const searchResults = result.tracks.items.map(track => {
+    const art = track.album.images[0] && track.album.images[0].url;
     return {
       artist: track.artists[0].name,
       id: track.id,
       name: track.name,
       uri: track.uri,
-      art: track.album.images[0].url
+      art: art
     };
   });
 

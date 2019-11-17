@@ -82,7 +82,7 @@ const typeDefs = gql`
     id: String!
     name: String!
     uri: String!
-    art: String!
+    art: String
   }
 
   type PlayTrackObject {
