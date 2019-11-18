@@ -30,7 +30,3 @@ const TrackName = styled.h2`
 const ArtistName = styled.h3`
   margin: 0.5em;
 `;
-
-const TrackInfo = styled.div`
-  display: flex;
-`;
