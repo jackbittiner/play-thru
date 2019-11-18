@@ -9,12 +9,13 @@
     "graphql": "yarn workspace graphql start",
     "prestart": "git config pull.rebase true",
     "start": "concurrently --kill-others-on-fail \"yarn graphql\"  \"yarn client\" ",
+    "dev": "concurrently --kill-others-on-fail \"yarn workspace graphql dev\" \"yarn client\" ",
     "test": "yarn workspace graphql test && yarn workspace client test"
   },
   "dependencies": {
     "concurrently": "^5.0.0"
   },
   "engines": {
-    "node": "10.13.0"
+    "node": ">=10.13.0"
   }
 }

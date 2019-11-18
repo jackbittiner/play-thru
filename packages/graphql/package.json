@@ -17,11 +17,13 @@
     "@babel/core": "^7.7.2",
     "@babel/node": "^7.7.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
-    "@babel/preset-env": "^7.7.1"
+    "@babel/preset-env": "^7.7.1",
+    "nodemon": "^1.19.4"
   },
   "scripts": {
     "test": "jest",
-    "start": "node -r esm ./api/server.js"
+    "start": "node -r esm ./api/server.js",
+    "dev": "nodemon -r esm ./api/server.js"
   },
   "author": "",
   "license": "ISC"
