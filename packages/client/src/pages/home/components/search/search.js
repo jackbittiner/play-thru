@@ -40,6 +40,8 @@ const Search = ({
       />
     ));
 
+  const noResults = tracks && tracks.length === 0;
+
   return (
     <>
       <SearchBarWrapper>
@@ -57,6 +59,7 @@ const Search = ({
         {loading && <ClipLoader css={cssOverride} />}
       </SearchBarWrapper>
       {tracks}
+      {noResults && <p>No tracks found...</p>}
     </>
   );
 };
