@@ -119,20 +119,20 @@ export const getCamelotRoute = (startKey, targetKey) => {
     shouldGoClockwise
   );
 
-  let tracks = [];
+  let keysOnRoute = [];
 
   while (
     nextPosition >= endPosition.camelotPosition + 1 ||
     nextPosition <= endPosition.camelotPosition - 1
   ) {
-    const newTrack = allKeys.find(key => {
+    const camelotKey = allKeys.find(key => {
       return key.camelotPosition === nextPosition;
     });
-    tracks.push(newTrack);
+    keysOnRoute.push(camelotKey);
     nextPosition = changeCamelotNumber(nextPosition, shouldGoClockwise);
   }
 
-  return tracks;
+  return keysOnRoute;
 };
 
 const getKey = (pitchClass, mode) => {
