@@ -80,4 +80,51 @@ describe("getCamelotRoute", function() {
 
     expect(getCamelotRoute(startKey, targetKey)).toEqual([]);
   });
+
+  //////////////////////////////////////////////
+
+  it("should return the route from start key to end key anticlockwise if closer", function() {
+    const startKey = {
+      pitchClass: 9,
+      mode: 1
+    };
+    const targetKey = {
+      pitchClass: 0,
+      mode: 1
+    };
+
+    expect(getCamelotRoute(startKey, targetKey)).toEqual([
+      { name: "D", pitchClass: 2, mode: 1, camelotPosition: 10 },
+      { name: "G", pitchClass: 7, mode: 1, camelotPosition: 9 }
+    ]);
+  });
+
+  it("should wrap round the camelot wheel clockwise", function() {
+    const startKey = {
+      pitchClass: 6,
+      mode: 1
+    };
+    const targetKey = {
+      pitchClass: 4,
+      mode: 1
+    };
+
+    expect(getCamelotRoute(startKey, targetKey)).toEqual([
+      { name: "B", pitchClass: 11, mode: 1, camelotPosition: 1 }
+    ]);
+  });
+
+  it("should return empty array if start key is immediately after targetKey", function() {
+    const startKey = {
+      pitchClass: 10,
+      mode: 1
+    };
+
+    const targetKey = {
+      pitchClass: 3,
+      mode: 1
+    };
+
+    expect(getCamelotRoute(startKey, targetKey)).toEqual([]);
+  });
 });

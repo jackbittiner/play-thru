@@ -1,4 +1,5 @@
 import { changeCamelotNumber } from "./change-camelot-number";
+import { goClockwise } from "./go-clockwise";
 
 //Major Keys
 
@@ -108,9 +109,14 @@ export const getCamelotRoute = (startKey, targetKey) => {
 
   const endPosition = getKey(targetKey.pitchClass, targetKey.mode);
 
+  const shouldGoClockwise = goClockwise(
+    beginningPosition.camelotPosition,
+    endPosition.camelotPosition
+  );
+
   let nextPosition = changeCamelotNumber(
     beginningPosition.camelotPosition,
-    true
+    shouldGoClockwise
   );
 
   let tracks = [];
@@ -123,7 +129,7 @@ export const getCamelotRoute = (startKey, targetKey) => {
       return key.camelotPosition === nextPosition;
     });
     tracks.push(newTrack);
-    nextPosition = incrementCamelotNumber(nextPosition);
+    nextPosition = changeCamelotNumber(nextPosition, shouldGoClockwise);
   }
 
   return tracks;
