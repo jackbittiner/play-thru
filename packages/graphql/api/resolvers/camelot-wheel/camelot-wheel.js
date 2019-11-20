@@ -1,4 +1,4 @@
-import { incrementCamelotNumber } from "./increment-camelot-number";
+import { incrementCamelotNumber } from "./change-camelot-number";
 
 //Major Keys
 
