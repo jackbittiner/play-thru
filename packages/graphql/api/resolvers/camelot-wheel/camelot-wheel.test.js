@@ -25,7 +25,7 @@ describe("getHarmonicKeys", function() {
 });
 
 describe("getCamelotRoute", function() {
-  it("should return the route from and to the specified keys", function() {
+  it("should return the route from start key to end key", function() {
     const startKey = {
       pitchClass: 0,
       mode: 1
@@ -41,7 +41,7 @@ describe("getCamelotRoute", function() {
     ]);
   });
 
-  it("should wrap round the camelot wheel", function() {
+  it("should wrap round the camelot wheel clockwise", function() {
     const startKey = {
       pitchClass: 4,
       mode: 1
@@ -54,5 +54,30 @@ describe("getCamelotRoute", function() {
     expect(getCamelotRoute(startKey, targetKey)).toEqual([
       { name: "B", pitchClass: 11, mode: 1, camelotPosition: 1 }
     ]);
+  });
+
+  it("should return empty array if the same key", function() {
+    const startKey = {
+      pitchClass: 3,
+      mode: 1
+    };
+    const targetKey = {
+      pitchClass: 3,
+      mode: 1
+    };
+
+    expect(getCamelotRoute(startKey, targetKey)).toEqual([]);
+  });
+  it("should return empty array if target key is immediately after startKey", function() {
+    const startKey = {
+      pitchClass: 3,
+      mode: 1
+    };
+    const targetKey = {
+      pitchClass: 10,
+      mode: 1
+    };
+
+    expect(getCamelotRoute(startKey, targetKey)).toEqual([]);
   });
 });

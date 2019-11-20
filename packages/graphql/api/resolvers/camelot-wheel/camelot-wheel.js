@@ -95,6 +95,13 @@ export const getHarmonicKeys = (pitchClass, mode) => {
 };
 
 export const getCamelotRoute = (startKey, targetKey) => {
+  if (
+    startKey.pitchClass === targetKey.pitchClass ||
+    startKey.pitchClass === targetKey.pitchClass + 1 ||
+    startKey.pitchClass === targetKey.pitchClass - 1
+  )
+    return [];
+
   const beginningPosition = getKey(startKey.pitchClass, startKey.mode);
 
   const endPosition = getKey(targetKey.pitchClass, targetKey.mode);
@@ -103,7 +110,10 @@ export const getCamelotRoute = (startKey, targetKey) => {
 
   let tracks = [];
 
-  while (nextPosition !== endPosition.camelotPosition) {
+  while (
+    nextPosition >= endPosition.camelotPosition + 1 ||
+    nextPosition <= endPosition.camelotPosition - 1
+  ) {
     const newTrack = allKeys.find(key => {
       return key.camelotPosition === nextPosition;
     });
@@ -124,3 +134,7 @@ const getKey = (pitchClass, mode) => {
 const incrementCamelotNumber = number => {
   return number === 12 ? 1 : number + 1;
 };
+
+// just need to do wrap round 0 and go backwards
+
+// then need to do the mode swap
