@@ -1,4 +1,4 @@
-import { incrementCamelotNumber } from "./change-camelot-number";
+import { changeCamelotNumber } from "./change-camelot-number";
 
 //Major Keys
 
@@ -108,7 +108,10 @@ export const getCamelotRoute = (startKey, targetKey) => {
 
   const endPosition = getKey(targetKey.pitchClass, targetKey.mode);
 
-  let nextPosition = incrementCamelotNumber(beginningPosition.camelotPosition);
+  let nextPosition = changeCamelotNumber(
+    beginningPosition.camelotPosition,
+    true
+  );
 
   let tracks = [];
 
