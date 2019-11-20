@@ -1,3 +1,5 @@
+import { incrementCamelotNumber } from "./increment-camelot-number";
+
 //Major Keys
 
 const C = { name: "C", pitchClass: 0, mode: 1, camelotPosition: 8 };
@@ -129,10 +131,6 @@ const getKey = (pitchClass, mode) => {
     return key.pitchClass === pitchClass && key.mode === mode;
   });
   return keyName;
-};
-
-const incrementCamelotNumber = number => {
-  return number === 12 ? 1 : number + 1;
 };
 
 // just need to do wrap round 0 and go backwards
