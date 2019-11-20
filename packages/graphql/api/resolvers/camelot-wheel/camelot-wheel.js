@@ -83,11 +83,9 @@ export const harmonicKeys = {
   Gm: [Gm, Cm, Dm, E]
 };
 
-export const getKeyName = (pitchClass, mode, keys = allKeys) => {
+export const getKeyName = (pitchClass, mode) => {
   if (pitchClass === null || mode === null) return null;
-  const keyName = keys.find(key => {
-    return key.pitchClass === pitchClass && key.mode === mode;
-  });
+  const keyName = getKey(pitchClass, mode);
   return keyName.name;
 };
 
@@ -96,26 +94,33 @@ export const getHarmonicKeys = (pitchClass, mode) => {
   return harmonicKeys[keyName];
 };
 
-export const getCamelotRoute = (startKey, targetKey, keys = allKeys) => {
-  const beginningPosition = keys.find(key => {
-    return key.pitchClass === startKey.pitchClass && key.mode === startKey.mode;
-  });
-  const endPosition = keys.find(key => {
-    return (
-      key.pitchClass === targetKey.pitchClass && key.mode === targetKey.mode
-    );
-  });
+export const getCamelotRoute = (startKey, targetKey) => {
+  const beginningPosition = getKey(startKey.pitchClass, startKey.mode);
 
-  let nextPosition = beginningPosition.camelotPosition + 1;
+  const endPosition = getKey(targetKey.pitchClass, targetKey.mode);
+
+  let nextPosition = incrementCamelotNumber(beginningPosition.camelotPosition);
+
   let tracks = [];
 
   while (nextPosition !== endPosition.camelotPosition) {
-    const newTrack = keys.find(key => {
+    const newTrack = allKeys.find(key => {
       return key.camelotPosition === nextPosition;
     });
     tracks.push(newTrack);
-    nextPosition++;
+    nextPosition = incrementCamelotNumber(nextPosition);
   }
 
   return tracks;
+};
+
+const getKey = (pitchClass, mode) => {
+  const keyName = allKeys.find(key => {
+    return key.pitchClass === pitchClass && key.mode === mode;
+  });
+  return keyName;
+};
+
+const incrementCamelotNumber = number => {
+  return number === 12 ? 1 : number + 1;
 };
