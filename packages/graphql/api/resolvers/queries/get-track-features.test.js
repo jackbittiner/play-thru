@@ -1,15 +1,15 @@
 import getTrackFeatures from "./get-track-features";
-import * as camelotWheel from "../camelot-wheel/camelot-wheel";
+import * as harmonicKeys from "../camelot-wheel/camelot-wheel";
 
 describe("getTrackFeatures", function() {
   const spotifyDatasource = {
     get: jest.fn(() => spotifyApiResult)
   };
   beforeAll(function() {
-    jest.spyOn(camelotWheel, "getKeyName").mockImplementation(() => {
+    jest.spyOn(harmonicKeys, "getKeyName").mockImplementation(() => {
       return "Gm";
     });
-    jest.spyOn(camelotWheel, "getHarmonicKeys").mockImplementation(() => {
+    jest.spyOn(harmonicKeys, "getHarmonicKeys").mockImplementation(() => {
       return mockHarmonicKeys;
     });
   });

@@ -1,4 +1,4 @@
-import { getKeyName, getHarmonicKeys } from "./camelot-wheel";
+import { getKeyName, getHarmonicKeys, getCamelotRoute } from "./camelot-wheel";
 
 describe("getKeyName", function() {
   const keys = [
@@ -16,10 +16,27 @@ describe("getKeyName", function() {
 describe("getHarmonicKeys", function() {
   it("should return the harmonic keys for th given key", function() {
     expect(getHarmonicKeys(0, 1)).toEqual([
-      { name: "C", pitchClass: 0, mode: 1 },
-      { name: "F", pitchClass: 5, mode: 1 },
-      { name: "G", pitchClass: 7, mode: 1 },
-      { name: "Am", pitchClass: 9, mode: 0 }
+      { name: "C", pitchClass: 0, mode: 1, camelotPosition: 8 },
+      { name: "F", pitchClass: 5, mode: 1, camelotPosition: 7 },
+      { name: "G", pitchClass: 7, mode: 1, camelotPosition: 9 },
+      { name: "Am", pitchClass: 9, mode: 0, camelotPosition: 8 }
+    ]);
+  });
+});
+
+describe("getCamelotRoute", function() {
+  const startKey = {
+    pitchClass: 0,
+    mode: 1
+  };
+  const targetKey = {
+    pitchClass: 9,
+    mode: 1
+  };
+  it("should return the route from and to the specified keys", function() {
+    expect(getCamelotRoute(startKey, targetKey)).toEqual([
+      { name: "G", pitchClass: 7, mode: 1, camelotPosition: 9 },
+      { name: "D", pitchClass: 2, mode: 1, camelotPosition: 10 }
     ]);
   });
 });

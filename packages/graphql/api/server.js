@@ -9,7 +9,8 @@ import {
   getTopTracks,
   getSearchResults,
   createPlaylistOfTrakcs,
-  getCurrentUser
+  getCurrentUser,
+  getRoute
 } from "./resolvers";
 
 const resolvers = {
@@ -26,7 +27,12 @@ const resolvers = {
     searchResults: (_root, { query }, { dataSources: { spotify } }) =>
       getSearchResults(query, spotify),
     account: (_root, _args, { dataSources: { spotify } }) =>
-      getCurrentUser(spotify)
+      getCurrentUser(spotify),
+    route: (
+      _root,
+      { startTrackId, endTrackId },
+      { dataSources: { spotify } }
+    ) => getRoute(startTrackId, endTrackId, spotify)
   },
   CurrentTrack: {
     trackFeatures: ({ id }, _args, { dataSources: { spotify } }) =>

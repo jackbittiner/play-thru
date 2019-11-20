@@ -9,6 +9,7 @@ const typeDefs = gql`
     favourites: [Track]!
     searchResults(query: String!): [Track]!
     account: Account!
+    route(startTrackId: String!, endTrackId: String!): String!
   }
 
   type Mutation {
