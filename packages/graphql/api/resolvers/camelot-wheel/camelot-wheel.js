@@ -98,16 +98,11 @@ export const getHarmonicKeys = (pitchClass, mode) => {
 };
 
 export const getCamelotRoute = (startKey, targetKey) => {
-  if (
-    startKey.pitchClass === targetKey.pitchClass ||
-    startKey.pitchClass === targetKey.pitchClass + 1 ||
-    startKey.pitchClass === targetKey.pitchClass - 1
-  )
-    return [];
-
   const beginningPosition = getKey(startKey.pitchClass, startKey.mode);
 
   const endPosition = getKey(targetKey.pitchClass, targetKey.mode);
+
+  if (withinReachOfTarget(beginningPosition, endPosition)) return [];
 
   const shouldGoClockwise = goClockwise(
     beginningPosition.camelotPosition,
@@ -119,20 +114,38 @@ export const getCamelotRoute = (startKey, targetKey) => {
     shouldGoClockwise
   );
 
+  let nextKey = getKeyByCamelotPosition(nextPosition, startKey.mode);
+
   let keysOnRoute = [];
 
-  while (
-    nextPosition >= endPosition.camelotPosition + 1 ||
-    nextPosition <= endPosition.camelotPosition - 1
-  ) {
-    const camelotKey = allKeys.find(key => {
-      return key.camelotPosition === nextPosition;
-    });
-    keysOnRoute.push(camelotKey);
+  while (!withinReachOfTarget(nextKey, endPosition)) {
+    keysOnRoute.push(nextKey);
     nextPosition = changeCamelotNumber(nextPosition, shouldGoClockwise);
+    nextKey = getKeyByCamelotPosition(nextPosition, nextKey.mode);
   }
 
+  keysOnRoute.push(nextKey);
   return keysOnRoute;
+};
+
+const withinReachOfTargetSameMode = (beginningPosition, endPosition) => {
+  return (
+    beginningPosition.pitchClass === endPosition.pitchClass ||
+    beginningPosition.camelotPosition === endPosition.camelotPosition + 1 ||
+    beginningPosition.camelotPosition === endPosition.camelotPosition - 1
+  );
+};
+
+const withinReachOfTargetDifferentMode = (beginningPosition, endPosition) => {
+  return beginningPosition.camelotPosition === endPosition.camelotPosition;
+};
+
+const withinReachOfTarget = (beginningPosition, endPosition) => {
+  if (beginningPosition.mode === endPosition.mode) {
+    return withinReachOfTargetSameMode(beginningPosition, endPosition);
+  }
+
+  return withinReachOfTargetDifferentMode(beginningPosition, endPosition);
 };
 
 const getKey = (pitchClass, mode) => {
@@ -142,6 +155,9 @@ const getKey = (pitchClass, mode) => {
   return keyName;
 };
 
-// just need to do wrap round 0 and go backwards
-
-// then need to do the mode swap
+const getKeyByCamelotPosition = (camelotPosition, mode) => {
+  const keyName = allKeys.find(key => {
+    return key.camelotPosition === camelotPosition && key.mode === mode;
+  });
+  return keyName;
+};
