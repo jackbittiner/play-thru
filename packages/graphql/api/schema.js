@@ -9,7 +9,7 @@ const typeDefs = gql`
     favourites: [Track]!
     searchResults(query: String!): [Track]!
     account: Account!
-    route(startTrackId: String!, endTrackId: String!): String!
+    route(startTrackId: String!, endTrackId: String!): [OnRouteTracks]
   }
 
   type Mutation {
@@ -25,6 +25,16 @@ const typeDefs = gql`
     artist: Artist!
     popularity: Float!
     trackFeatures: TrackFeatures!
+  }
+
+  type OnRouteTracks {
+    name: String!
+    art: String!
+    id: String!
+    uri: String!
+    artistName: String!
+    camelotPosition: Int!
+    mode: Int!
   }
 
   input CurrentTrackInput {
