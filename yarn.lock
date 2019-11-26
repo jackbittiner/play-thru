@@ -3601,6 +3601,11 @@ camelize@^1.0.0:
   resolved "https://registry.yarnpkg.com/camelize/-/camelize-1.0.0.tgz#164a5483e630fa4321e5af07020e531831b2609b"
   integrity sha1-FkpUg+Yw+kMh5a8HAg5TGDGyYJs=
 
+camelot-wheel@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/camelot-wheel/-/camelot-wheel-0.1.3.tgz#b220c0668484ddde26fcf5b69285a8c14adbc180"
+  integrity sha512-680frWkmkPmIUN7DM1q3RCRsp+ax3G8ZjOV+j58Ev9gVKIgmbbTbjcHqCLKDj90VnZ4SpkI/IJskwrgbrxXvEw==
+
 caniuse-api@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/caniuse-api/-/caniuse-api-3.0.0.tgz#5e4d90e2274961d46291997df599e3ed008ee4c0"
