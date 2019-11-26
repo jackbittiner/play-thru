@@ -1,4 +1,4 @@
-import { getCamelotRoute } from "../camelot-wheel/camelot-wheel";
+import { getCamelotRoute } from "camelot-wheel";
 
 async function getRoute(startTrackId, endTrackId, datasource) {
   const trackA = await datasource.get(`audio-features/${startTrackId}`);
