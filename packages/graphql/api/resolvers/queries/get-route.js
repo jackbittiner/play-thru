@@ -21,7 +21,6 @@ async function getRoute(startTrackId, endTrackId, datasource) {
   let inbetweenTracks = [];
 
   for (let key of camelotRoute) {
-    console.log(seedTrackId);
     const requestBody = {
       limit: 1,
       min_key: key.pitchClass,
