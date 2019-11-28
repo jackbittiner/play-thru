@@ -45,7 +45,7 @@ Now what is going on here?
 - Each number represents a key as stated above.
 - The outside of the wheel represents the Major mode and the inside of the wheel represents the Minor mode.
 - A track's key is considered compatible with another if it's positioned next to it or opposite it.
-- For example the key of C (1d) is compatible with F (12d), G (2d) and Am (1m)
+- For example the key of C (8B) is compatible with F (7B), G (9B) and Am (8A)
 
 We use these rules to request recommendations from Spotify in these keys (and in a similar tempo to the track, of course)
 
