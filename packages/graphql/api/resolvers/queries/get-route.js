@@ -4,17 +4,17 @@ async function getRoute(startTrackId, endTrackId, datasource) {
   const trackA = await datasource.get(`audio-features/${startTrackId}`);
   const trackB = await datasource.get(`audio-features/${endTrackId}`);
 
-  const trackAdetails = {
+  const trackADetails = {
     pitchClass: trackA.key,
     mode: trackA.mode
   };
 
-  const trackBdetails = {
+  const trackBDetails = {
     pitchClass: trackB.key,
     mode: trackB.mode
   };
 
-  const camelotRoute = getCamelotRoute(trackAdetails, trackBdetails);
+  const camelotRoute = getCamelotRoute(trackADetails, trackBDetails);
 
   let seedTrackId = startTrackId;
 

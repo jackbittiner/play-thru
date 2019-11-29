@@ -1,11 +1,14 @@
-import { getKeyByPitchClassAndMode, getHarmonicKeys } from "camelot-wheel";
+import { getKey, getHarmonicKeys } from "camelot-wheel";
 
 async function getTrackFeatures(id, datasource) {
   const result = await datasource.get(`audio-features/${id}`);
 
-  const key = getKeyByPitchClassAndMode(result.key, result.mode);
+  const key = getKey({ pitchClass: result.key, mode: result.mode });
 
-  const harmonicKeys = getHarmonicKeys(result.key, result.mode);
+  const harmonicKeys = getHarmonicKeys({
+    pitchClass: result.key,
+    mode: result.mode
+  });
 
   return {
     key: {

@@ -6,11 +6,9 @@ describe("getTrackFeatures", function() {
     get: jest.fn(() => spotifyApiResult)
   };
   beforeAll(function() {
-    jest
-      .spyOn(camelotWheel, "getKeyByPitchClassAndMode")
-      .mockImplementation(() => {
-        return { name: "Gm", pitchClass: 7, mode: 0, camelotPosition: 6 };
-      });
+    jest.spyOn(camelotWheel, "getKey").mockImplementation(() => {
+      return { name: "Gm", pitchClass: 7, mode: 0, camelotPosition: 6 };
+    });
     jest.spyOn(camelotWheel, "getHarmonicKeys").mockImplementation(() => {
       return mockHarmonicKeys;
     });
