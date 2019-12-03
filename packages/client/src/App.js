@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "./pages/login/";
 import { HomePageContainer } from "./pages/home/";
+import { TrackRouterContainer } from "./pages/track-router";
 import ReactGA from "react-ga";
 import { Helmet } from "react-helmet";
 
@@ -12,6 +13,7 @@ const Main = () => (
     <Switch>
       <Route exact path="/" component={Login} />
       <Route exact path="/home" component={HomePageContainer} />
+      <Route exact path="/track-router" component={TrackRouterContainer} />
     </Switch>
   </main>
 );
