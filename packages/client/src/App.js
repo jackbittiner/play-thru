@@ -5,6 +5,7 @@ import { HomePageContainer } from "./pages/home/";
 import { TrackRouterContainer } from "./pages/track-router";
 import ReactGA from "react-ga";
 import { Helmet } from "react-helmet";
+import { getHashParams } from "./utils/get-hash-params";
 
 ReactGA.initialize("UA-150824990-1");
 
@@ -28,6 +29,8 @@ function PrivateRoute({ component: Component, ...rest }) {
       {...rest}
       render={({ location }) => {
         const hashParams = getHashParams(location);
+        hashParams.access_token &&
+          sessionStorage.setItem("accessToken", hashParams.access_token);
         return sessionStorage.getItem("accessToken") ||
           hashParams.access_token ? (
           <Component location={location} />
@@ -62,18 +65,5 @@ const App = () => {
     </div>
   );
 };
-
-function getHashParams(location) {
-  const hashParams = {};
-  let e,
-    regex = /([^&;=]+)=?([^&;]*)/g,
-    queryString = location.hash.substring(1);
-  e = regex.exec(queryString);
-  while (e) {
-    hashParams[e[1]] = decodeURIComponent(e[2]);
-    e = regex.exec(queryString);
-  }
-  return hashParams;
-}
 
 export default App;

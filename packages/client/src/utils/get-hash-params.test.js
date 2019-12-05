@@ -1,4 +1,4 @@
-import getHashParams from "./get-hash-params";
+import { getHashParams } from "./get-hash-params";
 import expectExport from "expect";
 
 describe("getHashParams", () => {

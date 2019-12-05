@@ -1,4 +1,4 @@
-export default function getHashParams(location) {
+export function getHashParams(location) {
   const hashParams = {};
   let e,
     regex = /([^&;=]+)=?([^&;]*)/g,

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import getHashParams from "../utils/get-hash-params";
 import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { GET_TRACK } from "./get-track";
 import { GET_CURRENT_USER } from "./get-current-user";
@@ -14,13 +13,7 @@ function HomePageContainer({ location }) {
     ReactGA.pageview(location.pathname);
   });
 
-  const params = getHashParams(location);
-  const token = params.access_token;
-
-  if (token) {
-    sessionStorage.setItem("accessToken", params.access_token);
-    window.history.replaceState({}, document.title, "/home");
-  }
+  window.history.replaceState({}, document.title, "/home");
 
   const [deviceId, setDevice] = useState(null);
   const [paused, setPausedState] = useState(true);
