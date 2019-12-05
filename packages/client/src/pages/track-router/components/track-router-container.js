@@ -19,6 +19,16 @@ const TrackRouterContainer = () => {
 
   console.log(data);
 
+  const inbetweenTracks =
+    data &&
+    data.route.map((track, index) => {
+      return (
+        <p>
+          {index + 1}. {track.name} by {track.artistName}
+        </p>
+      );
+    });
+
   return (
     <div>
       <SearchContainer
@@ -27,12 +37,13 @@ const TrackRouterContainer = () => {
       />
       {track1 && (
         <p>
-          {track1.name} by {track1.artist}
+          Start Track: {track1.name} by {track1.artist}
         </p>
       )}
+      {inbetweenTracks}
       {track2 && (
         <p>
-          {track2.name} by {track2.artist}
+          End Track: {track2.name} by {track2.artist}
         </p>
       )}
     </div>
