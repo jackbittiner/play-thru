@@ -12,24 +12,26 @@ const Main = () => (
   <main>
     <Switch>
       <Route exact path="/" component={Login} />
-      <Route exact path="/home" component={HomePageContainer} />
-      <PrivateRoute path="/track-router">
-        <TrackRouterContainer />
-      </PrivateRoute>
-      <PrivateRoute path="/home">
-        <HomePageContainer />
-      </PrivateRoute>
+      <PrivateRoute
+        exact
+        path="/track-router"
+        component={TrackRouterContainer}
+      />
+      <PrivateRoute exact path="/home" component={HomePageContainer} />
     </Switch>
   </main>
 );
 
-function PrivateRoute({ children, ...rest }) {
+function PrivateRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
-        sessionStorage.getItem("accessToken") ? (
-          children
+      render={({ location }) => {
+        const hashParams = getHashParams(location);
+        console.log(hashParams);
+        return sessionStorage.getItem("accessToken") ||
+          hashParams.access_token ? (
+          <Component location={location} />
         ) : (
           <Redirect
             to={{
@@ -37,8 +39,8 @@ function PrivateRoute({ children, ...rest }) {
               state: { from: location }
             }}
           />
-        )
-      }
+        );
+      }}
     />
   );
 }
@@ -61,5 +63,18 @@ const App = () => {
     </div>
   );
 };
+
+function getHashParams(location) {
+  const hashParams = {};
+  let e,
+    regex = /([^&;=]+)=?([^&;]*)/g,
+    queryString = location.hash.substring(1);
+  e = regex.exec(queryString);
+  while (e) {
+    hashParams[e[1]] = decodeURIComponent(e[2]);
+    e = regex.exec(queryString);
+  }
+  return hashParams;
+}
 
 export default App;
