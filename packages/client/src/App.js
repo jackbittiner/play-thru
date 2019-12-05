@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./pages/login/";
 import { HomePageContainer } from "./pages/home/";
 import { TrackRouterContainer } from "./pages/track-router";
@@ -13,10 +13,35 @@ const Main = () => (
     <Switch>
       <Route exact path="/" component={Login} />
       <Route exact path="/home" component={HomePageContainer} />
-      <Route exact path="/track-router" component={TrackRouterContainer} />
+      <PrivateRoute path="/track-router">
+        <TrackRouterContainer />
+      </PrivateRoute>
+      <PrivateRoute path="/home">
+        <HomePageContainer />
+      </PrivateRoute>
     </Switch>
   </main>
 );
+
+function PrivateRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        sessionStorage.getItem("accessToken") ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/",
+              state: { from: location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
 
 const App = () => {
   return (
