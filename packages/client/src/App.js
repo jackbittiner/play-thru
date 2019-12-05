@@ -28,7 +28,6 @@ function PrivateRoute({ component: Component, ...rest }) {
       {...rest}
       render={({ location }) => {
         const hashParams = getHashParams(location);
-        console.log(hashParams);
         return sessionStorage.getItem("accessToken") ||
           hashParams.access_token ? (
           <Component location={location} />

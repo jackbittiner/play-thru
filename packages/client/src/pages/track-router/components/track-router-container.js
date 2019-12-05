@@ -17,8 +17,6 @@ const TrackRouterContainer = () => {
     skip: initialTracks.length < 2
   });
 
-  console.log(data);
-
   const inbetweenTracks =
     data &&
     data.route.map((track, index) => {
