@@ -27,10 +27,6 @@ function HomePageContainer({ location }) {
 
   const authToken = sessionStorage.getItem("accessToken");
 
-  if (!authToken) {
-    window.location.href = "/";
-  }
-
   const [getCurrentTrack, { data }] = useLazyQuery(GET_TRACK);
 
   const { data: accountData, loading } = useQuery(GET_CURRENT_USER);
