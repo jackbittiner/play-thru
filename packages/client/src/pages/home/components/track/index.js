@@ -6,6 +6,7 @@ import { CHANGE_TRACK } from "./change-track";
 
 import ReactGA from "react-ga";
 import { GET_TRACK } from "../get-track";
+import { GET_RECOMMENDATIONS } from "../recommendations/get-recommendations";
 
 export default function Track({ track, deviceId, trackTypeGA, client }) {
   const [playNewTrack] = useMutation(CHANGE_TRACK, {
@@ -19,13 +20,17 @@ export default function Track({ track, deviceId, trackTypeGA, client }) {
   let count = 0;
 
   const prefetchNextTrack = () => {
-    interval = setInterval(() => {
+    interval = setInterval(async () => {
       count++;
       if (count >= 4) {
         clearInterval(interval);
-        client.query({
+        const { data } = await client.query({
           query: GET_TRACK,
           variables: { trackId: track.id }
+        });
+        client.query({
+          query: GET_RECOMMENDATIONS,
+          variables: { currentTrack: data.currentTrack }
         });
       }
     }, 100);
