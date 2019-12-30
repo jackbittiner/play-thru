@@ -18,6 +18,13 @@ async function getRoute(startTrackId, endTrackId, datasource) {
 
   let seedTrackId = startTrackId;
 
+  const differenceBetweenBPM = trackB.tempo - trackA.tempo;
+  const numberOfSteps = camelotRoute.length + 1;
+
+  const averageBPMJumpForEachStep = differenceBetweenBPM / numberOfSteps;
+
+  let requestBPM = trackA.tempo + averageBPMJumpForEachStep;
+
   let inbetweenTracks = [];
 
   for (let key of camelotRoute) {
@@ -27,7 +34,8 @@ async function getRoute(startTrackId, endTrackId, datasource) {
       max_key: key.pitchClass,
       min_mode: key.mode,
       max_mode: key.mode,
-      seed_tracks: seedTrackId
+      seed_tracks: seedTrackId,
+      target_tempo: requestBPM
     };
 
     const result = await datasource.get(`recommendations`, requestBody);
@@ -47,6 +55,8 @@ async function getRoute(startTrackId, endTrackId, datasource) {
     inbetweenTracks.push(recommendedTrack[0]);
 
     seedTrackId = result.tracks[0].id;
+
+    requestBPM = requestBPM + averageBPMJumpForEachStep;
   }
 
   return inbetweenTracks;
