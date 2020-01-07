@@ -40,6 +40,12 @@ async function getRoute(startTrackId, endTrackId, datasource) {
 
     const result = await datasource.get(`recommendations`, requestBody);
 
+    const resultFeatures = await datasource.get(
+      `audio-features/${result.tracks[0].id}`
+    );
+
+    const tempo = resultFeatures.tempo;
+
     const recommendedTrack = result.tracks.map(track => {
       return {
         artistName: track.artists[0].name,
@@ -48,7 +54,8 @@ async function getRoute(startTrackId, endTrackId, datasource) {
         uri: track.uri,
         art: track.album.images[0].url,
         mode: key.mode,
-        camelotPosition: key.camelotPosition
+        camelotPosition: key.camelotPosition,
+        tempo: tempo
       };
     });
 

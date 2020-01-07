@@ -35,6 +35,7 @@ const typeDefs = gql`
     artistName: String!
     camelotPosition: Int!
     mode: Int!
+    tempo: Float!
   }
 
   input CurrentTrackInput {
