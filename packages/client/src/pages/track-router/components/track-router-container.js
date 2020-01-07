@@ -22,7 +22,10 @@ const TrackRouterContainer = () => {
     data.route.map((track, index) => {
       return (
         <p>
-          {index + 1}. {track.name} by {track.artistName}
+          {index + 1}. {track.name} by {track.artistName}{" "}
+          <strong>
+            CP: {track.camelotPosition} M: {track.mode} BPM: {track.tempo}
+          </strong>
         </p>
       );
     });

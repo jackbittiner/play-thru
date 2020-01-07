@@ -10,6 +10,7 @@ export const GET_ROUTE = gql`
       uri
       artistName
       id
+      tempo
     }
   }
 `;
