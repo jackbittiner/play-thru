@@ -6,7 +6,6 @@ import colours from "../../../../common/colours";
 const LoadingIndicator = () => (
   <ScaleLoader
     css={cssOverride}
-    sizeUnit={"px"}
     height={50}
     width={10}
     radius={5}
