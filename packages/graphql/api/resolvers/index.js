@@ -6,5 +6,5 @@ export { default as getSearchResults } from "./queries/get-search-results";
 export { default as getCurrentUser } from "./queries/get-current-user";
 export { default as getRoute } from "./queries/get-route";
 
-export { default as createPlaylistOfTrakcs } from "./mutations/create-playlist-of-tracks";
+export { default as createPlaylistOfTracks } from "./mutations/create-playlist-of-tracks";
 export { default as playTrack } from "./mutations/play-track";

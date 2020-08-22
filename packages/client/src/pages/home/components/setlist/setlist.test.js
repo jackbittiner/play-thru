@@ -16,18 +16,18 @@ describe("Setlist", () => {
           query: CREATE_PLAYLIST_OF_TRACKS,
           variables: {
             trackUris: ["track1"],
-            userId: "jbitts"
-          }
+            userId: "jbitts",
+          },
         },
         result: () => {
           mutationCalled = true;
           return {
             data: {
-              createPlaylistOfTrakcs: null
-            }
+              createPlaylistOfTracks: null,
+            },
           };
-        }
-      }
+        },
+      },
     ];
 
     getSetlist.getSetlist = jest.fn().mockImplementation(() => {

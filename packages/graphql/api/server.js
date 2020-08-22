@@ -8,9 +8,9 @@ import {
   getTrackById,
   getTopTracks,
   getSearchResults,
-  createPlaylistOfTrakcs,
+  createPlaylistOfTracks,
   getCurrentUser,
-  getRoute
+  getRoute,
 } from "./resolvers";
 
 const resolvers = {
@@ -32,11 +32,11 @@ const resolvers = {
       _root,
       { startTrackId, endTrackId },
       { dataSources: { spotify } }
-    ) => getRoute(startTrackId, endTrackId, spotify)
+    ) => getRoute(startTrackId, endTrackId, spotify),
   },
   CurrentTrack: {
     trackFeatures: ({ id }, _args, { dataSources: { spotify } }) =>
-      getTrackFeatures(id, spotify)
+      getTrackFeatures(id, spotify),
   },
   Mutation: {
     playTrack: (
@@ -46,28 +46,28 @@ const resolvers = {
     ) => {
       return playTrack(trackUri, deviceId, spotify);
     },
-    createPlaylistOfTrakcs: (
+    createPlaylistOfTracks: (
       _root,
       { trackUris, userId },
       { dataSources: { spotify } }
     ) => {
-      return createPlaylistOfTrakcs(trackUris, userId, spotify);
-    }
-  }
+      return createPlaylistOfTracks(trackUris, userId, spotify);
+    },
+  },
 };
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
-    spotify: new SpotifyDatasource()
+    spotify: new SpotifyDatasource(),
   }),
   context: ({ req }) => {
     const accessToken = req.headers.authorization || "";
     return { accessToken };
   },
   playground: true,
-  introspection: true
+  introspection: true,
 });
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
