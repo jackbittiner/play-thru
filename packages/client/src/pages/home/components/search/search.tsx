@@ -1,11 +1,23 @@
 import React from "react";
 import { debounce } from "lodash";
+import { Track as SpotifyTrack } from "../../../../common/spotify-types";
 import Track from "../track";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import { FaSearch } from "react-icons/fa";
 import styled from "styled-components";
 import colours from "../../../../common/colours";
+
+// TODO - Replace any with real types
+type SearchProps = {
+  getSearchResults: any;
+  data: any;
+  loading: any;
+  deviceId: any;
+  searchBarText: any;
+  setSearchBarText: any;
+  client: any;
+};
 
 const Search = ({
   getSearchResults,
@@ -15,7 +27,7 @@ const Search = ({
   searchBarText,
   setSearchBarText,
   client,
-}) => {
+}: SearchProps) => {
   const debouncedInputHandler = debounce((e) => {
     const inputText = e.target.value;
     setSearchBarText(e.target.value);
@@ -31,7 +43,7 @@ const Search = ({
   const tracks =
     data &&
     data.searchResults &&
-    data.searchResults.map((track) => (
+    data.searchResults.map((track: SpotifyTrack) => (
       <Track
         track={track}
         deviceId={deviceId}
