@@ -5,6 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import { FaSearch } from "react-icons/fa";
 import styled from "styled-components";
+import colours from "../../../../common/colours";
 
 const Search = ({
   getSearchResults,
@@ -13,24 +14,24 @@ const Search = ({
   deviceId,
   searchBarText,
   setSearchBarText,
-  client
+  client,
 }) => {
-  const debouncedInputHandler = debounce(e => {
+  const debouncedInputHandler = debounce((e) => {
     const inputText = e.target.value;
     setSearchBarText(e.target.value);
 
     if (!inputText) return;
     getSearchResults({
       variables: {
-        query: inputText
-      }
+        query: inputText,
+      },
     });
   }, 1000);
 
   const tracks =
     data &&
     data.searchResults &&
-    data.searchResults.map(track => (
+    data.searchResults.map((track) => (
       <Track
         track={track}
         deviceId={deviceId}
@@ -48,7 +49,7 @@ const Search = ({
         <SearchIcon />
         <StyledInput
           autoFocus
-          onChange={e => {
+          onChange={(e) => {
             e.persist();
             debouncedInputHandler(e);
           }}
@@ -64,7 +65,6 @@ const Search = ({
   );
 };
 
-const malachite = "#1ed761";
 const iconSize = "18px";
 const cssOverride = css`
   position: absolute;
@@ -92,7 +92,7 @@ const StyledInput = styled.input`
   font-size: 16px;
   :focus {
     outline: none;
-    border-color: ${malachite};
+    border-color: ${colours.malachite};
   }
 `;
 
