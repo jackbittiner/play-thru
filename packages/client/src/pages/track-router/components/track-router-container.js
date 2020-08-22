@@ -9,12 +9,12 @@ const TrackRouterContainer = () => {
   const track1 = initialTracks && initialTracks[0];
   const track2 = initialTracks && initialTracks[1];
 
-  const { loading, error, data } = useQuery(GET_ROUTE, {
+  const { data } = useQuery(GET_ROUTE, {
     variables: {
       startTrackId: track1 && track1.id,
-      endTrackId: track2 && track2.id
+      endTrackId: track2 && track2.id,
     },
-    skip: initialTracks.length < 2
+    skip: initialTracks.length < 2,
   });
 
   const inbetweenTracks =
