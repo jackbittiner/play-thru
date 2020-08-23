@@ -1,8 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
 import Search from "./search";
+import { ApolloClient } from "apollo-boost";
 
-test("calls getSearchResults after 1 second with the input text", done => {
+test("calls getSearchResults after 1 second with the input text", (done) => {
   const getSearchResultsMock = jest.fn();
 
   const setSearchBarTextMock = jest.fn();
@@ -10,11 +11,12 @@ test("calls getSearchResults after 1 second with the input text", done => {
   const wrapper = mount(
     <Search
       getSearchResults={getSearchResultsMock}
-      data={[]}
+      data={{ searchResults: [] }}
       loading={false}
       deviceId={"123456789abc"}
       searchBarText={""}
       setSearchBarText={setSearchBarTextMock}
+      client={{} as ApolloClient<any>}
     />
   );
 
@@ -30,7 +32,7 @@ test("calls getSearchResults after 1 second with the input text", done => {
   setTimeout(() => {
     expect(getSearchResultsMock).toHaveBeenCalledTimes(1);
     expect(getSearchResultsMock).toHaveBeenCalledWith({
-      variables: { query: "HELLO" }
+      variables: { query: "HELLO" },
     });
     done();
   }, 1100);
