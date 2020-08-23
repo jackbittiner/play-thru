@@ -1,3 +1,7 @@
+export type SearchResultsData = {
+  searchResults: Array<Track>;
+};
+
 export type CurrentTrack = {
   name: string;
   art?: string;

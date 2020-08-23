@@ -1,22 +1,28 @@
 import React from "react";
 import { debounce } from "lodash";
-import { Track as SpotifyTrack } from "../../../../common/spotify-types";
+import {
+  SearchResultsData,
+  Track as SpotifyTrack,
+} from "../../../../common/spotify-types";
 import Track from "../track";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import { FaSearch } from "react-icons/fa";
 import styled from "styled-components";
 import colours from "../../../../common/colours";
+import { QueryLazyOptions } from "@apollo/react-hooks";
+import { ApolloClient } from "apollo-boost";
 
-// TODO - Replace any with real types
 type SearchProps = {
-  getSearchResults: any;
-  data: any;
-  loading: any;
-  deviceId: any;
-  searchBarText: any;
-  setSearchBarText: any;
-  client: any;
+  getSearchResults: (
+    options?: QueryLazyOptions<Record<string, any>> | undefined
+  ) => void;
+  data: SearchResultsData;
+  loading: boolean;
+  deviceId: string;
+  searchBarText: string;
+  setSearchBarText: React.Dispatch<React.SetStateAction<string>>;
+  client: ApolloClient<any>;
 };
 
 const Search = ({
