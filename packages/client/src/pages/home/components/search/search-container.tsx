@@ -3,6 +3,10 @@ import Search from "./search";
 import { gql } from "apollo-boost";
 import { useLazyQuery } from "@apollo/react-hooks";
 
+type SearchContainerProps = {
+  deviceId: string;
+};
+
 const SEARCH_QUERY = gql`
   query search($query: String!) {
     searchResults(query: $query) {
@@ -15,7 +19,7 @@ const SEARCH_QUERY = gql`
   }
 `;
 
-const SearchContainer = ({ deviceId }) => {
+const SearchContainer = ({ deviceId }: SearchContainerProps) => {
   const [getSearchResults, { loading, error, data, client }] = useLazyQuery(
     SEARCH_QUERY
   );
