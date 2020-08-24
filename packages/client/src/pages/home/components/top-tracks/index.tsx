@@ -7,8 +7,13 @@ import { GET_TOP_TRACKS } from "./get-top-tracks";
 
 import LoadingIndicator from "../loading-indicator";
 import styled from "styled-components";
+import { Track as SpotifyTrack } from "../../../../common/spotify-types";
 
-export default function TopTracks({ deviceId }) {
+type TopTracks = {
+  deviceId: string;
+};
+
+export default function TopTracks({ deviceId }: TopTracks) {
   const { loading, error, data, client } = useQuery(GET_TOP_TRACKS);
   if (loading)
     return (
@@ -20,7 +25,7 @@ export default function TopTracks({ deviceId }) {
 
   const tracks = data && data.favourites;
   if (tracks)
-    return tracks.map(track => (
+    return tracks.map((track: SpotifyTrack) => (
       <Track
         track={track}
         deviceId={deviceId}
