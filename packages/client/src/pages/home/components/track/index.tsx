@@ -10,9 +10,12 @@ import { GET_RECOMMENDATIONS } from "../recommendations/get-recommendations";
 import { Track as SpotifyTrack } from "../../../../common/spotify-types";
 import { ApolloClient } from "apollo-boost";
 
+// TODO - deviceId is not used in some of the places we use Track
+//      - it would be good to use context or local storage instead of passing it around everywhere we want to use it
+//      - the same is probably true of 'client' - doesn't feel like we should have to pass it as a prop everywhere.
 type TrackProps = {
   track: SpotifyTrack;
-  deviceId: string;
+  deviceId?: string;
   trackTypeGA: string;
   client: ApolloClient<any>;
 };

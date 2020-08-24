@@ -4,10 +4,20 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_RECOMMENDATIONS } from "./get-recommendations";
 
 import RecommendationsByKey from "./recommendations-by-key";
+import {
+  CurrentTrack,
+  RecommendedTracksByKey,
+} from "../../../../common/spotify-types";
 
-export default function ListsOfRecommendations({ currentTrack }) {
+type ListsOfRecommendationsProps = {
+  currentTrack: CurrentTrack;
+};
+
+export default function ListsOfRecommendations({
+  currentTrack,
+}: ListsOfRecommendationsProps) {
   const { loading, error, data, client } = useQuery(GET_RECOMMENDATIONS, {
-    variables: { currentTrack: currentTrack }
+    variables: { currentTrack: currentTrack },
   });
 
   if (loading) return <p>Loading...</p>;
@@ -18,7 +28,7 @@ export default function ListsOfRecommendations({ currentTrack }) {
       return (
         <RecommendationsByKey
           key={index}
-          tracksByKey={tracksByKey}
+          tracksByKey={tracksByKey as RecommendedTracksByKey}
           client={client}
         />
       );
