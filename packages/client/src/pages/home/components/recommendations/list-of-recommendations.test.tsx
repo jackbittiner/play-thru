@@ -4,7 +4,7 @@ import { GET_RECOMMENDATIONS } from "./get-recommendations";
 import ListsOfRecommendations from "./list-of-recommendations";
 import { MockedProvider } from "@apollo/react-testing";
 import wait from "waait";
-import { TrackFeatures, Artist } from "../../../../common/spotify-types";
+import { TrackFeatures, Artist, Key } from "../../../../common/spotify-types";
 
 describe("List Of Recommendations", () => {
   it("should render all the different keys and recommendations", async () => {
@@ -20,18 +20,32 @@ describe("List Of Recommendations", () => {
   });
 });
 
+const artist: Artist = {
+  id: "13131",
+  name: "Sean da Paul",
+};
+
+const key: Key = {
+  name: "a",
+  pitchClass: 1,
+  mode: 2,
+};
+
+const trackFeatures: TrackFeatures = {
+  key,
+  tempo: 100,
+  time_signature: 4,
+  harmonicKeys: [key],
+};
+
 const currentTrack = {
   name: "Hi there",
   art: "some art.png",
   id: "asdfgh123456",
   uri: "12345",
-  artist: {
-    name: "Sean da Paul",
-  } as Artist,
+  artist,
   popularity: 0.786,
-  trackFeatures: {
-    tempo: 100,
-  } as TrackFeatures,
+  trackFeatures,
 };
 
 const mocks = [
