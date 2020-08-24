@@ -7,16 +7,30 @@ import { CHANGE_TRACK } from "./change-track";
 import ReactGA from "react-ga";
 import { GET_TRACK } from "../get-track";
 import { GET_RECOMMENDATIONS } from "../recommendations/get-recommendations";
+import { Track as SpotifyTrack } from "../../../../common/spotify-types";
+import { ApolloClient } from "apollo-boost";
 
-export default function Track({ track, deviceId, trackTypeGA, client }) {
+type TrackProps = {
+  track: SpotifyTrack;
+  deviceId: string;
+  trackTypeGA: string;
+  client: ApolloClient<any>;
+};
+
+export default function Track({
+  track,
+  deviceId,
+  trackTypeGA,
+  client,
+}: TrackProps) {
   const [playNewTrack] = useMutation(CHANGE_TRACK, {
     variables: {
       trackUri: track.uri,
-      deviceId: deviceId
-    }
+      deviceId: deviceId,
+    },
   });
 
-  let interval;
+  let interval: number;
   let count = 0;
 
   const prefetchNextTrack = () => {
@@ -26,11 +40,11 @@ export default function Track({ track, deviceId, trackTypeGA, client }) {
         clearInterval(interval);
         const { data } = await client.query({
           query: GET_TRACK,
-          variables: { trackId: track.id }
+          variables: { trackId: track.id },
         });
         client.query({
           query: GET_RECOMMENDATIONS,
-          variables: { currentTrack: data.currentTrack }
+          variables: { currentTrack: data.currentTrack },
         });
       }
     }, 100);
@@ -49,7 +63,7 @@ export default function Track({ track, deviceId, trackTypeGA, client }) {
             ReactGA.event({
               category: "Play Track",
               action: trackTypeGA,
-              label: `Track: ${track.id}`
+              label: `Track: ${track.id}`,
             });
             playNewTrack();
           }}
