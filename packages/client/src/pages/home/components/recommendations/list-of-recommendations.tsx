@@ -23,15 +23,18 @@ export default function ListsOfRecommendations({
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  return Object.values(data.recommendedTracksByKey).map(
-    (tracksByKey, index) => {
-      return (
-        <RecommendationsByKey
-          key={index}
-          tracksByKey={tracksByKey as RecommendedTracksByKey}
-          client={client}
-        />
-      );
-    }
+  return (
+    <>
+      {Object.values(data.recommendedTracksByKey).map((tracksByKey, index) => {
+        return (
+          <RecommendationsByKey
+            key={index}
+            tracksByKey={tracksByKey as RecommendedTracksByKey}
+            client={client}
+          />
+        );
+      })}
+      ;
+    </>
   );
 }
