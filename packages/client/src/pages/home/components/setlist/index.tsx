@@ -6,26 +6,32 @@ import { CREATE_PLAYLIST_OF_TRACKS } from "./create-playlist-of-tracks";
 import { getSetlist } from "./get-setlist";
 
 import ReactGA from "react-ga";
+import { CurrentTrack, Track } from "../../../../common/spotify-types";
 
-const Setlist = ({ currentTrack, userId }) => {
+type SetlistProps = {
+  currentTrack: CurrentTrack;
+  userId: string;
+};
+
+const Setlist = ({ currentTrack, userId }: SetlistProps) => {
   const [setlist, setSetlist] = useState([]);
-
+  console.log(currentTrack);
   useEffect(() => {
     setSetlist(getSetlist(currentTrack));
   }, [currentTrack]);
 
-  const trackUris = setlist.map(track => {
+  const trackUris = setlist.map((track: Track) => {
     return track.uri;
   });
 
   const [createPlaylist] = useMutation(CREATE_PLAYLIST_OF_TRACKS, {
     variables: {
       trackUris: trackUris,
-      userId: userId
-    }
+      userId: userId,
+    },
   });
 
-  const tracks = setlist.map(track => {
+  const tracks = setlist.map((track: Track) => {
     return <div key={track.id}>{track.name}</div>;
   });
   return (
@@ -37,7 +43,7 @@ const Setlist = ({ currentTrack, userId }) => {
           ReactGA.event({
             category: "Setlist",
             action: "Convert to Playlist",
-            label: `${setlist.length} songs`
+            label: `${setlist.length} songs`,
           });
           createPlaylist();
         }}

@@ -5,6 +5,10 @@ import Setlist from "./index";
 import { MockedProvider } from "@apollo/react-testing";
 import wait from "waait";
 import * as getSetlist from "./get-setlist";
+import { CurrentTrack } from "../../../../common/spotify-types";
+
+jest.mock("./get-setlist");
+const mockedGetSetlist = getSetlist as jest.Mocked<typeof getSetlist>;
 
 describe("Setlist", () => {
   it("should make a playlist with songs that have been played", async () => {
@@ -30,14 +34,14 @@ describe("Setlist", () => {
       },
     ];
 
-    getSetlist.getSetlist = jest.fn().mockImplementation(() => {
+    mockedGetSetlist.getSetlist = jest.fn().mockImplementation(() => {
       return [{ name: "track1", uri: "track1" }];
     });
 
     const component = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
         <Setlist
-          currentTrack={[{ name: "track1", uri: "track1" }]}
+          currentTrack={{ name: "track1", uri: "track1" } as CurrentTrack}
           userId={"jbitts"}
         />
       </MockedProvider>
