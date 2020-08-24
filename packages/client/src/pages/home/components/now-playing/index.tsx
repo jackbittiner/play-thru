@@ -1,11 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { CurrentTrack as SpotifyCurrentTrack } from "../../../../common/spotify-types";
 
-export default function NowPlaying({ currentTrack }) {
+type NowPlayingProps = {
+  currentTrack: SpotifyCurrentTrack;
+};
+
+export default function NowPlaying({ currentTrack }: NowPlayingProps) {
   if (currentTrack)
     return (
       <CurrentTrack>
-        <Image src={currentTrack.art} alt={currentTrack.artist.artistName} />
+        <Image
+          src={currentTrack.art}
+          alt={`${currentTrack.name} - ${currentTrack.artist.name}`}
+        />
         <TrackName>{currentTrack.name}</TrackName>
         <ArtistName>{currentTrack.artist.name}</ArtistName>
         <p>Key: {currentTrack.trackFeatures.key.name}</p>
