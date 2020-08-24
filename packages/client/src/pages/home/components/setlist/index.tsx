@@ -15,7 +15,6 @@ type SetlistProps = {
 
 const Setlist = ({ currentTrack, userId }: SetlistProps) => {
   const [setlist, setSetlist] = useState([]);
-  console.log(currentTrack);
   useEffect(() => {
     setSetlist(getSetlist(currentTrack));
   }, [currentTrack]);
