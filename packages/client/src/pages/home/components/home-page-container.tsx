@@ -7,12 +7,9 @@ import Script from "react-load-script";
 import ReactGA from "react-ga";
 import FreeAccountError from "./free-account-error";
 import handleScriptLoad from "./handle-spotify-script-load";
+import { RouterProps } from "../../../common/types";
 
-type HomePageContainerProps = {
-  location: { pathname: "string" };
-};
-
-function HomePageContainer({ location }: HomePageContainerProps) {
+function HomePageContainer({ location }: RouterProps) {
   useEffect(() => {
     ReactGA.pageview(location.pathname);
   });

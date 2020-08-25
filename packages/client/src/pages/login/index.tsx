@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import ReactGA from "react-ga";
 import { clientId, redirectUri, scopes } from "./constants";
+import { RouterProps } from "../../common/types";
 
-const Login = ({ location }) => {
+const Login = ({ location }: RouterProps) => {
   useEffect(() => {
     ReactGA.pageview(location.pathname);
   });
@@ -24,6 +25,9 @@ const Login = ({ location }) => {
           "?response_type=token" +
           "&client_id=" +
           clientId +
+          // TODO: encodeURIComponent can take scopes as an array but the type doesn't match
+          // Find some way to reconcile them to remove the ts-ignore
+          // @ts-ignore
           (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
           "&redirect_uri=" +
           encodeURIComponent(redirectUri)

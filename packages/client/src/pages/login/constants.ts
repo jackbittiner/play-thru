@@ -11,5 +11,5 @@ export const scopes = [
   "user-top-read",
   "streaming",
   "playlist-modify-public",
-  "playlist-modify-private"
+  "playlist-modify-private",
 ];
