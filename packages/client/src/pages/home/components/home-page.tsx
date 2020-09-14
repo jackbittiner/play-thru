@@ -10,8 +10,16 @@ import Setlist from "./setlist";
 
 import TopTracks from "./top-tracks";
 import isEmpty from "lodash/isEmpty";
+import { CurrentTrack as SpotifyCurrentTrack } from "../../../common/spotify-types";
 
-function HomePage({ data, deviceId, paused, userId }) {
+type HomePageProps = {
+  data: { currentTrack: SpotifyCurrentTrack };
+  deviceId: string;
+  paused: boolean;
+  userId: string;
+};
+
+function HomePage({ data, deviceId, paused, userId }: HomePageProps) {
   return (
     <Page>
       <p>{userId}</p>

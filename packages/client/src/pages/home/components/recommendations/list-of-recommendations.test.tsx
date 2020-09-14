@@ -4,6 +4,7 @@ import { GET_RECOMMENDATIONS } from "./get-recommendations";
 import ListsOfRecommendations from "./list-of-recommendations";
 import { MockedProvider } from "@apollo/react-testing";
 import wait from "waait";
+import { TrackFeatures, Artist, Key } from "../../../../common/spotify-types";
 
 describe("List Of Recommendations", () => {
   it("should render all the different keys and recommendations", async () => {
@@ -19,24 +20,39 @@ describe("List Of Recommendations", () => {
   });
 });
 
+const artist: Artist = {
+  id: "13131",
+  name: "Sean da Paul",
+};
+
+const key: Key = {
+  name: "a",
+  pitchClass: 1,
+  mode: 2,
+};
+
+const trackFeatures: TrackFeatures = {
+  key,
+  tempo: 100,
+  time_signature: 4,
+  harmonicKeys: [key],
+};
+
 const currentTrack = {
   name: "Hi there",
   art: "some art.png",
   id: "asdfgh123456",
-  artist: {
-    name: "Sean da Paul"
-  },
+  uri: "12345",
+  artist,
   popularity: 0.786,
-  trackFeatures: {
-    tempo: 100
-  }
+  trackFeatures,
 };
 
 const mocks = [
   {
     request: {
       query: GET_RECOMMENDATIONS,
-      variables: { currentTrack: currentTrack }
+      variables: { currentTrack: currentTrack },
     },
     result: {
       data: {
@@ -45,7 +61,7 @@ const mocks = [
             key: {
               name: "Cm",
               pitchClass: "C",
-              mode: 0
+              mode: 0,
             },
             recommendedTracks: [
               {
@@ -53,15 +69,15 @@ const mocks = [
                 id: "asdfg12345",
                 name: "temperature",
                 uri: "asdfghj1234567",
-                art: "some art.png"
-              }
-            ]
+                art: "some art.png",
+              },
+            ],
           },
           {
             key: {
               name: "Dm",
               pitchClass: "D",
-              mode: 0
+              mode: 0,
             },
             recommendedTracks: [
               {
@@ -69,12 +85,12 @@ const mocks = [
                 id: "asdfg12345asd",
                 name: "Breathe",
                 uri: "asd134987s",
-                art: "some art.jpg"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  }
+                art: "some art.jpg",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
 ];

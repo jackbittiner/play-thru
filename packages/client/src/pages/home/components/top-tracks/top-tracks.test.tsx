@@ -22,7 +22,7 @@ describe("Top Tracks", () => {
 const mocks = [
   {
     request: {
-      query: GET_TOP_TRACKS
+      query: GET_TOP_TRACKS,
     },
     result: {
       data: {
@@ -32,17 +32,17 @@ const mocks = [
             id: "asdfg12345",
             name: "temperature",
             uri: "asdfghj1234567",
-            art: "some art.png"
+            art: "some art.png",
           },
           {
             artist: "Blu Cantrell",
             id: "asdfg12345asd",
             name: "Breathe",
             uri: "asd134987s",
-            art: "some art.jpg"
-          }
-        ]
-      }
-    }
-  }
+            art: "some art.jpg",
+          },
+        ],
+      },
+    },
+  },
 ];

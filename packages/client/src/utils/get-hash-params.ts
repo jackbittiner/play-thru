@@ -1,6 +1,13 @@
-export function getHashParams(location) {
-  const hashParams = {};
-  let e,
+type Location = {
+  pathname: string;
+  search: string;
+  hash: string;
+  state: unknown;
+};
+
+export function getHashParams(location: Location) {
+  const hashParams: { [key: string]: string } = {};
+  let e: string[] | null,
     regex = /([^&;=]+)=?([^&;]*)/g,
     queryString = location.hash.substring(1);
   e = regex.exec(queryString);

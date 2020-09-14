@@ -1,10 +1,29 @@
 import React from "react";
 import { debounce } from "lodash";
+import {
+  SearchResultsData,
+  Track as SpotifyTrack,
+} from "../../../../common/spotify-types";
 import Track from "../track";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import { FaSearch } from "react-icons/fa";
 import styled from "styled-components";
+import colours from "../../../../common/colours";
+import { QueryLazyOptions } from "@apollo/react-hooks";
+import { ApolloClient } from "apollo-boost";
+
+type SearchProps = {
+  getSearchResults: (
+    options?: QueryLazyOptions<Record<string, any>> | undefined
+  ) => void;
+  data: SearchResultsData;
+  loading: boolean;
+  deviceId: string;
+  searchBarText: string;
+  setSearchBarText: React.Dispatch<React.SetStateAction<string>>;
+  client: ApolloClient<any>;
+};
 
 const Search = ({
   getSearchResults,
@@ -13,24 +32,24 @@ const Search = ({
   deviceId,
   searchBarText,
   setSearchBarText,
-  client
-}) => {
-  const debouncedInputHandler = debounce(e => {
+  client,
+}: SearchProps) => {
+  const debouncedInputHandler = debounce((e) => {
     const inputText = e.target.value;
     setSearchBarText(e.target.value);
 
     if (!inputText) return;
     getSearchResults({
       variables: {
-        query: inputText
-      }
+        query: inputText,
+      },
     });
   }, 1000);
 
   const tracks =
     data &&
     data.searchResults &&
-    data.searchResults.map(track => (
+    data.searchResults.map((track: SpotifyTrack) => (
       <Track
         track={track}
         deviceId={deviceId}
@@ -48,7 +67,7 @@ const Search = ({
         <SearchIcon />
         <StyledInput
           autoFocus
-          onChange={e => {
+          onChange={(e) => {
             e.persist();
             debouncedInputHandler(e);
           }}
@@ -64,7 +83,6 @@ const Search = ({
   );
 };
 
-const malachite = "#1ed761";
 const iconSize = "18px";
 const cssOverride = css`
   position: absolute;
@@ -92,7 +110,7 @@ const StyledInput = styled.input`
   font-size: 16px;
   :focus {
     outline: none;
-    border-color: ${malachite};
+    border-color: ${colours.malachite};
   }
 `;
 

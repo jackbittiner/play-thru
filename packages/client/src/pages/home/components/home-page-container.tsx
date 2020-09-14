@@ -7,15 +7,16 @@ import Script from "react-load-script";
 import ReactGA from "react-ga";
 import FreeAccountError from "./free-account-error";
 import handleScriptLoad from "./handle-spotify-script-load";
+import { RouterProps } from "../../../common/types";
 
-function HomePageContainer({ location }) {
+function HomePageContainer({ location }: RouterProps) {
   useEffect(() => {
     ReactGA.pageview(location.pathname);
   });
 
   window.history.replaceState({}, document.title, "/home");
 
-  const [deviceId, setDevice] = useState(null);
+  const [deviceId, setDevice] = useState("");
   const [paused, setPausedState] = useState(true);
 
   const authToken = sessionStorage.getItem("accessToken");
@@ -41,7 +42,7 @@ function HomePageContainer({ location }) {
             authToken,
             setPausedState,
             getCurrentTrack,
-            setDevice
+            setDevice,
           })
         }
       />
